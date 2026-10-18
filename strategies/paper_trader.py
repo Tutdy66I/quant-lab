@@ -13,7 +13,7 @@
     python3 strategies/paper_trader.py --loop   # 常驻,每天 00:10 UTC 检查一次
 """
 import json, csv, os, sys, time, urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(BASE, 'data')
@@ -28,8 +28,8 @@ def fetch_daily():
     req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
     data = json.loads(urllib.request.urlopen(req, timeout=30).read())
     key = list(data['result'].keys())[0]
-    closes = sorted([(r[0], float(r[4])) for r in data['result'][key]])
-    return closes
+    bars = sorted([(r[0], float(r[1]), float(r[4])) for r in data['result'][key]])
+    return bars
 
 def ma(px, n, i):
     return sum(px[i-n+1:i+1]) / n
@@ -39,7 +39,8 @@ def load_state():
         with open(STATE_JSON) as f:
             return json.load(f)
     return {'cash': START_CASH, 'pos': 0.0, 'in_pos': False,
-            'entry_px': 0, 'entry_date': '', 'last_signal_date': ''}
+            'entry_px': 0, 'entry_date': '', 'entry_cash': START_CASH,
+            'last_signal_date': ''}
 
 def save_state(s):
     with open(STATE_JSON, 'w') as f:
@@ -54,12 +55,16 @@ def log_trade(row):
         w.writerow(row)
 
 def run_once():
-    closes = fetch_daily()
-    dates = [datetime.fromtimestamp(t, tz=timezone.utc).strftime('%Y-%m-%d') for t, _ in closes]
-    px = [p for _, p in closes]
+    bars = fetch_daily()
+    dates = [datetime.fromtimestamp(t, tz=timezone.utc).strftime('%Y-%m-%d')
+             for t, _, _ in bars]
+    opens = [open_px for _, open_px, _ in bars]
+    px = [close_px for _, _, close_px in bars]
     st = load_state()
+    st.setdefault('entry_cash', START_CASH)
     # 只看最后一根已收盘的 K 线 (去掉正在走的当天)
     i = len(px) - 2
+    execution_px = opens[i + 1]
     if dates[i] == st.get('last_signal_date'):
         print(f"[{dates[i]}] 本根 K 线已处理过,无新信号。")
         return
@@ -70,40 +75,51 @@ def run_once():
 
     if prev <= 0 < diff and not st['in_pos']:
         # 金叉买入
-        amount = st['cash'] * (1 - FEE) / px[i]
+        amount = st['cash'] * (1 - FEE) / execution_px
         st.update({'pos': amount, 'cash': 0.0, 'in_pos': True,
-                   'entry_px': px[i], 'entry_date': dates[i],
+                   'entry_px': execution_px, 'entry_date': dates[i + 1],
+                   'entry_cash': st['cash'],
                    'last_signal_date': dates[i]})
-        log_trade({'time_utc': now, 'date': dates[i], 'action': '模拟买入',
-                   'price': round(px[i], 1), 'amount_btc': round(amount, 6),
+        log_trade({'time_utc': now, 'date': dates[i + 1], 'action': '模拟买入',
+                   'price': round(execution_px, 1), 'amount_btc': round(amount, 6),
                    'cash_after': 0,
-                   'reason': f'MA{FAST}({f:,.0f})上穿MA{SLOW}({s:,.0f}),趋势转多'})
-        print(f"[{dates[i]}] 模拟买入 @ {px[i]:,.0f}")
+                   'reason': f'MA{FAST}({f:,.0f})上穿MA{SLOW}({s:,.0f}),次日开盘成交,趋势转多'})
+        print(f"[{dates[i + 1]}] 模拟买入 @ {execution_px:,.0f} (开盘)")
     elif prev >= 0 > diff and st['in_pos']:
         # 死叉卖出
-        cash = st['pos'] * px[i] * (1 - FEE)
-        ret = (px[i] / st['entry_px'] - 1) * 100
-        log_trade({'time_utc': now, 'date': dates[i], 'action': '模拟卖出',
-                   'price': round(px[i], 1), 'amount_btc': round(st['pos'], 6),
+        cash = st['pos'] * execution_px * (1 - FEE)
+        ret = (cash / st['entry_cash'] - 1) * 100
+        log_trade({'time_utc': now, 'date': dates[i + 1], 'action': '模拟卖出',
+                   'price': round(execution_px, 1), 'amount_btc': round(st['pos'], 6),
                    'cash_after': round(cash, 2),
-                   'reason': f'MA{FAST}({f:,.0f})下穿MA{SLOW}({s:,.0f}),趋势转空,本笔{ret:+.2f}%'})
+                   'reason': f'MA{FAST}({f:,.0f})下穿MA{SLOW}({s:,.0f}),次日开盘成交,趋势转空,本笔{ret:+.2f}%'})
         st.update({'pos': 0.0, 'cash': cash, 'in_pos': False,
-                   'last_signal_date': dates[i]})
-        print(f"[{dates[i]}] 模拟卖出 @ {px[i]:,.0f}, 本笔 {ret:+.2f}%")
+                   'entry_cash': cash, 'last_signal_date': dates[i]})
+        print(f"[{dates[i + 1]}] 模拟卖出 @ {execution_px:,.0f} (开盘), 本笔 {ret:+.2f}%")
     else:
         st['last_signal_date'] = dates[i]
-        eq = st['cash'] + st['pos'] * px[i]
+        eq = st['cash'] + st['pos'] * execution_px
         print(f"[{dates[i]}] 无信号。当前权益 {eq:,.0f} USD ({'持仓' if st['in_pos'] else '空仓'})")
     save_state(st)
+
+def next_check_utc(now=None):
+    now = now or datetime.now(timezone.utc)
+    next_check = now.replace(hour=0, minute=10, second=0, microsecond=0)
+    if next_check <= now:
+        next_check += timedelta(days=1)
+    return next_check
+
 
 if __name__ == '__main__':
     if '--loop' in sys.argv:
         print("纸面交易引擎常驻运行中,每天 00:10 UTC 检查一次。Ctrl+C 退出。")
         while True:
+            next_check = next_check_utc()
+            print(f"下次检查时间: {next_check:%Y-%m-%d %H:%M UTC}")
+            time.sleep(max(0, (next_check - datetime.now(timezone.utc)).total_seconds()))
             try:
                 run_once()
             except Exception as e:
                 print(f"出错: {e}")
-            time.sleep(86400)
     else:
         run_once()
