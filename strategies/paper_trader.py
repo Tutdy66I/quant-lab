@@ -70,6 +70,11 @@ def ma(prices, window, index):
     return sum(prices[index - window + 1 : index + 1]) / window
 
 
+def net_return_pct(entry_price, exit_price):
+    """Return percentage after the modeled buy-side and sell-side fees."""
+    return ((exit_price / entry_price) * (1 - FEE) ** 2 - 1) * 100
+
+
 def load_state():
     state = STATE_DEFAULTS.copy()
     if os.path.exists(STATE_JSON):
@@ -117,82 +122,101 @@ def run_once():
     ]
     prices = [price for _, price in closes]
     state = load_state()
-    index = len(prices) - 1
+    last_signal_date = state.get("last_signal_date")
+    if last_signal_date:
+        if last_signal_date not in dates:
+            raise RuntimeError(
+                f"Last processed candle {last_signal_date} is outside the available "
+                f"history ({dates[0]} to {dates[-1]}); cannot safely catch up"
+            )
+        start_index = dates.index(last_signal_date) + 1
+        if start_index < SLOW:
+            raise RuntimeError(
+                "Not enough candle history to safely catch up from "
+                f"{last_signal_date}; need {SLOW} warm-up candles"
+            )
+    else:
+        # A fresh paper account starts from today's latest signal, not a replay
+        # of every historical crossover in the downloaded data.
+        start_index = len(prices) - 1
 
-    if dates[index] == state.get("last_signal_date"):
-        print(f"[{dates[index]}] 本根 K 线已处理过,无新信号。")
+    if start_index >= len(prices):
+        print(f"[{dates[-1]}] 本根 K 线已处理过,无新信号。")
         return
 
-    fast_ma = ma(prices, FAST, index)
-    slow_ma = ma(prices, SLOW, index)
-    previous_fast_ma = ma(prices, FAST, index - 1)
-    previous_slow_ma = ma(prices, SLOW, index - 1)
-    difference = fast_ma - slow_ma
-    previous_difference = previous_fast_ma - previous_slow_ma
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+    for index in range(start_index, len(prices)):
+        fast_ma = ma(prices, FAST, index)
+        slow_ma = ma(prices, SLOW, index)
+        previous_fast_ma = ma(prices, FAST, index - 1)
+        previous_slow_ma = ma(prices, SLOW, index - 1)
+        difference = fast_ma - slow_ma
+        previous_difference = previous_fast_ma - previous_slow_ma
+        now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
 
-    if previous_difference <= 0 < difference and not state["in_pos"]:
-        amount = state["cash"] * (1 - FEE) / prices[index]
-        state.update(
-            {
-                "pos": amount,
-                "cash": 0.0,
-                "in_pos": True,
-                "entry_px": prices[index],
-                "entry_date": dates[index],
-                "last_signal_date": dates[index],
-            }
-        )
-        log_trade(
-            {
-                "time_utc": now,
-                "date": dates[index],
-                "action": "模拟买入",
-                "price": round(prices[index], 1),
-                "amount_btc": round(amount, 6),
-                "cash_after": round(state["cash"], 2),
-                "reason": (
-                    f"MA{FAST}({fast_ma:,.0f})上穿MA{SLOW}({slow_ma:,.0f}),趋势转多"
-                ),
-            }
-        )
-        print(f"[{dates[index]}] 模拟买入 @ {prices[index]:,.0f}")
-    elif previous_difference >= 0 > difference and state["in_pos"]:
-        cash = state["pos"] * prices[index] * (1 - FEE)
-        trade_return = (prices[index] / state["entry_px"] - 1) * 100
-        log_trade(
-            {
-                "time_utc": now,
-                "date": dates[index],
-                "action": "模拟卖出",
-                "price": round(prices[index], 1),
-                "amount_btc": round(state["pos"], 6),
-                "cash_after": round(cash, 2),
-                "reason": (
-                    f"MA{FAST}({fast_ma:,.0f})下穿MA{SLOW}({slow_ma:,.0f}),"
-                    f"趋势转空,本笔{trade_return:+.2f}%"
-                ),
-            }
-        )
-        state.update(
-            {
-                "pos": 0.0,
-                "cash": cash,
-                "in_pos": False,
-                "last_signal_date": dates[index],
-            }
-        )
-        print(
-            f"[{dates[index]}] 模拟卖出 @ {prices[index]:,.0f}, "
-            f"本笔 {trade_return:+.2f}%"
-        )
-    else:
-        state["last_signal_date"] = dates[index]
-        equity = state["cash"] + state["pos"] * prices[index]
-        position = "持仓" if state["in_pos"] else "空仓"
-        print(f"[{dates[index]}] 无信号。当前权益 {equity:,.0f} USD ({position})")
+        if previous_difference <= 0 < difference and not state["in_pos"]:
+            amount = state["cash"] * (1 - FEE) / prices[index]
+            state.update(
+                {
+                    "pos": amount,
+                    "cash": 0.0,
+                    "in_pos": True,
+                    "entry_px": prices[index],
+                    "entry_date": dates[index],
+                    "last_signal_date": dates[index],
+                }
+            )
+            log_trade(
+                {
+                    "time_utc": now,
+                    "date": dates[index],
+                    "action": "模拟买入",
+                    "price": round(prices[index], 1),
+                    "amount_btc": round(amount, 6),
+                    "cash_after": round(state["cash"], 2),
+                    "reason": (
+                        f"MA{FAST}({fast_ma:,.0f})上穿MA{SLOW}({slow_ma:,.0f}),趋势转多"
+                    ),
+                }
+            )
+            print(f"[{dates[index]}] 模拟买入 @ {prices[index]:,.0f}")
+        elif previous_difference >= 0 > difference and state["in_pos"]:
+            cash = state["pos"] * prices[index] * (1 - FEE)
+            trade_return = net_return_pct(state["entry_px"], prices[index])
+            log_trade(
+                {
+                    "time_utc": now,
+                    "date": dates[index],
+                    "action": "模拟卖出",
+                    "price": round(prices[index], 1),
+                    "amount_btc": round(state["pos"], 6),
+                    "cash_after": round(cash, 2),
+                    "reason": (
+                        f"MA{FAST}({fast_ma:,.0f})下穿MA{SLOW}({slow_ma:,.0f}),"
+                        f"趋势转空,本笔净收益{trade_return:+.2f}%"
+                    ),
+                }
+            )
+            state.update(
+                {
+                    "pos": 0.0,
+                    "cash": cash,
+                    "in_pos": False,
+                    "last_signal_date": dates[index],
+                }
+            )
+            print(
+                f"[{dates[index]}] 模拟卖出 @ {prices[index]:,.0f}, "
+                f"本笔净收益 {trade_return:+.2f}%"
+            )
+        else:
+            state["last_signal_date"] = dates[index]
+            equity = state["cash"] + state["pos"] * prices[index]
+            position = "持仓" if state["in_pos"] else "空仓"
+            print(f"[{dates[index]}] 无信号。当前权益 {equity:,.0f} USD ({position})")
 
-    save_state(state)
+        # Persist every processed candle so an interruption resumes at the
+        # next unprocessed day instead of skipping intermediate crossovers.
+        save_state(state)
 
 
 def seconds_until_next_check(now):
@@ -222,3 +246,4 @@ if __name__ == "__main__":
         run_loop()
     else:
         run_once()
+
