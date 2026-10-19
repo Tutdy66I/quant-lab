@@ -97,6 +97,16 @@ def save_state(state):
 
 def log_trade(row):
     os.makedirs(DATA, exist_ok=True)
+    if os.path.exists(TRADES_CSV) and os.path.getsize(TRADES_CSV) > 0:
+        with open(TRADES_CSV, newline="", encoding="utf-8") as trade_file:
+            existing_trades = csv.DictReader(trade_file)
+            if any(
+                trade.get("date") == row["date"]
+                and trade.get("action") == row["action"]
+                for trade in existing_trades
+            ):
+                return False
+
     is_new_file = not os.path.exists(TRADES_CSV)
     fields = [
         "time_utc",
@@ -112,6 +122,7 @@ def log_trade(row):
         if is_new_file:
             writer.writeheader()
         writer.writerow(row)
+    return True
 
 
 def run_once():
