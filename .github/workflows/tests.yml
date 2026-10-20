@@ -32,3 +32,16 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - run: python -m unittest discover -s tests -v
+      - name: Validate container configuration
+        if: runner.os == 'Linux'
+        run: docker compose -f deployment/hummingbot/compose.json config --quiet
+      - name: Validate PowerShell syntax
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          Get-ChildItem deployment -Recurse -Filter '*.ps1' | ForEach-Object {
+            $tokens = $null
+            $issues = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$issues) | Out-Null
+            if ($issues.Count) { throw ($issues | Out-String) }
+          }
