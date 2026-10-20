@@ -53,6 +53,19 @@ python -m unittest discover -s tests -v
 
 ## 纸面运行状态
 
-`python strategies/paper_trader.py` 检查一次公开行情，`--loop` 每天 UTC 00:10（香港时间 08:10）检查。它会更新 `data/paper_state.json` 并追加模拟成交日志，策略仍为 MA20/60。
+```console
+python -m strategies.paper_trader
+python -m strategies.paper_trader --loop
+python -m strategies.paper_trader --status
+python -m strategies.paper_trader --stop
+```
 
-Hummingbot 的安装、实际运行和持续观察尚未验证；第三周的离线实验不代表第二周已经上线。后续需在新增数据上记录信号、模拟成交与权益，再完成四周复盘。
+V2 观察器使用与研究脚本共用的 MA20/60 信号、次日开盘成交模型、单边 0.1% 手续费和 0.05% 滑点。`--loop` 启动立即检查，以后每天 UTC 00:10（香港时间 08:10）检查，失败后每 60 秒重试。
+
+账户、成交、每日权益和运行记录以 `runtime/paper_v2/paper.sqlite3` 为准；JSON/CSV 是可重新生成的视图，无成交日也写入权益与健康记录。行情快照包含来源、采集时间、最后已收盘日期和指纹；过期、缺失或不连续数据会阻止记账。`--status` 在检查逾期或出错时返回非零退出码。
+
+当日未收盘权益会标记为暂定，次日自动补齐最终收盘估值。停机补跑带有观察时间和延迟秒数，成交类型明确标为 `daily_open_model`；这是公开日线的模拟账本，不能声称按当时开盘价实际成交。
+
+V2 从新的模拟账户开始，旧版 `data/paper_state.json` 与旧成交日志保留作历史资料，不能混入新费用和成交模型。运行文件位于已忽略的 `runtime/` 中。
+
+Windows 后台运行与登录自启见 [运行手册](docs/纸面运行手册.md)。Hummingbot 独立撮合环境见 [部署说明](docs/Hummingbot纸面配置.md)，持续观察和四周实测复盘需要累积新增数据。
