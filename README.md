@@ -33,4 +33,3 @@ quant-lab/
 
 结论：有规则比没规则强，但双均线本身赚不到钱——这就是基线的意义。
 详情见 `notebooks/btc_ma_cross_backtest.ipynb`。
-
