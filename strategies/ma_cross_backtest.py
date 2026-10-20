@@ -95,4 +95,3 @@ with open('data/backtest_summary.json', 'w', encoding='utf-8') as f:
                'win_rate_pct': round(win_rate, 1), 'max_dd_pct': round(max_dd, 1),
                'fast': FAST, 'slow': SLOW, 'fee': FEE}, f, indent=2)
 print("\n交易明细已存 data/backtest_trades.csv, 汇总存 data/backtest_summary.json")
-
