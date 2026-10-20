@@ -1,74 +1,490 @@
-[
-  {
-    "fast": 10,
-    "slow": 60,
-    "ret": 16.6,
-    "trades": 7,
-    "win": 43,
-    "dd": 31.2
+{
+  "schema_version": 2,
+  "assumptions": {
+    "fee_per_side": 0.001,
+    "slippage_per_side": 0.0005,
+    "signal": "previous_daily_close",
+    "execution": "next_daily_open",
+    "terminal_valuation": "liquidate_at_last_close_with_costs",
+    "drawdown_valuation": "daily_close_equity_including_initial_cash_and_terminal_costs",
+    "period_initial_position": "flat",
+    "win_rate": "natural_exits_only_excludes_terminal_liquidation",
+    "train_fraction": 0.7,
+    "common_warmup_bars": 91,
+    "selection_rule": "highest_training_return_then_name",
+    "holdout_status": "historical_time_split_not_prospective_validation"
   },
-  {
-    "fast": 10,
-    "slow": 40,
-    "ret": 8.5,
-    "trades": 11,
-    "win": 36,
-    "dd": 32.8
-  },
-  {
-    "fast": 20,
-    "slow": 60,
-    "ret": 3.4,
-    "trades": 7,
-    "win": 43,
-    "dd": 36.0
-  },
-  {
-    "fast": 10,
-    "slow": 90,
-    "ret": -3.1,
-    "trades": 5,
-    "win": 40,
-    "dd": 34.8
-  },
-  {
-    "fast": 20,
-    "slow": 90,
-    "ret": -10.2,
-    "trades": 4,
-    "win": 50,
-    "dd": 37.7
-  },
-  {
-    "fast": 20,
-    "slow": 40,
-    "ret": -12.2,
-    "trades": 9,
-    "win": 33,
-    "dd": 35.5
-  },
-  {
-    "fast": 30,
-    "slow": 40,
-    "ret": -13.3,
-    "trades": 13,
-    "win": 46,
-    "dd": 46.3
-  },
-  {
-    "fast": 30,
-    "slow": 90,
-    "ret": -13.7,
-    "trades": 5,
-    "win": 40,
-    "dd": 38.5
-  },
-  {
-    "fast": 30,
-    "slow": 60,
-    "ret": -18.9,
-    "trades": 6,
-    "win": 33,
-    "dd": 47.4
+  "selected_on_train": "ma20_90",
+  "candidates": [
+    {
+      "name": "ma10_40",
+      "config": {
+        "fast": 10,
+        "slow": 40,
+        "close_loss": null,
+        "max_daily_vol": null,
+        "vol_window": 20
+      },
+      "train": {
+        "start": "2025-01-23",
+        "end": "2026-04-07",
+        "days": 440,
+        "initial": 10000.0,
+        "final": 9616.512143,
+        "return_pct": -3.8349,
+        "buy_hold_pct": -30.8148,
+        "max_dd_pct": 30.7933,
+        "completed_trades": 7,
+        "terminal_liquidations": 0,
+        "win_rate_pct": 28.5714,
+        "fees_paid": 162.585609,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      },
+      "holdout": {
+        "start": "2026-04-08",
+        "end": "2026-10-13",
+        "days": 189,
+        "initial": 10000.0,
+        "final": 11690.332526,
+        "return_pct": 16.9033,
+        "buy_hold_pct": 15.1925,
+        "max_dd_pct": 9.2008,
+        "completed_trades": 2,
+        "terminal_liquidations": 1,
+        "win_rate_pct": 50.0,
+        "fees_paid": 63.248754,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      }
+    },
+    {
+      "name": "ma10_60",
+      "config": {
+        "fast": 10,
+        "slow": 60,
+        "close_loss": null,
+        "max_daily_vol": null,
+        "vol_window": 20
+      },
+      "train": {
+        "start": "2025-01-23",
+        "end": "2026-04-07",
+        "days": 440,
+        "initial": 10000.0,
+        "final": 9295.961883,
+        "return_pct": -7.0404,
+        "buy_hold_pct": -30.8148,
+        "max_dd_pct": 31.3708,
+        "completed_trades": 4,
+        "terminal_liquidations": 0,
+        "win_rate_pct": 25.0,
+        "fees_paid": 83.821421,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      },
+      "holdout": {
+        "start": "2026-04-08",
+        "end": "2026-10-13",
+        "days": 189,
+        "initial": 10000.0,
+        "final": 13047.379915,
+        "return_pct": 30.4738,
+        "buy_hold_pct": 15.1925,
+        "max_dd_pct": 13.6375,
+        "completed_trades": 1,
+        "terminal_liquidations": 1,
+        "win_rate_pct": 100.0,
+        "fees_paid": 43.559312,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      }
+    },
+    {
+      "name": "ma10_90",
+      "config": {
+        "fast": 10,
+        "slow": 90,
+        "close_loss": null,
+        "max_daily_vol": null,
+        "vol_window": 20
+      },
+      "train": {
+        "start": "2025-01-23",
+        "end": "2026-04-07",
+        "days": 440,
+        "initial": 10000.0,
+        "final": 9564.877618,
+        "return_pct": -4.3512,
+        "buy_hold_pct": -30.8148,
+        "max_dd_pct": 26.4878,
+        "completed_trades": 3,
+        "terminal_liquidations": 0,
+        "win_rate_pct": 33.3333,
+        "fees_paid": 64.217646,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      },
+      "holdout": {
+        "start": "2026-04-08",
+        "end": "2026-10-13",
+        "days": 189,
+        "initial": 10000.0,
+        "final": 10036.808377,
+        "return_pct": 0.3681,
+        "buy_hold_pct": 15.1925,
+        "max_dd_pct": 18.9871,
+        "completed_trades": 1,
+        "terminal_liquidations": 1,
+        "win_rate_pct": 0.0,
+        "fees_paid": 37.742605,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      }
+    },
+    {
+      "name": "ma20_40",
+      "config": {
+        "fast": 20,
+        "slow": 40,
+        "close_loss": null,
+        "max_daily_vol": null,
+        "vol_window": 20
+      },
+      "train": {
+        "start": "2025-01-23",
+        "end": "2026-04-07",
+        "days": 440,
+        "initial": 10000.0,
+        "final": 9074.385277,
+        "return_pct": -9.2561,
+        "buy_hold_pct": -30.8148,
+        "max_dd_pct": 33.0329,
+        "completed_trades": 5,
+        "terminal_liquidations": 0,
+        "win_rate_pct": 40.0,
+        "fees_paid": 107.4131,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      },
+      "holdout": {
+        "start": "2026-04-08",
+        "end": "2026-10-13",
+        "days": 189,
+        "initial": 10000.0,
+        "final": 10524.991954,
+        "return_pct": 5.2499,
+        "buy_hold_pct": 15.1925,
+        "max_dd_pct": 13.605,
+        "completed_trades": 2,
+        "terminal_liquidations": 1,
+        "win_rate_pct": 0.0,
+        "fees_paid": 58.110494,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      }
+    },
+    {
+      "name": "ma20_60",
+      "config": {
+        "fast": 20,
+        "slow": 60,
+        "close_loss": null,
+        "max_daily_vol": null,
+        "vol_window": 20
+      },
+      "train": {
+        "start": "2025-01-23",
+        "end": "2026-04-07",
+        "days": 440,
+        "initial": 10000.0,
+        "final": 9324.296605,
+        "return_pct": -6.757,
+        "buy_hold_pct": -30.8148,
+        "max_dd_pct": 31.1209,
+        "completed_trades": 4,
+        "terminal_liquidations": 0,
+        "win_rate_pct": 50.0,
+        "fees_paid": 82.456243,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      },
+      "holdout": {
+        "start": "2026-04-08",
+        "end": "2026-10-13",
+        "days": 189,
+        "initial": 10000.0,
+        "final": 11734.486903,
+        "return_pct": 17.3449,
+        "buy_hold_pct": 15.1925,
+        "max_dd_pct": 21.0618,
+        "completed_trades": 1,
+        "terminal_liquidations": 1,
+        "win_rate_pct": 0.0,
+        "fees_paid": 39.972827,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      }
+    },
+    {
+      "name": "ma20_90",
+      "config": {
+        "fast": 20,
+        "slow": 90,
+        "close_loss": null,
+        "max_daily_vol": null,
+        "vol_window": 20
+      },
+      "train": {
+        "start": "2025-01-23",
+        "end": "2026-04-07",
+        "days": 440,
+        "initial": 10000.0,
+        "final": 10497.688726,
+        "return_pct": 4.9769,
+        "buy_hold_pct": -30.8148,
+        "max_dd_pct": 22.2394,
+        "completed_trades": 2,
+        "terminal_liquidations": 0,
+        "win_rate_pct": 50.0,
+        "fees_paid": 43.940284,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      },
+      "holdout": {
+        "start": "2026-04-08",
+        "end": "2026-10-13",
+        "days": 189,
+        "initial": 10000.0,
+        "final": 8486.758869,
+        "return_pct": -15.1324,
+        "buy_hold_pct": 15.1925,
+        "max_dd_pct": 28.5344,
+        "completed_trades": 1,
+        "terminal_liquidations": 1,
+        "win_rate_pct": 0.0,
+        "fees_paid": 34.549894,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      }
+    },
+    {
+      "name": "ma30_40",
+      "config": {
+        "fast": 30,
+        "slow": 40,
+        "close_loss": null,
+        "max_daily_vol": null,
+        "vol_window": 20
+      },
+      "train": {
+        "start": "2025-01-23",
+        "end": "2026-04-07",
+        "days": 440,
+        "initial": 10000.0,
+        "final": 7804.661811,
+        "return_pct": -21.9534,
+        "buy_hold_pct": -30.8148,
+        "max_dd_pct": 40.7814,
+        "completed_trades": 9,
+        "terminal_liquidations": 1,
+        "win_rate_pct": 44.4444,
+        "fees_paid": 189.28904,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      },
+      "holdout": {
+        "start": "2026-04-08",
+        "end": "2026-10-13",
+        "days": 189,
+        "initial": 10000.0,
+        "final": 10495.577757,
+        "return_pct": 4.9558,
+        "buy_hold_pct": 15.1925,
+        "max_dd_pct": 24.3356,
+        "completed_trades": 2,
+        "terminal_liquidations": 1,
+        "win_rate_pct": 0.0,
+        "fees_paid": 54.075452,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      }
+    },
+    {
+      "name": "ma30_60",
+      "config": {
+        "fast": 30,
+        "slow": 60,
+        "close_loss": null,
+        "max_daily_vol": null,
+        "vol_window": 20
+      },
+      "train": {
+        "start": "2025-01-23",
+        "end": "2026-04-07",
+        "days": 440,
+        "initial": 10000.0,
+        "final": 7292.489563,
+        "return_pct": -27.0751,
+        "buy_hold_pct": -30.8148,
+        "max_dd_pct": 41.3797,
+        "completed_trades": 4,
+        "terminal_liquidations": 1,
+        "win_rate_pct": 25.0,
+        "fees_paid": 87.627253,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      },
+      "holdout": {
+        "start": "2026-04-08",
+        "end": "2026-10-13",
+        "days": 189,
+        "initial": 10000.0,
+        "final": 12965.710563,
+        "return_pct": 29.6571,
+        "buy_hold_pct": 15.1925,
+        "max_dd_pct": 7.0021,
+        "completed_trades": 0,
+        "terminal_liquidations": 1,
+        "win_rate_pct": null,
+        "fees_paid": 22.978689,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      }
+    },
+    {
+      "name": "ma30_90",
+      "config": {
+        "fast": 30,
+        "slow": 90,
+        "close_loss": null,
+        "max_daily_vol": null,
+        "vol_window": 20
+      },
+      "train": {
+        "start": "2025-01-23",
+        "end": "2026-04-07",
+        "days": 440,
+        "initial": 10000.0,
+        "final": 10176.882945,
+        "return_pct": 1.7688,
+        "buy_hold_pct": -30.8148,
+        "max_dd_pct": 20.7991,
+        "completed_trades": 3,
+        "terminal_liquidations": 0,
+        "win_rate_pct": 33.3333,
+        "fees_paid": 65.462451,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      },
+      "holdout": {
+        "start": "2026-04-08",
+        "end": "2026-10-13",
+        "days": 189,
+        "initial": 10000.0,
+        "final": 8399.186423,
+        "return_pct": -16.0081,
+        "buy_hold_pct": 15.1925,
+        "max_dd_pct": 27.7736,
+        "completed_trades": 1,
+        "terminal_liquidations": 1,
+        "win_rate_pct": 0.0,
+        "fees_paid": 34.296571,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      }
+    },
+    {
+      "name": "ma20_60_loss0.1",
+      "config": {
+        "fast": 20,
+        "slow": 60,
+        "close_loss": 0.1,
+        "max_daily_vol": null,
+        "vol_window": 20
+      },
+      "train": {
+        "start": "2025-01-23",
+        "end": "2026-04-07",
+        "days": 440,
+        "initial": 10000.0,
+        "final": 10248.657345,
+        "return_pct": 2.4866,
+        "buy_hold_pct": -30.8148,
+        "max_dd_pct": 24.2925,
+        "completed_trades": 4,
+        "terminal_liquidations": 0,
+        "win_rate_pct": 50.0,
+        "fees_paid": 85.158311,
+        "blocked_entries": 0,
+        "close_loss_exits": 1
+      },
+      "holdout": {
+        "start": "2026-04-08",
+        "end": "2026-10-13",
+        "days": 189,
+        "initial": 10000.0,
+        "final": 11734.486903,
+        "return_pct": 17.3449,
+        "buy_hold_pct": 15.1925,
+        "max_dd_pct": 21.0618,
+        "completed_trades": 1,
+        "terminal_liquidations": 1,
+        "win_rate_pct": 0.0,
+        "fees_paid": 39.972827,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      }
+    },
+    {
+      "name": "ma20_60_vol0.04",
+      "config": {
+        "fast": 20,
+        "slow": 60,
+        "close_loss": null,
+        "max_daily_vol": 0.04,
+        "vol_window": 20
+      },
+      "train": {
+        "start": "2025-01-23",
+        "end": "2026-04-07",
+        "days": 440,
+        "initial": 10000.0,
+        "final": 9324.296605,
+        "return_pct": -6.757,
+        "buy_hold_pct": -30.8148,
+        "max_dd_pct": 31.1209,
+        "completed_trades": 4,
+        "terminal_liquidations": 0,
+        "win_rate_pct": 50.0,
+        "fees_paid": 82.456243,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      },
+      "holdout": {
+        "start": "2026-04-08",
+        "end": "2026-10-13",
+        "days": 189,
+        "initial": 10000.0,
+        "final": 11734.486903,
+        "return_pct": 17.3449,
+        "buy_hold_pct": 15.1925,
+        "max_dd_pct": 21.0618,
+        "completed_trades": 1,
+        "terminal_liquidations": 1,
+        "win_rate_pct": 0.0,
+        "fees_paid": 39.972827,
+        "blocked_entries": 0,
+        "close_loss_exits": 0
+      }
+    }
+  ],
+  "data": {
+    "source_file": "btc_usd_1d_raw.json",
+    "sha256": "f5c0601e15009fae46ac500f7d0076602b1e34f0fe4a2d74b63b93c611383148",
+    "hash_normalization": "utf8_lf",
+    "closed_rows": 720,
+    "excluded_last_date": "2026-10-14",
+    "last_row_policy": "exclude_unconfirmed_snapshot_tail"
   }
-]
+}
