@@ -55,6 +55,8 @@ python -m unittest discover -s tests -v
 
 ## 纸面运行状态
 
+当前持续运行原生 Python 观察器；Docker / Hummingbot 已按用户要求暂停。查看[最新观察汇总](docs/纸面观察进度.md)及[持续观察计划](docs/持续观察计划.md)。汇总是带时间戳的定时快照，不是实时状态页。
+
 ```console
 python -m strategies.paper_trader
 python -m strategies.paper_trader --loop
