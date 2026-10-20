@@ -1,0 +1,20 @@
+{
+  "name": "quant-lab-hummingbot",
+  "services": {
+    "hummingbot": {
+      "image": "hummingbot/hummingbot:version-2.17.0@sha256:dd6a85fc58c51ecae75ed132bb0703ebadabe6871e127e406dbddcb177f1c9c5",
+      "init": true,
+      "restart": "unless-stopped",
+      "command": ["tail", "-f", "/dev/null"],
+      "volumes": [
+        "../../runtime/hummingbot/conf:/home/hummingbot/conf",
+        "../../runtime/hummingbot/logs:/home/hummingbot/logs",
+        "../../runtime/hummingbot/data:/home/hummingbot/data"
+      ],
+      "logging": {
+        "driver": "json-file",
+        "options": {"max-size": "10m", "max-file": "3"}
+      }
+    }
+  }
+}

@@ -10,27 +10,20 @@ import hashlib
 import json
 import math
 import statistics
+import sys
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from strategies.execution import buy_fill, crossover, sell_fill
+from strategies.market_data import Candle, parse_daily_rows
 
 
 ROOT = Path(__file__).resolve().parents[1]
 INITIAL_CASH = 10000.0
 KRAKEN_DOCS = "https://docs.kraken.com/api-reference/market-data/get-ohlc-data"
-
-
-@dataclass(frozen=True)
-class Candle:
-    timestamp: int
-    open: float
-    high: float
-    low: float
-    close: float
-
-    @property
-    def date(self):
-        return datetime.fromtimestamp(self.timestamp, timezone.utc).date().isoformat()
 
 
 @dataclass(frozen=True)
@@ -68,21 +61,7 @@ class Config:
 def load_snapshot(path):
     """Drop the last row, whose close was not confirmed at snapshot capture."""
     raw = json.loads(Path(path).read_text(encoding="utf-8"))
-    if not isinstance(raw, list) or len(raw) < 3:
-        raise ValueError("Expected at least three Kraken OHLC rows")
-    candles = []
-    for row in raw:
-        candle = Candle(int(row[0]), *(float(value) for value in row[1:5]))
-        if candle.timestamp != row[0] or candle.timestamp % 86400:
-            raise ValueError("Expected integer UTC daily timestamps")
-        if not all(math.isfinite(p) and p > 0 for p in (candle.open, candle.high, candle.low, candle.close)):
-            raise ValueError("OHLC prices must be finite and positive")
-        if not candle.low <= min(candle.open, candle.close) <= max(candle.open, candle.close) <= candle.high:
-            raise ValueError("Invalid OHLC price range")
-        candles.append(candle)
-    if any(b.timestamp - a.timestamp != 86400 for a, b in zip(candles, candles[1:])):
-        raise ValueError("Daily candles must be ordered, unique, and contiguous")
-    return candles[:-1]
+    return parse_daily_rows(raw)[:-1]
 
 
 def run_backtest(candles, config, start, end=None, fee=0.001, slippage=0.0005):
@@ -102,17 +81,9 @@ def run_backtest(candles, config, start, end=None, fee=0.001, slippage=0.0005):
     trades, equity = [], []
     blocked_entries = 0
 
-    def difference(index):
-        fast = sum(closes[index - config.fast + 1:index + 1]) / config.fast
-        slow = sum(closes[index - config.slow + 1:index + 1]) / config.slow
-        return fast - slow
-
     def sell(index, raw_price, reason, forced=False):
         nonlocal cash, quantity, entry
-        fill = raw_price * (1 - slippage)
-        gross = quantity * fill
-        sell_fee = gross * fee
-        cash = gross - sell_fee
+        fill, cash, sell_fee = sell_fill(quantity, raw_price, fee, slippage)
         trades.append({
             **entry,
             "exit_date": candles[index].date,
@@ -127,9 +98,8 @@ def run_backtest(candles, config, start, end=None, fee=0.001, slippage=0.0005):
 
     for index in range(start, end):
         signal_index = index - 1
-        previous, current = difference(signal_index - 1), difference(signal_index)
-        crossed_up = previous <= 0 < current
-        crossed_down = previous >= 0 > current
+        signal = crossover(closes, config.fast, config.slow, signal_index)
+        crossed_up, crossed_down = signal == "buy", signal == "sell"
         loss_exit = (
             entry is not None and config.close_loss is not None
             and closes[signal_index] <= entry["entry_price"] * (1 - config.close_loss)
@@ -145,9 +115,7 @@ def run_backtest(candles, config, start, end=None, fee=0.001, slippage=0.0005):
                 ]
                 allowed = statistics.pstdev(returns) <= config.max_daily_vol
             if allowed:
-                fill = candles[index].open * (1 + slippage)
-                buy_fee = cash * fee
-                quantity = (cash - buy_fee) / fill
+                fill, quantity, buy_fee = buy_fill(cash, candles[index].open, fee, slippage)
                 entry = {
                     "signal_date": candles[signal_index].date,
                     "entry_date": candles[index].date,
