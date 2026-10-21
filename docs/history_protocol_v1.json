@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "frozen_at_utc": "2026-10-21T14:22:05.097670+00:00",
+  "status": "fixed_before_this_dataset_run_not_prospective_market_data",
+  "dataset": "binance_btcusdt_1d_v1",
+  "data_start": "2018-01-01",
+  "data_end": "2026-09-30",
+  "validation_start": "2019-01-01",
+  "train_bars": 252,
+  "test_bars": 63,
+  "window": "rolling",
+  "include_partial_tail": true,
+  "candidates": [
+    {
+      "fast": 10,
+      "slow": 40,
+      "close_loss": null,
+      "max_daily_vol": null,
+      "vol_window": 20
+    },
+    {
+      "fast": 10,
+      "slow": 60,
+      "close_loss": null,
+      "max_daily_vol": null,
+      "vol_window": 20
+    },
+    {
+      "fast": 10,
+      "slow": 90,
+      "close_loss": null,
+      "max_daily_vol": null,
+      "vol_window": 20
+    },
+    {
+      "fast": 20,
+      "slow": 40,
+      "close_loss": null,
+      "max_daily_vol": null,
+      "vol_window": 20
+    },
+    {
+      "fast": 20,
+      "slow": 60,
+      "close_loss": null,
+      "max_daily_vol": null,
+      "vol_window": 20
+    },
+    {
+      "fast": 20,
+      "slow": 90,
+      "close_loss": null,
+      "max_daily_vol": null,
+      "vol_window": 20
+    },
+    {
+      "fast": 30,
+      "slow": 40,
+      "close_loss": null,
+      "max_daily_vol": null,
+      "vol_window": 20
+    },
+    {
+      "fast": 30,
+      "slow": 60,
+      "close_loss": null,
+      "max_daily_vol": null,
+      "vol_window": 20
+    },
+    {
+      "fast": 30,
+      "slow": 90,
+      "close_loss": null,
+      "max_daily_vol": null,
+      "vol_window": 20
+    },
+    {
+      "fast": 20,
+      "slow": 60,
+      "close_loss": 0.1,
+      "max_daily_vol": null,
+      "vol_window": 20
+    },
+    {
+      "fast": 20,
+      "slow": 60,
+      "close_loss": null,
+      "max_daily_vol": 0.04,
+      "vol_window": 20
+    }
+  ],
+  "baseline": {
+    "fast": 20,
+    "slow": 60,
+    "close_loss": null,
+    "max_daily_vol": null,
+    "vol_window": 20
+  },
+  "fee_per_side": 0.001,
+  "slippage_per_side": 0.0005,
+  "phase_rule": "UTC calendar years; final year partial; no ex-post bull/bear labels",
+  "selection": "training_net_return_then_name",
+  "boundary": "flat_each_fold_terminal_costs_exact_reinvestment",
+  "observer_access": "none"
+}

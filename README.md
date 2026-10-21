@@ -73,6 +73,18 @@ python -m unittest discover -s tests -v
 
 各窗空仓开始、期末扣成本结算，按精确权益复投；这份分段研究不能与连续账户收益直接比较。下一步增加来源可核验的更长历史与市场区间，并在新增数据上按预先固定的协议评估。现有原生 Python 纸面观察器继续独立运行，规则保持不变，Hummingbot 继续暂停。
 
+## 长期历史数据与固定验证
+
+独立数据集 `data/history/binance_btcusdt_1d_v1/` 保存 Binance 现货 BTC/USDT 的 2018-01 至 2026-09 日线、105 个原始月包、官方 SHA-256 校验文件及逐包采集记录。它与原 Kraken BTC/USD 快照分别研究，不替换旧数据或模拟账户行情。
+
+```console
+python -m strategies.history verify
+python -m strategies.history_study
+python -m unittest discover -s tests -v
+```
+
+固定方案见 `docs/history_protocol_v1.json`：既有 11 个候选、252/63 滚动验证、相同费用和滑点；以自然年比较阶段，不扩大搜索范围。查看[长期历史验证报告](docs/长期历史验证报告.md)和[数据运行说明](docs/历史数据集.md)。原始数据版本禁止覆盖；重采集必须使用新的 `--dataset` 目录。
+
 ## 纸面运行状态
 
 当前持续运行原生 Python 观察器；Docker / Hummingbot 已按用户要求暂停。查看[最新观察汇总](docs/纸面观察进度.md)及[持续观察计划](docs/持续观察计划.md)。汇总是带时间戳的定时快照，不是实时状态页。
