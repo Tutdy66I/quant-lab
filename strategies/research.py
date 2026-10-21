@@ -240,7 +240,7 @@ def render_report(result):
         f"- 同期基线 MA20/60 留出收益 {holdout['return_pct']:+.2f}%，买入持有 {holdout['buy_hold_pct']:+.2f}%。",
         f"- 收盘亏损退出在训练区间触发 {loss['train']['close_loss_exits']} 次、留出区间触发 {loss['holdout']['close_loss_exits']} 次；留出收益相对基线改变 {loss['holdout']['return_pct'] - holdout['return_pct']:+.2f} 个百分点。",
         f"- 波动过滤在训练区间跳过 {vol['train']['blocked_entries']} 次买入、留出区间跳过 {vol['holdout']['blocked_entries']} 次；没有触发时，不能用相同收益声称过滤有效。",
-        "- 不能直接与 README 的第一版回测收益比较：第一版使用同根收盘成交，这里改为下一根开盘，并增加滑点、剔除快照末行、拆分区间。",
+        "- README 基线、notebook 和本实验调用同一个次日开盘回测引擎；本实验使用候选共同预热并拆分训练与留出区间，各区间重新空仓开始，因此不能拼接或直接比较不同区间的收益。",
         "- 这份历史数据此前已被查看，留出结果属于回顾性时间划分，不能称为真正未见样本。候选少、交易少、行情区间短，结果不支持据此决定实盘或自动替换纸面策略。",
         "- 下一步先固定候选和规则，在新增数据上持续纸面观察并记录信号时间、模拟成交价、费用与权益；Hummingbot 运行验证和四周实测复盘仍待完成。", "",
     ]

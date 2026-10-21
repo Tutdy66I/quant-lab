@@ -1,97 +1,85 @@
-"""BTC 双均线回测 - 第一版可解释策略
-策略逻辑: MA20 上穿 MA60 做多, 下穿平仓。只做多,不做空。
-每笔信号都有中文说明,可解释。
+"""MA20/60 baseline using the shared previous-close / next-open engine.
+
+Run as a module or script from any working directory. The snapshot's last row
+is excluded because its close was not confirmed at capture time.
 """
-import json, csv
-from datetime import datetime, timezone
+import argparse
+import csv
+import hashlib
+import json
+from pathlib import Path
+import sys
 
-# ---------- 读数据 ----------
-with open('data/btc_usd_1d_raw.json', encoding='utf-8') as f:
-    raw = json.load(f)
-# Kraken OHLC: [time, open, high, low, close, vwap, volume, count]
-closes = [(r[0], float(r[4])) for r in raw]
-closes.sort(key=lambda x: x[0])
-dates = [datetime.fromtimestamp(t, tz=timezone.utc).strftime('%Y-%m-%d') for t, _ in closes]
-px = [p for _, p in closes]
-print(f"数据: {dates[0]} ~ {dates[-1]}, 共 {len(px)} 根日线")
+ROOT = Path(__file__).resolve().parents[1]
+if __package__ in (None, ""):
+    sys.path.insert(0, str(ROOT))
+from strategies.execution import FEE, SLIPPAGE
+from strategies.research import Config, load_snapshot, run_backtest
 
-# ---------- 策略参数 ----------
-FAST, SLOW = 20, 60
-FEE = 0.001  # 单边手续费 0.1%
 
-def ma(series, n, i):
-    return sum(series[i-n+1:i+1]) / n
+def baseline_result(data_path=ROOT / "data/btc_usd_1d_raw.json"):
+    path = Path(data_path)
+    candles = load_snapshot(path)
+    config = Config()
+    result = run_backtest(candles, config, config.warmup, fee=FEE, slippage=SLIPPAGE)
+    result["summary"].update({
+        "schema_version": 3,
+        # Keep the original consumer-facing field names as aliases.
+        "n_days": result["summary"]["days"],
+        "total_ret_pct": result["summary"]["return_pct"],
+        "n_trades": result["summary"]["completed_trades"],
+        "fast": config.fast, "slow": config.slow, "fee": FEE, "slippage": SLIPPAGE,
+        "signal": "previous_daily_close", "execution": "next_daily_open",
+        "terminal_valuation": "liquidate_at_last_close_with_costs",
+        "drawdown_valuation": "daily_close_including_initial_cash_and_terminal_costs",
+        "last_row_policy": "exclude_unconfirmed_snapshot_tail",
+        "data_sha256": hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest(),
+        "hash_normalization": "utf8_lf",
+    })
+    return result
 
-# ---------- 回测 ----------
-cash, pos = 10000.0, 0.0
-trades, equity_curve = [], []
-in_pos, entry_px, entry_date = False, 0, ''
-prev_diff = None
 
-for i in range(SLOW, len(px)):
-    f, s = ma(px, FAST, i), ma(px, SLOW, i)
-    diff = f - s
-    # 金叉: 快线从下往上穿慢线 -> 买入
-    if prev_diff is not None and prev_diff <= 0 and diff > 0 and not in_pos:
-        pos = cash * (1 - FEE) / px[i]
-        entry_px, entry_date = px[i], dates[i]
-        cash = 0.0
-        in_pos = True
-        trades.append({'date': dates[i], 'action': '买入',
-                       'price': round(px[i], 1),
-                       'reason': f'MA{FAST}({f:,.0f}) 上穿 MA{SLOW}({s:,.0f}),趋势转多'})
-    # 死叉: 快线从上往下穿慢线 -> 卖出
-    elif prev_diff is not None and prev_diff >= 0 and diff < 0 and in_pos:
-        cash = pos * px[i] * (1 - FEE)
-        ret = ((px[i] / entry_px) * (1 - FEE) ** 2 - 1) * 100
-        trades.append({'date': dates[i], 'action': '卖出',
-                       'price': round(px[i], 1),
-                       'return_pct': round(ret, 2),
-                       'reason': f'MA{FAST}({f:,.0f}) 下穿 MA{SLOW}({s:,.0f}),趋势转空,本笔净收益 {ret:+.2f}%'})
-        pos, in_pos = 0.0, False
-    prev_diff = diff
-    equity_curve.append(cash + pos * px[i])
+def export_result(result, output_root=ROOT):
+    directory = Path(output_root) / "data"
+    directory.mkdir(parents=True, exist_ok=True)
+    rows = []
+    for trade in result["trades"]:
+        rows.append({
+            "date": trade["entry_date"], "action": "买入",
+            "price": trade["entry_price"], "return_pct": "",
+            "reason": "前日 MA20 上穿 MA60，次日开盘加滑点买入",
+            "signal_date": trade["signal_date"], "fee": trade["buy_fee"],
+            "quantity": trade["quantity"], "forced": False,
+        })
+        rows.append({
+            "date": trade["exit_date"], "action": "期末结算" if trade["forced"] else "卖出",
+            "price": trade["exit_price"], "return_pct": trade["return_pct"],
+            "reason": ("期末按收盘价加滑点结算" if trade["forced"] else "前日 MA20 下穿 MA60，次日开盘加滑点卖出")
+                      + f"，本笔净收益 {trade['return_pct']:+.2f}%",
+            "signal_date": "", "fee": trade["sell_fee"],
+            "quantity": trade["quantity"], "forced": trade["forced"],
+        })
+    fields = ["date", "action", "price", "return_pct", "reason", "signal_date", "fee", "quantity", "forced"]
+    with (directory / "backtest_trades.csv").open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+    (directory / "backtest_summary.json").write_text(
+        json.dumps(result["summary"], ensure_ascii=False, indent=2, allow_nan=False) + "\n",
+        encoding="utf-8", newline="\n",
+    )
 
-# 期末如果还持仓,按收盘价结算
-if in_pos:
-    cash = pos * px[-1] * (1 - FEE)
-    ret = ((px[-1] / entry_px) * (1 - FEE) ** 2 - 1) * 100
-    trades.append({'date': dates[-1], 'action': '期末结算', 'price': round(px[-1], 1),
-                   'return_pct': round(ret, 2),
-                   'reason': f'回测结束仍持仓,按收盘价结算,本笔净收益 {ret:+.2f}%'})
-    pos = 0.0
 
-# ---------- 统计 ----------
-final = cash
-total_ret = (final / 10000 - 1) * 100
-buy_hold = (px[-1] / px[SLOW] - 1) * 100
-n_round = len([t for t in trades if t['action'] == '卖出'])
-wins = [t for t in trades if t['action'] == '卖出' and t.get('return_pct', 0) > 0]
-win_rate = len(wins) / n_round * 100 if n_round else 0
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--data", type=Path, default=ROOT / "data/btc_usd_1d_raw.json")
+    parser.add_argument("--output-root", type=Path, default=ROOT)
+    args = parser.parse_args()
+    result = baseline_result(args.data)
+    export_result(result, args.output_root)
+    print(json.dumps(result["summary"], ensure_ascii=False, indent=2))
+    return 0
 
-# 最大回撤
-peak, max_dd = equity_curve[0], 0
-for e in equity_curve:
-    peak = max(peak, e)
-    max_dd = max(max_dd, (peak - e) / peak * 100)
 
-print(f"\n初始资金: 10000 USD")
-print(f"期末资金: {final:,.0f} USD")
-print(f"策略总收益: {total_ret:+.1f}%")
-print(f"同期买入持有: {buy_hold:+.1f}%")
-print(f"完成交易笔数: {n_round}, 胜率: {win_rate:.1f}%")
-print(f"最大回撤: {max_dd:.1f}%")
-
-with open('data/backtest_trades.csv', 'w', newline='', encoding='utf-8') as f:
-    w = csv.DictWriter(f, fieldnames=['date', 'action', 'price', 'return_pct', 'reason'])
-    w.writeheader()
-    for t in trades:
-        t.setdefault('return_pct', '')
-        w.writerow(t)
-with open('data/backtest_summary.json', 'w', encoding='utf-8') as f:
-    json.dump({'start': dates[SLOW], 'end': dates[-1], 'n_days': len(px) - SLOW,
-               'initial': 10000, 'final': round(final, 0), 'total_ret_pct': round(total_ret, 1),
-               'buy_hold_pct': round(buy_hold, 1), 'n_trades': n_round,
-               'win_rate_pct': round(win_rate, 1), 'max_dd_pct': round(max_dd, 1),
-               'fast': FAST, 'slow': SLOW, 'fee': FEE}, f, indent=2)
-print("\n交易明细已存 data/backtest_trades.csv, 汇总存 data/backtest_summary.json")
+if __name__ == "__main__":
+    raise SystemExit(main())
