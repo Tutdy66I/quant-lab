@@ -59,6 +59,7 @@ PR #4 已统一历史基线、Notebook 与共享回测引擎。下一阶段优�
 
 ```console
 python -m strategies.walk_forward
+python -m strategies.robustness
 python -m unittest discover -s tests -v
 ```
 
@@ -66,8 +67,11 @@ python -m unittest discover -s tests -v
 
 - [Walk-forward 风险报告](docs/Walk-forward风险报告.md)：研究协议、第一轮结果和局限。
 - `data/walk_forward.json`：数据指纹、训练选择、逐窗交易与结构化风险指标。
+- [稳健性对照](docs/Walk-forward稳健性对照.md)：滚动/扩展训练、126/252 天初始训练及 31/63/126 天验证，共 12 个固定协议；全部对齐到相同验证日期，展示零交易窗、成本压力和连续固定基线，避免将分窗清仓影响误作选参优势。结构化结果见 `data/walk_forward_robustness.json`。
 
-各窗空仓开始、期末扣成本结算，按精确权益复投；这份分段研究不能与连续账户收益直接比较。已查看的历史快照仅用于回顾性验证。下一步增加更长历史与市场区间，并预先登记窗口敏感性检验、新增数据前瞻评估。现有原生 Python 纸面观察器继续独立运行，规则保持不变，Hummingbot 继续暂停。
+单独检查扩展训练窗时可运行 `python -m strategies.walk_forward --window expanding --output-root <独立输出目录>`，避免覆盖默认报告。此模式保持首次训练起点，后续逐窗纳入已经结束的历史区间；选择时仍不读取当窗未来数据。历史快照已被查看，多组窗口比较仅为回顾性诊断，不自动挑选最佳窗口。
+
+各窗空仓开始、期末扣成本结算，按精确权益复投；这份分段研究不能与连续账户收益直接比较。下一步增加来源可核验的更长历史与市场区间，并在新增数据上按预先固定的协议评估。现有原生 Python 纸面观察器继续独立运行，规则保持不变，Hummingbot 继续暂停。
 
 ## 纸面运行状态
 

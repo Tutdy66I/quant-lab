@@ -19,14 +19,24 @@ from strategies.execution import FEE, SLIPPAGE, buy_fill, sell_fill
 from strategies.research import Config, INITIAL_CASH, candidates, load_snapshot, run_backtest
 
 
-def fold_ranges(length, warmup, train_bars, test_bars):
-    """Yield rolling [train_start, test_start, test_end); retain the final tail."""
+def fold_ranges(length, warmup, train_bars, test_bars, *, window='rolling', first_test_index=None):
+    """Yield chronological train/test bounds, retaining the final test tail.
+
+    An explicit test origin allows protocols to use identical validation dates.
+    Expanding windows keep the initial training start, rolling ones keep length.
+    """
     if (not all(type(n) is int for n in (length, warmup, train_bars, test_bars))
             or warmup < 1 or train_bars < 1 or test_bars < 1
             or length <= warmup + train_bars):
         raise ValueError("Require positive windows and at least one test bar after warm-up/training")
-    for test_start in range(warmup + train_bars, length, test_bars):
-        yield test_start - train_bars, test_start, min(test_start + test_bars, length)
+    if window not in ('rolling', 'expanding'):
+        raise ValueError("window must be rolling or expanding")
+    origin = warmup + train_bars if first_test_index is None else first_test_index
+    if type(origin) is not int or not warmup + train_bars <= origin < length:
+        raise ValueError("Test origin must follow complete warm-up/training and precede the end")
+    for test_start in range(origin, length, test_bars):
+        train_start = test_start - train_bars if window == 'rolling' else origin - train_bars
+        yield train_start, test_start, min(test_start + test_bars, length)
 
 
 def stitch(curves, initial=INITIAL_CASH):
@@ -67,7 +77,8 @@ def hold_curve(candles, start, end):
     return curve
 
 
-def walk_forward(candles, configs=None, train_bars=252, test_bars=63, *, baseline_config=None):
+def walk_forward(candles, configs=None, train_bars=252, test_bars=63, *, baseline_config=None,
+                 window='rolling', first_test_index=None):
     configs = list(candidates() if configs is None else configs)
     if not configs or len({c.name for c in configs}) != len(configs):
         raise ValueError("Require nonempty candidates with unique names")
@@ -81,13 +92,14 @@ def walk_forward(candles, configs=None, train_bars=252, test_bars=63, *, baselin
     curves = {name: [] for name in ("selected", "baseline", "buy_hold", *scenarios)}
     fixed_curves = {c.name: [] for c in configs}
     folds = []
-    for train_start, test_start, test_end in fold_ranges(len(candles), warmup, train_bars, test_bars):
+    for train_start, test_start, test_end in fold_ranges(
+            len(candles), warmup, train_bars, test_bars, window=window, first_test_index=first_test_index):
         # Explicit prefix restriction prevents training from even receiving test prices.
         training = {c.name: run_backtest(candles[:test_start], c, train_start)["summary"] for c in configs}
         selected = min(configs, key=lambda c: (-training[c.name]["return_pct"], c.name))
         tested = {c.name: run_backtest(candles[:test_end], c, test_start, test_end) for c in configs}
         chosen = tested[selected.name]
-        reference = tested.get(baseline.name)
+        reference = tested.get(baseline.name) if baseline in configs else None
         if reference is None:
             reference = run_backtest(candles[:test_end], baseline, test_start, test_end)
         stress = {
@@ -111,10 +123,11 @@ def walk_forward(candles, configs=None, train_bars=252, test_bars=63, *, baselin
             "stress": {name: result["summary"] for name, result in stress.items()},
         })
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "assumptions": {
             "validation_status": "retrospective_previously_inspected_snapshot",
-            "train_bars": train_bars, "test_bars": test_bars, "window": "rolling",
+            "train_bars": train_bars, "test_bars": test_bars, "window": window,
+            "first_test_index": folds[0]['test_indices'][0],
             "common_warmup_bars": warmup, "include_partial_tail": True,
             "selection": "highest_training_return_then_name",
             "signal": "previous_daily_close", "execution": "next_daily_open",
@@ -144,7 +157,7 @@ def render_report(result):
         "运行 `python -m strategies.walk_forward` 离线重新生成本报告及 `data/walk_forward.json`；仅用 Python 3.10+ 标准库。", "",
         "## 固定研究协议", "",
         f"- 数据指纹（UTF-8/LF SHA-256）：`{result['data']['sha256']}`；剔除未确认末行后 {result['data']['closed_rows']} 根日线，最后日期 {result['data']['last_closed_date']}。",
-        f"- 固定沿用既有 {len(result['candidates'])} 个候选；共同预热 {assumptions['common_warmup_bars']} 天，滚动训练 {assumptions['train_bars']} 天、验证 {assumptions['test_bars']} 天。训练窗可以重叠，验证窗互不重叠；保留不足一窗的末段并标记。",
+        f"- 固定沿用既有 {len(result['candidates'])} 个候选；共同预热 {assumptions['common_warmup_bars']} 天，训练模式 {assumptions['window']}，初始训练 {assumptions['train_bars']} 天、验证 {assumptions['test_bars']} 天。rolling 保持训练长度，expanding 保持首次训练起点。训练窗可以重叠，验证窗互不重叠；保留不足一窗的末段并标记。",
         "- 每窗仅用验证起点之前的训练数据按训练净收益选参，收益相同按名称排序。验证结果不反馈到当窗选择。候选固定策略的验证表现仅作敏感性诊断，不能再据此挑选并宣称新的样本外冠军。",
         "- 沿用共享引擎：前收盘信号、次开盘成交；单边手续费 0.1%、滑点 0.05%；剔除快照未确认末行。",
         "- 每窗从空仓开始，窗末扣费与滑点清算；后窗按精确期末权益复投。固定基线和买入持有也按相同分窗及成本计算。窗口边界会额外清仓且可能错过跨窗趋势，这不是持续账户模拟。",
@@ -177,7 +190,7 @@ def render_report(result):
               f"- 共 {len(folds)} 窗，{positive} 窗收益为正，{wins} 窗超过同窗固定基线；自然退出 {natural} 笔、期末结算 {forced} 笔。小样本、零交易窗口和人工窗末结算均不能省略。",
               "- 训练选择次数：" + "，".join(f"{name}：{count}" for name, count in result['selection_counts'].items()) + "。",
               "- 这份快照此前已被查看，候选也已在同一历史数据研究过；滚动时间划分不消除研究者看过数据产生的偏差，不能称为真正未见样本或前瞻实测。",
-              "- 本版固定一组窗口，不根据结果优化窗口长度。后续优先增加更长历史及不同市场区间、预先登记其他窗口的敏感性检验，并保留新增数据作前瞻评估；不能用本报告直接决定实盘或替换观察器策略。",
+              "- 本报告保留默认单组窗口；多组固定窗口在相同验证区间上的对照见 `docs/Walk-forward稳健性对照.md`，运行 `python -m strategies.robustness` 生成。不根据回顾性结果挑选最佳窗口。后续增加更长历史及不同市场区间，并保留新增数据作前瞻评估；不能用本报告直接决定实盘或替换观察器策略。",
               "- 研究模块只读本地历史快照，输出研究 JSON/报告；纸面观察器独立运行，其规则、账户、数据库、计划任务和运行进程均不受影响，Hummingbot 继续保持暂停。", ""]
     return "\n".join(lines)
 
@@ -188,9 +201,10 @@ def main():
     parser.add_argument('--output-root', type=Path, default=ROOT)
     parser.add_argument('--train-bars', type=int, default=252)
     parser.add_argument('--test-bars', type=int, default=63)
+    parser.add_argument('--window', choices=('rolling', 'expanding'), default='rolling')
     args = parser.parse_args()
     candles = load_snapshot(args.data)
-    result = walk_forward(candles, train_bars=args.train_bars, test_bars=args.test_bars)
+    result = walk_forward(candles, train_bars=args.train_bars, test_bars=args.test_bars, window=args.window)
     result['data'] = {
         'source_file': args.data.name,
         'sha256': hashlib.sha256(args.data.read_bytes().replace(b'\r\n', b'\n')).hexdigest(),

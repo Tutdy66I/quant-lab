@@ -25,6 +25,35 @@ class WalkForwardTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 list(fold_ranges(*args))
 
+    def test_expanding_training_and_aligned_test_origin(self):
+        self.assertEqual(list(fold_ranges(35, 4, 10, 6, window='expanding', first_test_index=18)),
+                         [(8, 18, 24), (8, 24, 30), (8, 30, 35)])
+        self.assertEqual(list(fold_ranges(35, 4, 10, 6, first_test_index=18)),
+                         [(8, 18, 24), (14, 24, 30), (20, 30, 35)])
+        for options in ({'window': 'unknown'}, {'first_test_index': 13},
+                        {'first_test_index': 35}, {'first_test_index': True}):
+            with self.assertRaises(ValueError):
+                list(fold_ranges(35, 4, 10, 6, **options))
+
+    def test_expanding_training_only_receives_prices_before_each_test(self):
+        candles = sample_candles()
+        configs = [Config(2, 3), Config(2, 4)]
+        first = walk_forward(candles, configs, 12, 8, baseline_config=Config(2, 3),
+                             window='expanding', first_test_index=21)
+        for fold in first['folds']:
+            left, right = fold['train_indices']
+            self.assertEqual(left, 9)
+            for config in configs:
+                self.assertEqual(fold['training'][config.name],
+                                 run_backtest(candles[:right], config, left)['summary'])
+        cutoff = first['folds'][1]['test_indices'][0]
+        changed = candles[:cutoff] + [Candle(c.timestamp, 1, 1, 1, 1) for c in candles[cutoff:]]
+        second = walk_forward(changed, configs, 12, 8, baseline_config=Config(2, 3),
+                              window='expanding', first_test_index=21)
+        self.assertEqual(first['folds'][0], second['folds'][0])
+        self.assertEqual(first['folds'][1]['training'], second['folds'][1]['training'])
+        self.assertEqual(first['folds'][1]['selected'], second['folds'][1]['selected'])
+
     def test_future_prices_do_not_change_selection_or_earlier_fold(self):
         candles = sample_candles()
         configs = [Config(2, 3), Config(2, 4)]
@@ -94,6 +123,18 @@ class WalkForwardTests(unittest.TestCase):
             curves.append(curve)
         self.assertEqual(result['aggregate']['buy_hold'], risk_summary(stitch(curves)))
 
+    def test_baseline_uses_full_configuration_not_just_display_name(self):
+        candles = sample_candles()
+        candidate = Config(2, 3, max_daily_vol=0.1, vol_window=2)
+        baseline = Config(2, 3, max_daily_vol=0.1, vol_window=4)
+        self.assertEqual(candidate.name, baseline.name)
+        self.assertNotEqual(candidate, baseline)
+        result = walk_forward(candles, [candidate], 12, 8, baseline_config=baseline)
+        fold = result['folds'][0]
+        left, right = fold['test_indices']
+        self.assertEqual(fold['baseline'], run_backtest(candles, baseline, left, right)['summary'])
+        self.assertNotEqual(fold['baseline'], fold['test'])
+
     def test_cli_is_reproducible_from_another_directory(self):
         with tempfile.TemporaryDirectory() as temp:
             subprocess.run([sys.executable, '-m', 'strategies.walk_forward', '--help'],
@@ -107,3 +148,10 @@ class WalkForwardTests(unittest.TestCase):
             self.assertEqual(report['data']['last_row_policy'], 'exclude_unconfirmed_snapshot_tail')
             self.assertEqual(report['data']['last_closed_date'], '2026-10-13')
             self.assertEqual(report['folds'][-1]['test']['days'], 62)
+            expanded_root = pathlib.Path(temp) / 'expanded'
+            subprocess.run([sys.executable, str(ROOT / 'strategies/walk_forward.py'),
+                            '--window', 'expanding', '--output-root', str(expanded_root)],
+                           cwd=temp, check=True, stdout=subprocess.DEVNULL)
+            expanded = json.loads((expanded_root / 'data/walk_forward.json').read_text(encoding='utf-8'))
+            self.assertEqual(expanded['assumptions']['window'], 'expanding')
+            self.assertTrue(all(f['train_indices'][0] == 91 for f in expanded['folds']))

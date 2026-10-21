@@ -1,10 +1,11 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "assumptions": {
     "validation_status": "retrospective_previously_inspected_snapshot",
     "train_bars": 252,
     "test_bars": 63,
     "window": "rolling",
+    "first_test_index": 343,
     "common_warmup_bars": 91,
     "include_partial_tail": true,
     "selection": "highest_training_return_then_name",
