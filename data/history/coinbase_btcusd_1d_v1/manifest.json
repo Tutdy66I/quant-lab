@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "source": "Coinbase Exchange public candles",
+  "documentation": "https://docs.cdp.coinbase.com/api-reference/exchange-api/rest-api/products/get-product-candles",
+  "symbol": "BTC-USD",
+  "quote_asset": "USD",
+  "timezone": "UTC",
+  "interval": "1d",
+  "start": 1514764800,
+  "stop": 1790812800,
+  "rows": 3195,
+  "collected_at_utc": "2026-10-21T14:31:12.764350+00:00",
+  "normalized_sha256": "62081d80f9027d3cc7f140765fdcf722300768d06599fabba365e80d313d56b6",
+  "policy_sha256": "8704c858dc7e101975a297fe0752393f1d7bac63623944fdd0c65e97670cf3cc",
+  "chunks": [
+    {
+      "file": "000.json",
+      "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=1514764800&end=1538956800",
+      "start": 1514764800,
+      "stop": 1538956800,
+      "sha256": "f68fc0663abefcaf7cdde04cce5901afccd3767bb7a20d390ee23d704d2f6964",
+      "rows": 280,
+      "fetched_at_utc": "2026-10-21T14:30:56.780580+00:00",
+      "last_modified": null,
+      "etag": "W/\"1b22-+MpQ7YXd4Qme+PQyzMOWIYn6izk\""
+    },
+    {
+      "file": "001.json",
+      "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=1538956800&end=1563148800",
+      "start": 1538956800,
+      "stop": 1563148800,
+      "sha256": "3f08cfc775c835018ce939a46c94a3eda73ec0bc1ab8d9bdb23429c5acfd8786",
+      "rows": 280,
+      "fetched_at_utc": "2026-10-21T14:30:58.396631+00:00",
+      "last_modified": null,
+      "etag": "W/\"1c08-kK7mG5TAa4RB3FAfutXByZQwy8Y\""
+    },
+    {
+      "file": "002.json",
+      "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=1563148800&end=1587340800",
+      "start": 1563148800,
+      "stop": 1587340800,
+      "sha256": "aa479cc03f3e5d3f3e0f5f53ccaffbc74fecdf660f5fdf7f2d85aa8b224a50cb",
+      "rows": 280,
+      "fetched_at_utc": "2026-10-21T14:30:59.497143+00:00",
+      "last_modified": null,
+      "etag": "W/\"1c58-0xntc5Hz2mHO9pWKOgfrDUI9ARU\""
+    },
+    {
+      "file": "003.json",
+      "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=1587340800&end=1611532800",
+      "start": 1587340800,
+      "stop": 1611532800,
+      "sha256": "c301b8cab8ca6a14c8ad5393e6ca661d2f6c35d6b326232a4a8e148665f90abe",
+      "rows": 280,
+      "fetched_at_utc": "2026-10-21T14:31:00.965046+00:00",
+      "last_modified": null,
+      "etag": "W/\"1d52-1QcIyqbRMQ5aQKJJ2jzPn5Vzrg0\""
+    },
+    {
+      "file": "004.json",
+      "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=1611532800&end=1635724800",
+      "start": 1611532800,
+      "stop": 1635724800,
+      "sha256": "faa28eaaab1f83fa9dbe6991ef72aa2341dc97cff8bf462d49e778550e7031a2",
+      "rows": 280,
+      "fetched_at_utc": "2026-10-21T14:31:02.093010+00:00",
+      "last_modified": null,
+      "etag": "W/\"1ebb-0U0Q4VdnbdBMzyxpBAq/cNVTvRM\""
+    },
+    {
+      "file": "005.json",
+      "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=1635724800&end=1659916800",
+      "start": 1635724800,
+      "stop": 1659916800,
+      "sha256": "aed63c9c49b20070dca9a916b1037be36ba6272590dcac2a374e315b64c21e0e",
+      "rows": 280,
+      "fetched_at_utc": "2026-10-21T14:31:03.589964+00:00",
+      "last_modified": null,
+      "etag": "W/\"1eba-UnXNmhHGONLY5C0fWrJTlrYe+Tw\""
+    },
+    {
+      "file": "006.json",
+      "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=1659916800&end=1684108800",
+      "start": 1659916800,
+      "stop": 1684108800,
+      "sha256": "c55245411321346704f82ce738d2fb77fc99b306966189a8ba74441a70707c51",
+      "rows": 280,
+      "fetched_at_utc": "2026-10-21T14:31:04.651349+00:00",
+      "last_modified": null,
+      "etag": "W/\"1ef1-n8jrbjAFYQMrpGLeU/nO73b4IV4\""
+    },
+    {
+      "file": "007.json",
+      "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=1684108800&end=1708300800",
+      "start": 1684108800,
+      "stop": 1708300800,
+      "sha256": "1c03bf5e8939841b3aa85b7fce16225df63c717ae592c446a3633dd7bececc3f",
+      "rows": 280,
+      "fetched_at_utc": "2026-10-21T14:31:06.233639+00:00",
+      "last_modified": null,
+      "etag": "W/\"1ee3-Ope1nE1757Ebf/vy0aN1Gavn19M\""
+    },
+    {
+      "file": "008.json",
+      "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=1708300800&end=1732492800",
+      "start": 1708300800,
+      "stop": 1732492800,
+      "sha256": "8340ae3989861a054435b775ed30411bc1d8f8921c703febbcd4adb81e478d85",
+      "rows": 280,
+      "fetched_at_utc": "2026-10-21T14:31:07.589724+00:00",
+      "last_modified": null,
+      "etag": "W/\"1ee7-yCJcILOEGBWezP4Rr4iYaEmBHcw\""
+    },
+    {
+      "file": "009.json",
+      "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=1732492800&end=1756684800",
+      "start": 1732492800,
+      "stop": 1756684800,
+      "sha256": "41f79d4e4fa8f8a51cba0315117f2ee30c684bd833e554ff9da615ed8eb5475a",
+      "rows": 280,
+      "fetched_at_utc": "2026-10-21T14:31:09.023696+00:00",
+      "last_modified": null,
+      "etag": "W/\"1f66-NY+p73e2AQX9NFa+JAFh15i/gjI\""
+    },
+    {
+      "file": "010.json",
+      "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=1756684800&end=1780876800",
+      "start": 1756684800,
+      "stop": 1780876800,
+      "sha256": "784aadb6a715cdaf34a6ad2f0a14e5cc3b367013d883091ff70f74a9501bdaca",
+      "rows": 280,
+      "fetched_at_utc": "2026-10-21T14:31:10.875343+00:00",
+      "last_modified": null,
+      "etag": "W/\"1e9e-J/3lZ7EdzIRT2ZPndbqDzg71a4I\""
+    },
+    {
+      "file": "011.json",
+      "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=1780876800&end=1790812800",
+      "start": 1780876800,
+      "stop": 1790812800,
+      "sha256": "c3471572561631b0b4f1dcafc36cabb61e797f1b8063c349e4a7f65ceeb98cd5",
+      "rows": 115,
+      "fetched_at_utc": "2026-10-21T14:31:12.757690+00:00",
+      "last_modified": null,
+      "etag": "W/\"c14-mvPbB3fPWQCFEr1ZZQmEDl5IpIc\""
+    }
+  ]
+}

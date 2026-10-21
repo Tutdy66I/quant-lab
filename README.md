@@ -80,10 +80,11 @@ python -m unittest discover -s tests -v
 ```console
 python -m strategies.history verify
 python -m strategies.history_study
+python -m strategies.cross_source verify
 python -m unittest discover -s tests -v
 ```
 
-固定方案见 `docs/history_protocol_v1.json`：既有 11 个候选、252/63 滚动验证、相同费用和滑点；以自然年比较阶段，不扩大搜索范围。查看[长期历史验证报告](docs/长期历史验证报告.md)和[数据运行说明](docs/历史数据集.md)。原始数据版本禁止覆盖；重采集必须使用新的 `--dataset` 目录。
+固定方案见 `docs/history_protocol_v1.json`：既有 11 个候选、252/63 滚动验证、相同费用和滑点；以自然年比较阶段，不扩大搜索范围。查看[长期历史验证报告](docs/长期历史验证报告.md)、[第二来源交叉核验](docs/第二来源交叉核验.md)和[数据运行说明](docs/历史数据集.md)。Coinbase BTC/USD 对照覆盖全部日期，差异告警原样保留，不混入主数据。原始数据版本禁止覆盖；重采集必须使用新的 `--dataset` 目录。
 
 ## 纸面运行状态
 
