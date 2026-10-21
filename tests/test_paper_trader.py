@@ -62,7 +62,7 @@ class BaselineTests(unittest.TestCase):
         original_cwd = os.getcwd()
         try:
             os.chdir(notebook_path.parent)
-            with contextlib.redirect_stdout(io.StringIO()):
+            with contextlib.redirect_stdout(io.StringIO()) as output:
                 for cell in notebook["cells"]:
                     if cell["cell_type"] == "code":
                         exec("".join(cell["source"]), namespace)
@@ -72,6 +72,11 @@ class BaselineTests(unittest.TestCase):
         self.assertEqual(namespace["result"], baseline_result())
         self.assertEqual(len(namespace["closed_returns"]), 6)
         self.assertEqual(sum(result > 0 for result in namespace["closed_returns"]), 2)
+        text = output.getvalue()
+        self.assertNotRegex(text, r"\?{2,}|\ufffd")
+        for label in ("回测区间", "数据 SHA-256", "信号", "买入", "卖出", "期末结算",
+                      "初始", "期末", "策略收益", "同期买入持有", "完成交易", "胜率", "最大回撤"):
+            self.assertIn(label, text)
 
 
 if __name__ == "__main__":
