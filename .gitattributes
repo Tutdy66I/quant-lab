@@ -6,3 +6,4 @@ data/history/** -text whitespace=cr-at-eol
 data/derivatives/** -text whitespace=cr-at-eol
 data/archive_feasibility/** -text whitespace=cr-at-eol
 data/archive_feasibility/**/raw/** -whitespace
+data/archive_normalized/** -text

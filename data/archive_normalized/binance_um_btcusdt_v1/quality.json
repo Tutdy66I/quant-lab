@@ -1,0 +1,116 @@
+{
+  "archives": [
+    {
+      "file": "BTCUSDT-metrics-2021-12-01.zip",
+      "rows": 288,
+      "backward_steps": 0,
+      "invalid_label_lines": [],
+      "duplicate_label_rows": 0,
+      "off_grid_labels": [],
+      "missing_labels": [],
+      "min_label": "2021-12-01T00:00:00+00:00",
+      "max_label": "2021-12-01T23:55:00+00:00"
+    },
+    {
+      "file": "BTCUSDT-metrics-2025-06-24.zip",
+      "rows": 288,
+      "backward_steps": 0,
+      "invalid_label_lines": [],
+      "duplicate_label_rows": 0,
+      "off_grid_labels": [],
+      "missing_labels": [],
+      "min_label": "2025-06-24T00:00:00+00:00",
+      "max_label": "2025-06-24T23:55:00+00:00"
+    },
+    {
+      "file": "BTCUSDT-metrics-2026-06-23.zip",
+      "rows": 288,
+      "backward_steps": 0,
+      "invalid_label_lines": [],
+      "duplicate_label_rows": 0,
+      "off_grid_labels": [],
+      "missing_labels": [],
+      "min_label": "2026-06-23T00:00:00+00:00",
+      "max_label": "2026-06-23T23:55:00+00:00"
+    },
+    {
+      "file": "BTCUSDT-metrics-2026-06-24.zip",
+      "rows": 288,
+      "backward_steps": 0,
+      "invalid_label_lines": [],
+      "duplicate_label_rows": 0,
+      "off_grid_labels": [],
+      "missing_labels": [],
+      "min_label": "2026-06-24T00:00:00+00:00",
+      "max_label": "2026-06-24T23:55:00+00:00"
+    },
+    {
+      "file": "BTCUSDT-metrics-2026-06-25.zip",
+      "rows": 288,
+      "backward_steps": 0,
+      "invalid_label_lines": [],
+      "duplicate_label_rows": 0,
+      "off_grid_labels": [],
+      "missing_labels": [],
+      "min_label": "2026-06-25T00:00:00+00:00",
+      "max_label": "2026-06-25T23:55:00+00:00"
+    },
+    {
+      "file": "BTCUSDT-metrics-2026-06-26.zip",
+      "rows": 288,
+      "backward_steps": 0,
+      "invalid_label_lines": [],
+      "duplicate_label_rows": 0,
+      "off_grid_labels": [],
+      "missing_labels": [],
+      "min_label": "2026-06-26T00:00:00+00:00",
+      "max_label": "2026-06-26T23:55:00+00:00"
+    },
+    {
+      "file": "BTCUSDT-metrics-2026-07-01.zip",
+      "rows": 288,
+      "backward_steps": 0,
+      "invalid_label_lines": [],
+      "duplicate_label_rows": 0,
+      "off_grid_labels": [],
+      "missing_labels": [],
+      "min_label": "2026-07-01T00:00:00+00:00",
+      "max_label": "2026-07-01T23:55:00+00:00"
+    },
+    {
+      "file": "BTCUSDT-metrics-2026-10-20.zip",
+      "rows": 288,
+      "backward_steps": 31,
+      "invalid_label_lines": [],
+      "duplicate_label_rows": 0,
+      "off_grid_labels": [],
+      "missing_labels": [],
+      "min_label": "2026-10-20T00:00:00+00:00",
+      "max_label": "2026-10-20T23:55:00+00:00"
+    }
+  ],
+  "identical_duplicates_removed": 0,
+  "conflicting_duplicate_groups": 0,
+  "reference_checks": [
+    {
+      "file": "BTCUSDT-metrics-2026-06-24.zip",
+      "pairs": 288,
+      "pearson_r": 0.999703423523,
+      "previous_window_pairs": 287,
+      "previous_window_r": 0.14688999716,
+      "mae": 0.002793717297
+    },
+    {
+      "file": "BTCUSDT-metrics-2026-06-25.zip",
+      "pairs": 288,
+      "pearson_r": 0.999380926568,
+      "previous_window_pairs": 287,
+      "previous_window_r": 0.042840193644,
+      "mae": 0.002690422372
+    }
+  ],
+  "accepted_scope_missing_windows": [],
+  "gap_policy": "report only; no interpolation, zero fill or carry forward",
+  "quarantine_records": 2484,
+  "accepted_records": 576
+}
