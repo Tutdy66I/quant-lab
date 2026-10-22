@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "symbol": "BTCUSDT",
+  "horizon_days": 7,
+  "decision_stride_days": 7,
+  "train_days": 252,
+  "validation_days": 63,
+  "min_train_samples": 24,
+  "max_feature_age_days": 2,
+  "price_features": ["return_1d", "momentum_7d", "volatility_7d"],
+  "derivative_features": ["oi_change", "long_short_ratio", "taker_imbalance", "observed_funding_sum"],
+  "targets": ["future_volatility", "future_drawdown", "trend_persistence"],
+  "ridge_penalty": 1.0,
+  "bootstrap_seed": 20261022,
+  "bootstrap_replicates": 1000,
+  "bootstrap_block_samples": 4
+}

@@ -3,3 +3,4 @@
 *.jpg binary
 *.pdf binary
 data/history/** -text whitespace=cr-at-eol
+data/derivatives/** -text whitespace=cr-at-eol

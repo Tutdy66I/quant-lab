@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "symbol": "BTCUSDT",
+  "started_at_ms": 1792636980886,
+  "start_ms": 1790208000000,
+  "stop_ms": 1792627200000,
+  "documentation": "https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-usd-s-m-futures/api/rest-api/market-data",
+  "sources": {
+    "spot": {
+      "url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&startTime=1790208000000&endTime=1792627199999&interval=1d&limit=1000",
+      "attempts": [
+        {
+          "status": 451,
+          "received_at_ms": 1792636981592,
+          "file": "raw/spot-0.bin",
+          "sha256": "79c1db471a4cdc1c8565b5dfc52e0ed2d29962738ee4d28597696fcd0920e348"
+        }
+      ],
+      "error": "HTTP/network collection failed"
+    },
+    "oi": {
+      "url": "https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&startTime=1790294400000&endTime=1792627200000&period=1d&limit=500",
+      "attempts": [
+        {
+          "status": 451,
+          "received_at_ms": 1792636982472,
+          "file": "raw/oi-0.bin",
+          "sha256": "79c1db471a4cdc1c8565b5dfc52e0ed2d29962738ee4d28597696fcd0920e348"
+        }
+      ],
+      "error": "HTTP/network collection failed"
+    },
+    "long_short": {
+      "url": "https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&startTime=1790294400000&endTime=1792627200000&period=1d&limit=500",
+      "attempts": [
+        {
+          "status": 451,
+          "received_at_ms": 1792636983652,
+          "file": "raw/long_short-0.bin",
+          "sha256": "79c1db471a4cdc1c8565b5dfc52e0ed2d29962738ee4d28597696fcd0920e348"
+        }
+      ],
+      "error": "HTTP/network collection failed"
+    },
+    "taker": {
+      "url": "https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&startTime=1790208000000&endTime=1792627199999&period=1d&limit=500",
+      "attempts": [
+        {
+          "status": 451,
+          "received_at_ms": 1792636984765,
+          "file": "raw/taker-0.bin",
+          "sha256": "79c1db471a4cdc1c8565b5dfc52e0ed2d29962738ee4d28597696fcd0920e348"
+        }
+      ],
+      "error": "HTTP/network collection failed"
+    },
+    "funding": {
+      "url": "https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&startTime=1790208000000&endTime=1792627199999&limit=1000",
+      "attempts": [
+        {
+          "status": 451,
+          "received_at_ms": 1792636985626,
+          "file": "raw/funding-0.bin",
+          "sha256": "79c1db471a4cdc1c8565b5dfc52e0ed2d29962738ee4d28597696fcd0920e348"
+        }
+      ],
+      "error": "HTTP/network collection failed"
+    }
+  },
+  "completed_at_ms": 1792636985829,
+  "status": "failed",
+  "validation_error": "Invalid/failed source: spot"
+}
