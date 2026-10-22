@@ -104,6 +104,13 @@ python -m strategies.derivatives_pipeline
 
 第一阶段报告见 [Binance 归档可行性验证](docs/Binance归档可行性验证.md)。已保存 BTCUSDT USDⓈ-M metrics、资金费率、交叉核对样本、官方校验文件及采集指纹。当前样本未复现 Issue #491 的日期切换主张；各字段真实时间与发布可见性仍有待确认，本阶段不接入归档适配器，不改变既有研究及自动任务。
 
+第二阶段已实现 [独立离线标准化与数据验证](docs/归档标准化与独立数据验证.md)：只接纳两个精确版本中已验证的 taker 比率，其他字段及日期/版本隔离；排序、去重、缺口与双层 SHA-256 校验后生成描述性统计。首版 576 个窗口，不进入历史预测或纸面交易。
+
+```console
+python -m research.archive_normalizer verify --output data/archive_normalized/binance_um_btcusdt_v1
+python -m research.archive_normalizer build --output <新的独立输出目录>
+```
+
 ## 纸面运行状态
 
 当前持续运行原生 Python 观察器；Docker / Hummingbot 已按用户要求暂停。查看[最新观察汇总](docs/纸面观察进度.md)及[持续观察计划](docs/持续观察计划.md)。汇总是带时间戳的定时快照，不是实时状态页。

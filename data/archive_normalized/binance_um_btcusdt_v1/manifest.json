@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "source_receipts_sha256": "2ea27f193092c350b8ab4934965e700b1e45f1f3e9558effac2017da27235efe",
+  "adapter_sha256": "343de3daf65ba3b7bb6a3ae5879bf5455860e3fd822e7360c2a81886d6238bd2",
+  "normalized_at_utc": "2026-10-22T08:59:57.378200+00:00",
+  "license": "CC BY-NC-SA 4.0",
+  "attribution": "Binance Vision https://data.binance.vision/",
+  "files": {
+    "accepted.jsonl": {
+      "sha256": "06de3470f81a781c70ef8949b8c393b1e1c65e2b1576b869e905b815c07898d3",
+      "bytes": 831532
+    },
+    "quality.json": {
+      "sha256": "8765ba9d0e0798f7b4fec24428943e06d8fb6a8f7da3df5ca4235e6ba6808f7e",
+      "bytes": 3345
+    },
+    "quarantine.jsonl": {
+      "sha256": "f801b33552c42beef174da9f077977d002734fc0b9a7a141b1552a6bd6e53a49",
+      "bytes": 1628981
+    },
+    "report.md": {
+      "sha256": "d1bd8974818e18a7bd8d5e2b7c53fa3467a8d60954892dc44ffadadbea808671",
+      "bytes": 728
+    },
+    "semantic_contract.json": {
+      "sha256": "8d246466f12723d4f4153fb5b3a05f5f46deb06b71b4d0b5713fef3ac2ddb9f3",
+      "bytes": 929
+    },
+    "statistics.json": {
+      "sha256": "bda008accc855ef336b1133a68e2f31790166ab12a51858dc7c27e40894894ba",
+      "bytes": 759
+    }
+  }
+}

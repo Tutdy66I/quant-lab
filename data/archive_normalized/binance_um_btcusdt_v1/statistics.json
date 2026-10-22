@@ -1,0 +1,29 @@
+{
+  "count": 576,
+  "min": "0.17281400",
+  "max": "4.09195500",
+  "mean": "1.062159494792",
+  "median": "0.999702000000",
+  "population_std": "0.450915885895",
+  "field": "sum_taker_long_short_vol_ratio",
+  "unit": "dimensionless buy/sell volume ratio",
+  "scope": "approved exact versions only; no prediction or trading",
+  "per_day": {
+    "2026-06-24": {
+      "count": 288,
+      "min": "0.17281400",
+      "max": "3.01136700",
+      "mean": "1.059105590278",
+      "median": "1.000340500000",
+      "population_std": "0.452610317823"
+    },
+    "2026-06-25": {
+      "count": 288,
+      "min": "0.32990500",
+      "max": "4.09195500",
+      "mean": "1.065213399306",
+      "median": "0.996776000000",
+      "population_std": "0.449194300765"
+    }
+  }
+}

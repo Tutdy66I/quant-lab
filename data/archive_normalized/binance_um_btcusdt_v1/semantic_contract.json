@@ -1,0 +1,21 @@
+{
+  "id": "btc-usdm-taker-two-days-v1",
+  "verified_at_utc": "2026-10-22T08:54:57+00:00",
+  "field": "sum_taker_long_short_vol_ratio",
+  "symbol": "BTCUSDT",
+  "window": "[source_label, source_label + 5 minutes)",
+  "event_time": "exclusive window end",
+  "scope": "exact ZIP fingerprints only",
+  "evidence": "docs/Binance归档可行性验证.md; 5m kline volume cross-check",
+  "limitations": "Empirical window alignment, not exact trade reconstruction or an official guarantee.",
+  "versions": {
+    "2026-06-24": {
+      "metrics_sha256": "6bb5ab473189fa7c935b4d9a58d34b2c96cc329cd74fd6f9f17f8abc48ece649",
+      "reference_sha256": "9651ac1b307459ed1f570c144af5bec3d8c12c550d2a17027cff25a5c0989fcf"
+    },
+    "2026-06-25": {
+      "metrics_sha256": "56e0751dabd8108d61d1f9de86931ac68e901dad202d4dbac03173e2768be68e",
+      "reference_sha256": "cb37bcf943fa5a0fe2d142e84064e9b9211ab073fff62c364e3f2ad806e65a69"
+    }
+  }
+}
