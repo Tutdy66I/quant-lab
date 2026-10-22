@@ -100,6 +100,10 @@ python -m strategies.derivatives_pipeline
 
 实际可用时间不早于采集时间，回补数据不进入更早的历史决策。当前本地 API 返回地区限制 HTTP 451，失败证据已保存，[初始统计状态](data/derivatives/study_v1_initial/study.md)明确为数据不足、0 个验证样本；尚无预测价值结论。已启用独立 Codex 自动任务，每天香港时间 08:15 采集并研究，运行文件仅写入 `runtime/derivatives/`，相同未变故障不重复通知。该模块不修改现有历史数据、原验证协议或纸面账户。
 
+## Quant Lab 2.2：官方归档可行性验证
+
+第一阶段报告见 [Binance 归档可行性验证](docs/Binance归档可行性验证.md)。已保存 BTCUSDT USDⓈ-M metrics、资金费率、交叉核对样本、官方校验文件及采集指纹。当前样本未复现 Issue #491 的日期切换主张；各字段真实时间与发布可见性仍有待确认，本阶段不接入归档适配器，不改变既有研究及自动任务。
+
 ## 纸面运行状态
 
 当前持续运行原生 Python 观察器；Docker / Hummingbot 已按用户要求暂停。查看[最新观察汇总](docs/纸面观察进度.md)及[持续观察计划](docs/持续观察计划.md)。汇总是带时间戳的定时快照，不是实时状态页。

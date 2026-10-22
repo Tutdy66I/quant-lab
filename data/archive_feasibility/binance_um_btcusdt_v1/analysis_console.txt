@@ -1,0 +1,553 @@
+{
+  "receipt_files_verified": 40,
+  "archives": [
+    {
+      "file": "BTCUSDT-metrics-2021-12-01.zip",
+      "zip_sha256": "12fbd76343893fe56a75ae8086ea3c4f0a1a5780e1b2003640d8847daf0cfdde",
+      "csv_sha256": "4e86d3afe38556bac1fa4585158d0cba4460fba763ef28d4cba954c557cf28c1",
+      "rows": 288,
+      "fields": [
+        "create_time",
+        "symbol",
+        "sum_open_interest",
+        "sum_open_interest_value",
+        "count_toptrader_long_short_ratio",
+        "sum_toptrader_long_short_ratio",
+        "count_long_short_ratio",
+        "sum_taker_long_short_vol_ratio"
+      ],
+      "first": {
+        "create_time": "2021-12-01 00:00:00",
+        "symbol": "BTCUSDT",
+        "sum_open_interest": "59230.06000000",
+        "sum_open_interest_value": "3372488777.57459763",
+        "count_toptrader_long_short_ratio": "4.151199024522422",
+        "sum_toptrader_long_short_ratio": "1.1342944237",
+        "count_long_short_ratio": "4.0217716594343855",
+        "sum_taker_long_short_vol_ratio": "0.6221603761"
+      },
+      "last": {
+        "create_time": "2021-12-01 23:55:00",
+        "symbol": "BTCUSDT",
+        "sum_open_interest": "60657.80200000",
+        "sum_open_interest_value": "3466983413.96686000",
+        "count_toptrader_long_short_ratio": "4.137011939335269",
+        "sum_toptrader_long_short_ratio": "1.1369246352",
+        "count_long_short_ratio": "4.312449085388432",
+        "sum_taker_long_short_vol_ratio": "1.1158471398"
+      },
+      "duplicate_labels": 0,
+      "min_label": "2021-12-01 00:00:00",
+      "max_label": "2021-12-01 23:55:00",
+      "backward_steps": 0,
+      "non_300_second_steps": 0,
+      "sorted_non_300_second_steps": 0,
+      "missing_start_grid_labels": [],
+      "outside_start_grid_labels": [],
+      "off_grid_labels": [],
+      "nonfinite_or_negative_values": 0
+    },
+    {
+      "file": "BTCUSDT-metrics-2025-06-24.zip",
+      "zip_sha256": "3531fe46815e556485499cc329ab53853e4e110302c35e45ef350b2fc246a452",
+      "csv_sha256": "f061f8a311c953a053564ae2baff46e8b962a4b9ec67773cfb9705c30a4352a0",
+      "rows": 288,
+      "fields": [
+        "create_time",
+        "symbol",
+        "sum_open_interest",
+        "sum_open_interest_value",
+        "count_toptrader_long_short_ratio",
+        "sum_toptrader_long_short_ratio",
+        "count_long_short_ratio",
+        "sum_taker_long_short_vol_ratio"
+      ],
+      "first": {
+        "create_time": "2025-06-24 00:00:00",
+        "symbol": "BTCUSDT",
+        "sum_open_interest": "72571.3700000000000000",
+        "sum_open_interest_value": "7643676662.8343430000000000",
+        "count_toptrader_long_short_ratio": "0.84542556",
+        "sum_toptrader_long_short_ratio": "1.48328600",
+        "count_long_short_ratio": "0.77378385",
+        "sum_taker_long_short_vol_ratio": "0.79330200"
+      },
+      "last": {
+        "create_time": "2025-06-24 23:55:00",
+        "symbol": "BTCUSDT",
+        "sum_open_interest": "75448.8990000000000000",
+        "sum_open_interest_value": "8000224005.4650000000000000",
+        "count_toptrader_long_short_ratio": "0.81368759",
+        "sum_toptrader_long_short_ratio": "1.42089800",
+        "count_long_short_ratio": "0.66344822",
+        "sum_taker_long_short_vol_ratio": "3.09821300"
+      },
+      "duplicate_labels": 0,
+      "min_label": "2025-06-24 00:00:00",
+      "max_label": "2025-06-24 23:55:00",
+      "backward_steps": 0,
+      "non_300_second_steps": 0,
+      "sorted_non_300_second_steps": 0,
+      "missing_start_grid_labels": [],
+      "outside_start_grid_labels": [],
+      "off_grid_labels": [],
+      "nonfinite_or_negative_values": 0
+    },
+    {
+      "file": "BTCUSDT-metrics-2026-06-23.zip",
+      "zip_sha256": "df14d71acd73d1349eaeae6e281d8eacc7187dfca966c599ff051de0a76f6820",
+      "csv_sha256": "6c7a554dc11dcce67082f6238945ef95a3803736b1fa29405f3bf297655c943d",
+      "rows": 288,
+      "fields": [
+        "create_time",
+        "symbol",
+        "sum_open_interest",
+        "sum_open_interest_value",
+        "count_toptrader_long_short_ratio",
+        "sum_toptrader_long_short_ratio",
+        "count_long_short_ratio",
+        "sum_taker_long_short_vol_ratio"
+      ],
+      "first": {
+        "create_time": "2026-06-23 00:00:00",
+        "symbol": "BTCUSDT",
+        "sum_open_interest": "99562.4420000000000000",
+        "sum_open_interest_value": "6372244497.1679060000000000",
+        "count_toptrader_long_short_ratio": "1.77924655",
+        "sum_toptrader_long_short_ratio": "1.13823400",
+        "count_long_short_ratio": "1.74058291",
+        "sum_taker_long_short_vol_ratio": "0.59400800"
+      },
+      "last": {
+        "create_time": "2026-06-23 23:55:00",
+        "symbol": "BTCUSDT",
+        "sum_open_interest": "98871.0440000000000000",
+        "sum_open_interest_value": "6198898071.4592000000000000",
+        "count_toptrader_long_short_ratio": "2.15554618",
+        "sum_toptrader_long_short_ratio": "1.20684700",
+        "count_long_short_ratio": "2.06926840",
+        "sum_taker_long_short_vol_ratio": "0.83920200"
+      },
+      "duplicate_labels": 0,
+      "min_label": "2026-06-23 00:00:00",
+      "max_label": "2026-06-23 23:55:00",
+      "backward_steps": 0,
+      "non_300_second_steps": 0,
+      "sorted_non_300_second_steps": 0,
+      "missing_start_grid_labels": [],
+      "outside_start_grid_labels": [],
+      "off_grid_labels": [],
+      "nonfinite_or_negative_values": 0
+    },
+    {
+      "file": "BTCUSDT-metrics-2026-06-24.zip",
+      "zip_sha256": "6bb5ab473189fa7c935b4d9a58d34b2c96cc329cd74fd6f9f17f8abc48ece649",
+      "csv_sha256": "e0146960af4724088ff2338f05139da926b1bfda7adb38d698ba4adc8459d6f6",
+      "rows": 288,
+      "fields": [
+        "create_time",
+        "symbol",
+        "sum_open_interest",
+        "sum_open_interest_value",
+        "count_toptrader_long_short_ratio",
+        "sum_toptrader_long_short_ratio",
+        "count_long_short_ratio",
+        "sum_taker_long_short_vol_ratio"
+      ],
+      "first": {
+        "create_time": "2026-06-24 00:00:00",
+        "symbol": "BTCUSDT",
+        "sum_open_interest": "98880.9820000000000000",
+        "sum_open_interest_value": "6201933848.2184000000000000",
+        "count_toptrader_long_short_ratio": "2.15463483",
+        "sum_toptrader_long_short_ratio": "1.20576600",
+        "count_long_short_ratio": "2.07317842",
+        "sum_taker_long_short_vol_ratio": "1.37401000"
+      },
+      "last": {
+        "create_time": "2026-06-24 23:55:00",
+        "symbol": "BTCUSDT",
+        "sum_open_interest": "100826.8340000000000000",
+        "sum_open_interest_value": "6155589125.2174000000000000",
+        "count_toptrader_long_short_ratio": "2.66183244",
+        "sum_toptrader_long_short_ratio": "1.10896000",
+        "count_long_short_ratio": "2.56526891",
+        "sum_taker_long_short_vol_ratio": "1.17691400"
+      },
+      "duplicate_labels": 0,
+      "min_label": "2026-06-24 00:00:00",
+      "max_label": "2026-06-24 23:55:00",
+      "backward_steps": 0,
+      "non_300_second_steps": 0,
+      "sorted_non_300_second_steps": 0,
+      "missing_start_grid_labels": [],
+      "outside_start_grid_labels": [],
+      "off_grid_labels": [],
+      "nonfinite_or_negative_values": 0
+    },
+    {
+      "file": "BTCUSDT-metrics-2026-06-25.zip",
+      "zip_sha256": "56e0751dabd8108d61d1f9de86931ac68e901dad202d4dbac03173e2768be68e",
+      "csv_sha256": "c2afa88716d65a3e53d7243629cb4bd5abbe34d0e70fcbee557233eb9d5b4b35",
+      "rows": 288,
+      "fields": [
+        "create_time",
+        "symbol",
+        "sum_open_interest",
+        "sum_open_interest_value",
+        "count_toptrader_long_short_ratio",
+        "sum_toptrader_long_short_ratio",
+        "count_long_short_ratio",
+        "sum_taker_long_short_vol_ratio"
+      ],
+      "first": {
+        "create_time": "2026-06-25 00:00:00",
+        "symbol": "BTCUSDT",
+        "sum_open_interest": "100861.4190000000000000",
+        "sum_open_interest_value": "6160605386.3781000000000000",
+        "count_toptrader_long_short_ratio": "2.65979221",
+        "sum_toptrader_long_short_ratio": "1.10866800",
+        "count_long_short_ratio": "2.56734354",
+        "sum_taker_long_short_vol_ratio": "1.03672800"
+      },
+      "last": {
+        "create_time": "2026-06-25 23:55:00",
+        "symbol": "BTCUSDT",
+        "sum_open_interest": "105339.4650000000000000",
+        "sum_open_interest_value": "6295950212.0130000000000000",
+        "count_toptrader_long_short_ratio": "2.48278958",
+        "sum_toptrader_long_short_ratio": "1.16710600",
+        "count_long_short_ratio": "2.38611146",
+        "sum_taker_long_short_vol_ratio": "1.21799500"
+      },
+      "duplicate_labels": 0,
+      "min_label": "2026-06-25 00:00:00",
+      "max_label": "2026-06-25 23:55:00",
+      "backward_steps": 0,
+      "non_300_second_steps": 0,
+      "sorted_non_300_second_steps": 0,
+      "missing_start_grid_labels": [],
+      "outside_start_grid_labels": [],
+      "off_grid_labels": [],
+      "nonfinite_or_negative_values": 0
+    },
+    {
+      "file": "BTCUSDT-metrics-2026-06-26.zip",
+      "zip_sha256": "c06c1de4e3ab250acff83e71feb56344ae5b3cf31cd420f3ea9cfcf492976b0c",
+      "csv_sha256": "877476b311d50db8c32b51d09d9ff0973f925ffeaeed44a51409a8bbfea25a5d",
+      "rows": 288,
+      "fields": [
+        "create_time",
+        "symbol",
+        "sum_open_interest",
+        "sum_open_interest_value",
+        "count_toptrader_long_short_ratio",
+        "sum_toptrader_long_short_ratio",
+        "count_long_short_ratio",
+        "sum_taker_long_short_vol_ratio"
+      ],
+      "first": {
+        "create_time": "2026-06-26 00:00:00",
+        "symbol": "BTCUSDT",
+        "sum_open_interest": "105403.5810000000000000",
+        "sum_open_interest_value": "6305215155.7236130000000000",
+        "count_toptrader_long_short_ratio": "2.46114619",
+        "sum_toptrader_long_short_ratio": "1.16771000",
+        "count_long_short_ratio": "2.36491221",
+        "sum_taker_long_short_vol_ratio": "1.83399500"
+      },
+      "last": {
+        "create_time": "2026-06-26 23:55:00",
+        "symbol": "BTCUSDT",
+        "sum_open_interest": "103637.4870000000000000",
+        "sum_open_interest_value": "6225711119.0640000000000000",
+        "count_toptrader_long_short_ratio": "2.21606923",
+        "sum_toptrader_long_short_ratio": "1.24494800",
+        "count_long_short_ratio": "2.13291472",
+        "sum_taker_long_short_vol_ratio": "0.53802900"
+      },
+      "duplicate_labels": 0,
+      "min_label": "2026-06-26 00:00:00",
+      "max_label": "2026-06-26 23:55:00",
+      "backward_steps": 0,
+      "non_300_second_steps": 0,
+      "sorted_non_300_second_steps": 0,
+      "missing_start_grid_labels": [],
+      "outside_start_grid_labels": [],
+      "off_grid_labels": [],
+      "nonfinite_or_negative_values": 0
+    },
+    {
+      "file": "BTCUSDT-metrics-2026-07-01.zip",
+      "zip_sha256": "4a16be30dbbbb1042a9085c4e896b0aa57c5718314c5d0c19e689c1d175a5cd8",
+      "csv_sha256": "4f00de3d568f416f9da3806bd9ee902123baf95d2d609add130bb2ca83f0535e",
+      "rows": 288,
+      "fields": [
+        "create_time",
+        "symbol",
+        "sum_open_interest",
+        "sum_open_interest_value",
+        "count_toptrader_long_short_ratio",
+        "sum_toptrader_long_short_ratio",
+        "count_long_short_ratio",
+        "sum_taker_long_short_vol_ratio"
+      ],
+      "first": {
+        "create_time": "2026-07-01 00:00:00",
+        "symbol": "BTCUSDT",
+        "sum_open_interest": "108532.3540000000000000",
+        "sum_open_interest_value": "6370849179.8000000000000000",
+        "count_toptrader_long_short_ratio": "2.96564793",
+        "sum_toptrader_long_short_ratio": "1.30387200",
+        "count_long_short_ratio": "2.84772561",
+        "sum_taker_long_short_vol_ratio": "1.27027000"
+      },
+      "last": {
+        "create_time": "2026-07-01 23:55:00",
+        "symbol": "BTCUSDT",
+        "sum_open_interest": "103471.2490000000000000",
+        "sum_open_interest_value": "6208233551.5004000000000000",
+        "count_toptrader_long_short_ratio": "1.85820158",
+        "sum_toptrader_long_short_ratio": "1.13810700",
+        "count_long_short_ratio": "1.84688008",
+        "sum_taker_long_short_vol_ratio": "1.64444500"
+      },
+      "duplicate_labels": 0,
+      "min_label": "2026-07-01 00:00:00",
+      "max_label": "2026-07-01 23:55:00",
+      "backward_steps": 0,
+      "non_300_second_steps": 0,
+      "sorted_non_300_second_steps": 0,
+      "missing_start_grid_labels": [],
+      "outside_start_grid_labels": [],
+      "off_grid_labels": [],
+      "nonfinite_or_negative_values": 0
+    },
+    {
+      "file": "BTCUSDT-metrics-2026-10-20.zip",
+      "zip_sha256": "bc7bde46301d87d8f161454715547913f9b5a984b127d5bce809cbcbe535ae06",
+      "csv_sha256": "8ce281384fd0239ffcb16b9a7019581b3a5c0e6b7dca652fde6c897056883270",
+      "rows": 288,
+      "fields": [
+        "create_time",
+        "symbol",
+        "sum_open_interest",
+        "sum_open_interest_value",
+        "count_toptrader_long_short_ratio",
+        "sum_toptrader_long_short_ratio",
+        "count_long_short_ratio",
+        "sum_taker_long_short_vol_ratio"
+      ],
+      "first": {
+        "create_time": "2026-10-20 00:25:00",
+        "symbol": "BTCUSDT",
+        "sum_open_interest": "94970.2220000000000000",
+        "sum_open_interest_value": "7743705995.7837090000000000",
+        "count_toptrader_long_short_ratio": "1.79286027",
+        "sum_toptrader_long_short_ratio": "1.82483200",
+        "count_long_short_ratio": "1.66601468",
+        "sum_taker_long_short_vol_ratio": "1.92183500"
+      },
+      "last": {
+        "create_time": "2026-10-20 23:45:00",
+        "symbol": "BTCUSDT",
+        "sum_open_interest": "94802.8110000000000000",
+        "sum_open_interest_value": "7864950401.7195140000000000",
+        "count_toptrader_long_short_ratio": "1.58481192",
+        "sum_toptrader_long_short_ratio": "1.84326300",
+        "count_long_short_ratio": "1.49856458",
+        "sum_taker_long_short_vol_ratio": "1.27627100"
+      },
+      "duplicate_labels": 0,
+      "min_label": "2026-10-20 00:00:00",
+      "max_label": "2026-10-20 23:55:00",
+      "backward_steps": 31,
+      "non_300_second_steps": 269,
+      "sorted_non_300_second_steps": 0,
+      "missing_start_grid_labels": [],
+      "outside_start_grid_labels": [],
+      "off_grid_labels": [],
+      "nonfinite_or_negative_values": 0
+    },
+    {
+      "file": "BTCUSDT-5m-2026-06-24.zip",
+      "zip_sha256": "9651ac1b307459ed1f570c144af5bec3d8c12c550d2a17027cff25a5c0989fcf",
+      "csv_sha256": "33991a3b3d9d88f03c86a6558b7871732a2825a0d6df8dfe34ca6f46b23e88e1",
+      "rows": 288,
+      "fields": [
+        "open_time",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "close_time",
+        "quote_volume",
+        "count",
+        "taker_buy_volume",
+        "taker_buy_quote_volume",
+        "ignore"
+      ],
+      "first": {
+        "open_time": "1782259200000",
+        "open": "62696.70",
+        "high": "62785.40",
+        "low": "62696.70",
+        "close": "62721.10",
+        "volume": "279.485",
+        "close_time": "1782259499999",
+        "quote_volume": "17536202.94500",
+        "count": "11931",
+        "taker_buy_volume": "161.820",
+        "taker_buy_quote_volume": "10153291.54400",
+        "ignore": "0"
+      },
+      "last": {
+        "open_time": "1782345300000",
+        "open": "61037.00",
+        "high": "61086.30",
+        "low": "61005.20",
+        "close": "61051.20",
+        "volume": "388.259",
+        "close_time": "1782345599999",
+        "quote_volume": "23705208.84040",
+        "count": "10176",
+        "taker_buy_volume": "209.902",
+        "taker_buy_quote_volume": "12815846.44550",
+        "ignore": "0"
+      },
+      "duplicate_labels": 0
+    },
+    {
+      "file": "BTCUSDT-5m-2026-06-25.zip",
+      "zip_sha256": "cb37bcf943fa5a0fe2d142e84064e9b9211ab073fff62c364e3f2ad806e65a69",
+      "csv_sha256": "2cf191494e4bad49bb1a72f15c0e01b1e3336e01a1bf43a4799542e95c660124",
+      "rows": 288,
+      "fields": [
+        "open_time",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "close_time",
+        "quote_volume",
+        "count",
+        "taker_buy_volume",
+        "taker_buy_quote_volume",
+        "ignore"
+      ],
+      "first": {
+        "open_time": "1782345600000",
+        "open": "61051.20",
+        "high": "61080.00",
+        "low": "61006.30",
+        "close": "61080.00",
+        "volume": "355.419",
+        "close_time": "1782345899999",
+        "quote_volume": "21697163.17610",
+        "count": "12634",
+        "taker_buy_volume": "180.927",
+        "taker_buy_quote_volume": "11045233.59030",
+        "ignore": "0"
+      },
+      "last": {
+        "open_time": "1782431700000",
+        "open": "59801.90",
+        "high": "59802.00",
+        "low": "59709.10",
+        "close": "59771.90",
+        "volume": "309.181",
+        "close_time": "1782431999999",
+        "quote_volume": "18475266.50050",
+        "count": "10055",
+        "taker_buy_volume": "169.800",
+        "taker_buy_quote_volume": "10145549.85230",
+        "ignore": "0"
+      },
+      "duplicate_labels": 0
+    },
+    {
+      "file": "BTCUSDT-fundingRate-2026-06.zip",
+      "zip_sha256": "cff97ce688329592bccbbf5873b5c7021649e093f5f5806e332c5b4fb7fd6a00",
+      "csv_sha256": "10ea717c26b580f5502ebe35c4be852b5e1340dcfb4ab0f4b32e082ff3df7dfb",
+      "rows": 90,
+      "fields": [
+        "calc_time",
+        "funding_interval_hours",
+        "last_funding_rate"
+      ],
+      "first": {
+        "calc_time": "1780272000001",
+        "funding_interval_hours": "8",
+        "last_funding_rate": "0.00005703"
+      },
+      "last": {
+        "calc_time": "1782835200005",
+        "funding_interval_hours": "8",
+        "last_funding_rate": "0.00003327"
+      },
+      "duplicate_labels": 0,
+      "funding_intervals_hours": [
+        "8"
+      ],
+      "min_calc_time_utc": "2026-06-01T00:00:00.001000+00:00",
+      "max_calc_time_utc": "2026-06-30T16:00:00.005000+00:00"
+    },
+    {
+      "file": "BTCUSDT-fundingRate-2026-09.zip",
+      "zip_sha256": "913cd31b8f924a06717a2fac17f3df6132c24ccded209eb3e4ae7d83e1b247f2",
+      "csv_sha256": "4fc56ed1f2ce7679a0911bfa432170e61fa159bbcc0668caa821f3d2c4a80aa2",
+      "rows": 90,
+      "fields": [
+        "calc_time",
+        "funding_interval_hours",
+        "last_funding_rate"
+      ],
+      "first": {
+        "calc_time": "1788220800005",
+        "funding_interval_hours": "8",
+        "last_funding_rate": "0.00008482"
+      },
+      "last": {
+        "calc_time": "1790784000002",
+        "funding_interval_hours": "8",
+        "last_funding_rate": "0.00006606"
+      },
+      "duplicate_labels": 0,
+      "funding_intervals_hours": [
+        "8"
+      ],
+      "min_calc_time_utc": "2026-09-01T00:00:00.005000+00:00",
+      "max_calc_time_utc": "2026-09-30T16:00:00.002000+00:00"
+    }
+  ],
+  "flow_alignment": {
+    "2026-06-24": {
+      "-300000": {
+        "pairs": 287,
+        "pearson_r": 0.14688999716,
+        "mean_absolute_error": 0.43246689397
+      },
+      "0": {
+        "pairs": 288,
+        "pearson_r": 0.999703423523,
+        "mean_absolute_error": 0.002793717297
+      }
+    },
+    "2026-06-25": {
+      "-300000": {
+        "pairs": 288,
+        "pearson_r": 0.042781373202,
+        "mean_absolute_error": 0.452100977671
+      },
+      "0": {
+        "pairs": 288,
+        "pearson_r": 0.999380926568,
+        "mean_absolute_error": 0.002690422372
+      }
+    }
+  },
+  "boundary_collisions": []
+}
+Coverage: {'metrics': {'zip_objects': 2242, 'first': {'key': 'data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2020-09-01.zip', 'last_modified': '2026-03-18T12:30:27.000Z'}, 'last': {'key': 'data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-21.zip', 'last_modified': '2026-10-22T06:44:38.000Z'}, 'missing_daily_objects': []}, 'funding': {'zip_objects': 81, 'first': {'key': 'data/futures/um/monthly/fundingRate/BTCUSDT/BTCUSDT-fundingRate-2020-01.zip', 'last_modified': '2023-05-09T22:02:30.000Z'}, 'last': {'key': 'data/futures/um/monthly/fundingRate/BTCUSDT/BTCUSDT-fundingRate-2026-09.zip', 'last_modified': '2026-10-01T08:47:54.000Z'}}}
