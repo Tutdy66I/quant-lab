@@ -1,0 +1,2484 @@
+{
+  "dates_requested": 27,
+  "dates_qualified": 27,
+  "accepted_windows": 7776,
+  "longest_continuous_days": 16.0,
+  "continuous_runs": [
+    {
+      "start_utc": "2021-11-30T23:55:00+00:00",
+      "end_utc": "2021-12-01T23:55:00+00:00",
+      "windows": 288,
+      "duration_days": 1.0
+    },
+    {
+      "start_utc": "2025-06-24T00:00:00+00:00",
+      "end_utc": "2025-06-25T00:00:00+00:00",
+      "windows": 288,
+      "duration_days": 1.0
+    },
+    {
+      "start_utc": "2026-06-01T00:00:00+00:00",
+      "end_utc": "2026-06-02T00:00:00+00:00",
+      "windows": 288,
+      "duration_days": 1.0
+    },
+    {
+      "start_utc": "2026-06-20T00:00:00+00:00",
+      "end_utc": "2026-07-06T00:00:00+00:00",
+      "windows": 4608,
+      "duration_days": 16.0
+    },
+    {
+      "start_utc": "2026-10-14T00:00:00+00:00",
+      "end_utc": "2026-10-22T00:00:00+00:00",
+      "windows": 2304,
+      "duration_days": 8.0
+    }
+  ],
+  "identical_duplicates_removed": 0,
+  "conflicting_duplicate_groups": 0,
+  "independent_oi_long_short_status": "not_verified; access/permission evidence unavailable",
+  "historical_publication_proven": false,
+  "statistics_module_enabled": false,
+  "reason": "limited continuity and no historical availability/independent OI or ratio timing evidence",
+  "descriptive_statistics": {
+    "count": 7776,
+    "min": "0.05815600",
+    "max": "8.18725900",
+    "mean": "1.132180675159",
+    "median": "0.991603500000",
+    "population_std": "0.642315694107"
+  },
+  "daily_diagnostics": [
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": -5,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 1.0,
+          "mae": 2.5e-11,
+          "median_relative_error": 2.3e-11
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.016545268714,
+          "mae": 0.478589241258,
+          "median_relative_error": 0.373906803752
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 1.0,
+            "mae": 2.7e-11,
+            "median_relative_error": 2.4e-11
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.140865190614,
+            "mae": 0.524065901083,
+            "median_relative_error": 0.394997074032
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 1.0,
+            "mae": 2.2e-11,
+            "median_relative_error": 2.1e-11
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.238741946079,
+            "mae": 0.545216709211,
+            "median_relative_error": 0.418034954328
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 1.0,
+            "mae": 2.5e-11,
+            "median_relative_error": 2.7e-11
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.071691630731,
+            "mae": 0.442869117891,
+            "median_relative_error": 0.37271361318
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 1.0,
+            "mae": 2.5e-11,
+            "median_relative_error": 2.3e-11
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.186361795655,
+            "mae": 0.402205236847,
+            "median_relative_error": 0.337007338052
+          }
+        }
+      ],
+      "date": "2021-12-01",
+      "source": {
+        "file": "BTCUSDT-metrics-2021-12-01.zip",
+        "rows": 288,
+        "backward_steps": 0,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2021-12-01T00:00:00+00:00",
+        "max_label": "2021-12-01T23:55:00+00:00"
+      },
+      "zip_sha256": "12fbd76343893fe56a75ae8086ea3c4f0a1a5780e1b2003640d8847daf0cfdde"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.052001851374,
+          "mae": 0.621067636961,
+          "median_relative_error": 0.472716152618
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999919526856,
+          "mae": 0.002323129186,
+          "median_relative_error": 0.00024967334
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999993079059,
+            "mae": 0.001286161514,
+            "median_relative_error": 0.000204690894
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.06344179662,
+            "mae": 0.677275403308,
+            "median_relative_error": 0.517459241889
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999790158691,
+            "mae": 0.003160313473,
+            "median_relative_error": 0.000307975867
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.029219216343,
+            "mae": 0.558197952183,
+            "median_relative_error": 0.433439561358
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999974836829,
+            "mae": 0.001819014509,
+            "median_relative_error": 0.000408091184
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.121250991961,
+            "mae": 0.538340683166,
+            "median_relative_error": 0.379501680849
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999888673084,
+            "mae": 0.003027027247,
+            "median_relative_error": 0.000175933361
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.000318540137,
+            "mae": 0.710456509187,
+            "median_relative_error": 0.482633150871
+          }
+        }
+      ],
+      "date": "2025-06-24",
+      "source": {
+        "file": "BTCUSDT-metrics-2025-06-24.zip",
+        "rows": 288,
+        "backward_steps": 0,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2025-06-24T00:00:00+00:00",
+        "max_label": "2025-06-24T23:55:00+00:00"
+      },
+      "zip_sha256": "3531fe46815e556485499cc329ab53853e4e110302c35e45ef350b2fc246a452"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.039303862058,
+          "mae": 0.629361678802,
+          "median_relative_error": 0.454803230148
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.997065428003,
+          "mae": 0.006286419133,
+          "median_relative_error": 0.00023129723
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999925145783,
+            "mae": 0.002934930166,
+            "median_relative_error": 0.000217733289
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.083169260853,
+            "mae": 0.728326170199,
+            "median_relative_error": 0.544392937613
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.998628916715,
+            "mae": 0.006116283145,
+            "median_relative_error": 0.00026544639
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.06985545127,
+            "mae": 0.585939845926,
+            "median_relative_error": 0.497974645866
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999958693624,
+            "mae": 0.002056188646,
+            "median_relative_error": 0.00023129723
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.080976054448,
+            "mae": 0.584571499192,
+            "median_relative_error": 0.38887898148
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.991474197592,
+            "mae": 0.014038274573,
+            "median_relative_error": 0.000218177554
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.087536948107,
+            "mae": 0.618609199892,
+            "median_relative_error": 0.422888311902
+          }
+        }
+      ],
+      "date": "2026-06-01",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-06-01.zip",
+        "rows": 288,
+        "backward_steps": 48,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-06-01T00:00:00+00:00",
+        "max_label": "2026-06-01T23:55:00+00:00"
+      },
+      "zip_sha256": "b97a449430eb330ecb3105daefebe9113a9d85ff7de3c597ae06b348b941327b"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.068516017175,
+          "mae": 0.68505340987,
+          "median_relative_error": 0.462398953443
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999337404831,
+          "mae": 0.00482028288,
+          "median_relative_error": 0.000144901536
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999936264274,
+            "mae": 0.002685246646,
+            "median_relative_error": 0.000168378816
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.061231985775,
+            "mae": 0.749774181156,
+            "median_relative_error": 0.489598596039
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999956868337,
+            "mae": 0.002044433868,
+            "median_relative_error": 0.000118655128
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.136770328668,
+            "mae": 0.525075589018,
+            "median_relative_error": 0.439001766285
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999276912022,
+            "mae": 0.00610439337,
+            "median_relative_error": 0.000153949056
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.046013664469,
+            "mae": 0.877470806456,
+            "median_relative_error": 0.551332905433
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.997962481858,
+            "mae": 0.008447057636,
+            "median_relative_error": 0.000120796119
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.238908271573,
+            "mae": 0.587893062849,
+            "median_relative_error": 0.41098082564
+          }
+        }
+      ],
+      "date": "2026-06-20",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-06-20.zip",
+        "rows": 288,
+        "backward_steps": 0,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-06-20T00:00:00+00:00",
+        "max_label": "2026-06-20T23:55:00+00:00"
+      },
+      "zip_sha256": "72968edc3f9e1655486df398686f418c941c8a17569a74237b6befb7a9af465b"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.183765984114,
+          "mae": 0.647034159866,
+          "median_relative_error": 0.452314133455
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.998165898128,
+          "mae": 0.005620281864,
+          "median_relative_error": 0.000132851078
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999224686894,
+            "mae": 0.005506605487,
+            "median_relative_error": 9.4839013e-05
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.207007077916,
+            "mae": 0.578510942964,
+            "median_relative_error": 0.454668281408
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.993167152242,
+            "mae": 0.012450438755,
+            "median_relative_error": 0.000241109006
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.358639725989,
+            "mae": 0.618553953738,
+            "median_relative_error": 0.36741698564
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999980562595,
+            "mae": 0.002030143441,
+            "median_relative_error": 0.000114472291
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.097807721861,
+            "mae": 0.795625343699,
+            "median_relative_error": 0.467683952665
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999898934712,
+            "mae": 0.002493939773,
+            "median_relative_error": 0.000157492272
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.035927161707,
+            "mae": 0.595446399061,
+            "median_relative_error": 0.458713018085
+          }
+        }
+      ],
+      "date": "2026-06-21",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-06-21.zip",
+        "rows": 288,
+        "backward_steps": 0,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-06-21T00:00:00+00:00",
+        "max_label": "2026-06-21T23:55:00+00:00"
+      },
+      "zip_sha256": "59a8ce6caef388fa1802a282bf9b74a5b859385af3c2ca41f3af59e7fa36f630"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": -0.073087484562,
+          "mae": 0.53186683007,
+          "median_relative_error": 0.393991882986
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999243812697,
+          "mae": 0.003862932915,
+          "median_relative_error": 0.000239852361
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.997202694195,
+            "mae": 0.006785899766,
+            "median_relative_error": 0.000452500244
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.057940076319,
+            "mae": 0.47463509563,
+            "median_relative_error": 0.351776020342
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999668255388,
+            "mae": 0.004188952862,
+            "median_relative_error": 0.000132753999
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.096407420856,
+            "mae": 0.530334222611,
+            "median_relative_error": 0.37910064559
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999961312141,
+            "mae": 0.001630717735,
+            "median_relative_error": 0.000280861079
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.08019731541,
+            "mae": 0.545699368217,
+            "median_relative_error": 0.397066478125
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999818314948,
+            "mae": 0.002846161298,
+            "median_relative_error": 0.000162351585
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.062375295864,
+            "mae": 0.576798633822,
+            "median_relative_error": 0.485946078265
+          }
+        }
+      ],
+      "date": "2026-06-22",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-06-22.zip",
+        "rows": 288,
+        "backward_steps": 0,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-06-22T00:00:00+00:00",
+        "max_label": "2026-06-22T23:55:00+00:00"
+      },
+      "zip_sha256": "da5bdc742fc273ec69e5f4480c5ae297db50db14c5af384ba6fd8806878ddb67"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.121270844372,
+          "mae": 0.457418585575,
+          "median_relative_error": 0.361576087702
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999750723882,
+          "mae": 0.002802751859,
+          "median_relative_error": 0.000230401929
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999918238041,
+            "mae": 0.002602418117,
+            "median_relative_error": 0.000285051696
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.049597408919,
+            "mae": 0.481074767189,
+            "median_relative_error": 0.36821080876
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999906894142,
+            "mae": 0.00271169003,
+            "median_relative_error": 0.000244961235
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.185279554348,
+            "mae": 0.52956932369,
+            "median_relative_error": 0.375990904625
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999863443075,
+            "mae": 0.001907270398,
+            "median_relative_error": 0.000296827403
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.112518385899,
+            "mae": 0.372904583135,
+            "median_relative_error": 0.305477953849
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999182846951,
+            "mae": 0.003989628889,
+            "median_relative_error": 0.000127451011
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.076490967548,
+            "mae": 0.446125668284,
+            "median_relative_error": 0.405217896224
+          }
+        }
+      ],
+      "date": "2026-06-23",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-06-23.zip",
+        "rows": 288,
+        "backward_steps": 0,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-06-23T00:00:00+00:00",
+        "max_label": "2026-06-23T23:55:00+00:00"
+      },
+      "zip_sha256": "df14d71acd73d1349eaeae6e281d8eacc7187dfca966c599ff051de0a76f6820"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.145497231383,
+          "mae": 0.432846480626,
+          "median_relative_error": 0.301656901688
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999703423523,
+          "mae": 0.002793717297,
+          "median_relative_error": 0.000180396755
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999571724034,
+            "mae": 0.004464753993,
+            "median_relative_error": 0.000161599485
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.127905662296,
+            "mae": 0.511918861729,
+            "median_relative_error": 0.331493506873
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999597813493,
+            "mae": 0.003714281759,
+            "median_relative_error": 0.000108265143
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.158872630885,
+            "mae": 0.505063886865,
+            "median_relative_error": 0.394817193605
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999922252123,
+            "mae": 0.001469161865,
+            "median_relative_error": 0.000245950482
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.052030424111,
+            "mae": 0.291356596794,
+            "median_relative_error": 0.247802452029
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999929805507,
+            "mae": 0.001526671572,
+            "median_relative_error": 0.000194206194
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.036596607933,
+            "mae": 0.423046577119,
+            "median_relative_error": 0.297580898761
+          }
+        }
+      ],
+      "date": "2026-06-24",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-06-24.zip",
+        "rows": 288,
+        "backward_steps": 0,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-06-24T00:00:00+00:00",
+        "max_label": "2026-06-24T23:55:00+00:00"
+      },
+      "zip_sha256": "6bb5ab473189fa7c935b4d9a58d34b2c96cc329cd74fd6f9f17f8abc48ece649"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.042781373202,
+          "mae": 0.452100977671,
+          "median_relative_error": 0.343274051604
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999380926568,
+          "mae": 0.002690422372,
+          "median_relative_error": 0.00022024192
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999962965486,
+            "mae": 0.00191757919,
+            "median_relative_error": 0.000233753527
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.130906906718,
+            "mae": 0.581463158327,
+            "median_relative_error": 0.436374447356
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999643941261,
+            "mae": 0.002908258255,
+            "median_relative_error": 0.000143379007
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.133472874845,
+            "mae": 0.434034408508,
+            "median_relative_error": 0.337356604776
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999990550678,
+            "mae": 0.00070582027,
+            "median_relative_error": 0.000206698254
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.102377816036,
+            "mae": 0.385208940815,
+            "median_relative_error": 0.328232436465
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.997531850011,
+            "mae": 0.005230031773,
+            "median_relative_error": 0.000319933198
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.189478646569,
+            "mae": 0.407697403034,
+            "median_relative_error": 0.328163956794
+          }
+        }
+      ],
+      "date": "2026-06-25",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-06-25.zip",
+        "rows": 288,
+        "backward_steps": 0,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-06-25T00:00:00+00:00",
+        "max_label": "2026-06-25T23:55:00+00:00"
+      },
+      "zip_sha256": "56e0751dabd8108d61d1f9de86931ac68e901dad202d4dbac03173e2768be68e"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.075299086236,
+          "mae": 0.487933267058,
+          "median_relative_error": 0.387180471854
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999968643236,
+          "mae": 0.00146446612,
+          "median_relative_error": 0.000301843207
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999945836922,
+            "mae": 0.002028140769,
+            "median_relative_error": 0.000453930206
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.093764534234,
+            "mae": 0.508821989995,
+            "median_relative_error": 0.41436462444
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.99996907164,
+            "mae": 0.002072239519,
+            "median_relative_error": 0.000353433385
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.236209362712,
+            "mae": 0.528838965298,
+            "median_relative_error": 0.416870735417
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.99998829369,
+            "mae": 0.000900378296,
+            "median_relative_error": 0.000305922776
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.102919313485,
+            "mae": 0.475939069314,
+            "median_relative_error": 0.35124666933
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999985666837,
+            "mae": 0.000857105897,
+            "median_relative_error": 0.000146291622
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.088779364613,
+            "mae": 0.438133043625,
+            "median_relative_error": 0.343144518865
+          }
+        }
+      ],
+      "date": "2026-06-26",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-06-26.zip",
+        "rows": 288,
+        "backward_steps": 0,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-06-26T00:00:00+00:00",
+        "max_label": "2026-06-26T23:55:00+00:00"
+      },
+      "zip_sha256": "c06c1de4e3ab250acff83e71feb56344ae5b3cf31cd420f3ea9cfcf492976b0c"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.177783730914,
+          "mae": 0.702244333407,
+          "median_relative_error": 0.450986240478
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999755372653,
+          "mae": 0.003606231135,
+          "median_relative_error": 0.000141737666
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999987690902,
+            "mae": 0.001287649527,
+            "median_relative_error": 0.000125063518
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.088860231104,
+            "mae": 0.676816028889,
+            "median_relative_error": 0.41804877104
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999761056687,
+            "mae": 0.004839558936,
+            "median_relative_error": 0.000131984957
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.002493875301,
+            "mae": 0.720804778014,
+            "median_relative_error": 0.451137584823
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999228968415,
+            "mae": 0.005529571747,
+            "median_relative_error": 0.000163781103
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.067660456696,
+            "mae": 0.715955120441,
+            "median_relative_error": 0.510235741426
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999960324925,
+            "mae": 0.002768144332,
+            "median_relative_error": 0.000128894353
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.397713686089,
+            "mae": 0.695401406284,
+            "median_relative_error": 0.449501683523
+          }
+        }
+      ],
+      "date": "2026-06-27",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-06-27.zip",
+        "rows": 288,
+        "backward_steps": 0,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-06-27T00:00:00+00:00",
+        "max_label": "2026-06-27T23:55:00+00:00"
+      },
+      "zip_sha256": "ab979a9e005f2b0de2e437efd6a2d94fe9ce88a32a70a8c741bc265e6d6cbc91"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.019209683565,
+          "mae": 0.64070802986,
+          "median_relative_error": 0.47328984062
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999550339895,
+          "mae": 0.00355046643,
+          "median_relative_error": 0.000192595941
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999598931163,
+            "mae": 0.003871395874,
+            "median_relative_error": 0.000148416182
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.083161357971,
+            "mae": 0.587166080194,
+            "median_relative_error": 0.436680009766
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999052631667,
+            "mae": 0.006597794461,
+            "median_relative_error": 0.000258288937
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.015475440756,
+            "mae": 0.802192763145,
+            "median_relative_error": 0.580984998297
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999973185478,
+            "mae": 0.001605733372,
+            "median_relative_error": 0.000171779718
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.118070571742,
+            "mae": 0.700893033001,
+            "median_relative_error": 0.515851925746
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999891822277,
+            "mae": 0.002126942013,
+            "median_relative_error": 0.000198722775
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.219029816364,
+            "mae": 0.4725802431,
+            "median_relative_error": 0.414928997411
+          }
+        }
+      ],
+      "date": "2026-06-28",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-06-28.zip",
+        "rows": 288,
+        "backward_steps": 45,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-06-28T00:00:00+00:00",
+        "max_label": "2026-06-28T23:55:00+00:00"
+      },
+      "zip_sha256": "c2d5bc7d9352edc666c0eb4afefef5b5ccc118226c26018069e7811c91652017"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.195677166947,
+          "mae": 0.46371374648,
+          "median_relative_error": 0.358704028834
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999352822625,
+          "mae": 0.002597458717,
+          "median_relative_error": 0.000211202814
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.997585594951,
+            "mae": 0.005369953454,
+            "median_relative_error": 0.000293907645
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.301416524691,
+            "mae": 0.445204963611,
+            "median_relative_error": 0.356633809085
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999765613747,
+            "mae": 0.00278754144,
+            "median_relative_error": 0.000191838956
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.106661175285,
+            "mae": 0.442008621155,
+            "median_relative_error": 0.360155209278
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999982845063,
+            "mae": 0.000836639452,
+            "median_relative_error": 0.000261854522
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.251051192135,
+            "mae": 0.385192043175,
+            "median_relative_error": 0.315384081079
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999978828618,
+            "mae": 0.001395700521,
+            "median_relative_error": 0.000126250456
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.138595001267,
+            "mae": 0.582449357977,
+            "median_relative_error": 0.429196591664
+          }
+        }
+      ],
+      "date": "2026-06-29",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-06-29.zip",
+        "rows": 288,
+        "backward_steps": 0,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-06-29T00:00:00+00:00",
+        "max_label": "2026-06-29T23:55:00+00:00"
+      },
+      "zip_sha256": "eee03d532b47764dc7ae6694764349dd74f594942be3ca36800720040076fcfa"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": -0.020331329278,
+          "mae": 0.528810919358,
+          "median_relative_error": 0.426916849195
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999783809473,
+          "mae": 0.002542655619,
+          "median_relative_error": 0.000231455664
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999974679897,
+            "mae": 0.001682084458,
+            "median_relative_error": 0.000184456193
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.148599919952,
+            "mae": 0.545305702491,
+            "median_relative_error": 0.420195536483
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999483076666,
+            "mae": 0.003734387034,
+            "median_relative_error": 0.000337965178
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.131999082224,
+            "mae": 0.489003264551,
+            "median_relative_error": 0.368170568098
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999983846206,
+            "mae": 0.001132529186,
+            "median_relative_error": 0.000362060029
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.155606918849,
+            "mae": 0.533478159216,
+            "median_relative_error": 0.430845869803
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.99967973256,
+            "mae": 0.003621621797,
+            "median_relative_error": 0.000178324945
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.033284949851,
+            "mae": 0.547456551174,
+            "median_relative_error": 0.44064180917
+          }
+        }
+      ],
+      "date": "2026-06-30",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-06-30.zip",
+        "rows": 288,
+        "backward_steps": 0,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-06-30T00:00:00+00:00",
+        "max_label": "2026-06-30T23:55:00+00:00"
+      },
+      "zip_sha256": "c7d744cb21cfaed8cce5bf5323b1ffeb13e9ac8c60d76f59cd97257ffc83cde4"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.097975412941,
+          "mae": 0.558090142075,
+          "median_relative_error": 0.385526835287
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999869735256,
+          "mae": 0.002855464476,
+          "median_relative_error": 0.000225245813
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999763198815,
+            "mae": 0.004369364785,
+            "median_relative_error": 0.000286084258
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.149162190279,
+            "mae": 0.519396384194,
+            "median_relative_error": 0.366032432604
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999830555974,
+            "mae": 0.003463359469,
+            "median_relative_error": 0.000206673636
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.012043944248,
+            "mae": 0.668785156699,
+            "median_relative_error": 0.467567765314
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999941805657,
+            "mae": 0.001666698968,
+            "median_relative_error": 0.000212391377
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.001194047175,
+            "mae": 0.46158225775,
+            "median_relative_error": 0.350078458082
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999960260015,
+            "mae": 0.001922434684,
+            "median_relative_error": 0.000208694895
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.143606521016,
+            "mae": 0.582596769659,
+            "median_relative_error": 0.391744060297
+          }
+        }
+      ],
+      "date": "2026-07-01",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-07-01.zip",
+        "rows": 288,
+        "backward_steps": 0,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-07-01T00:00:00+00:00",
+        "max_label": "2026-07-01T23:55:00+00:00"
+      },
+      "zip_sha256": "4a16be30dbbbb1042a9085c4e896b0aa57c5718314c5d0c19e689c1d175a5cd8"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.14468494638,
+          "mae": 0.601507670325,
+          "median_relative_error": 0.415007198582
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999892478779,
+          "mae": 0.002353088012,
+          "median_relative_error": 0.000258409366
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999896446573,
+            "mae": 0.002881503295,
+            "median_relative_error": 0.000510941176
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.049547543645,
+            "mae": 0.466071054122,
+            "median_relative_error": 0.313811171742
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999977400709,
+            "mae": 0.001613716158,
+            "median_relative_error": 0.000348866052
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.236645005569,
+            "mae": 0.453724984506,
+            "median_relative_error": 0.364286368249
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999827365961,
+            "mae": 0.00221732052,
+            "median_relative_error": 0.000302777425
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.012926427033,
+            "mae": 0.527521235276,
+            "median_relative_error": 0.337391899549
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999886232059,
+            "mae": 0.002699812074,
+            "median_relative_error": 0.000109734824
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.138866074655,
+            "mae": 0.958713407395,
+            "median_relative_error": 0.621617633672
+          }
+        }
+      ],
+      "date": "2026-07-02",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-07-02.zip",
+        "rows": 288,
+        "backward_steps": 0,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-07-02T00:00:00+00:00",
+        "max_label": "2026-07-02T23:55:00+00:00"
+      },
+      "zip_sha256": "655ffce8f0e2cd88482094b1511c7097468930d596a804d1faab9b06d72957a1"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.072831312962,
+          "mae": 0.626763278381,
+          "median_relative_error": 0.437003203839
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999613623654,
+          "mae": 0.003810309574,
+          "median_relative_error": 0.000190496493
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999122925089,
+            "mae": 0.006989155048,
+            "median_relative_error": 0.000197991559
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.083393104228,
+            "mae": 0.612530305791,
+            "median_relative_error": 0.430062632283
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999400332735,
+            "mae": 0.005680733896,
+            "median_relative_error": 0.000311714835
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.015556177344,
+            "mae": 0.672764138252,
+            "median_relative_error": 0.439166433252
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999988766262,
+            "mae": 0.00123447337,
+            "median_relative_error": 0.000236075695
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.081005712172,
+            "mae": 0.66951689803,
+            "median_relative_error": 0.447322591921
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999960933859,
+            "mae": 0.001336875983,
+            "median_relative_error": 0.000150618447
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.181084035811,
+            "mae": 0.552241771451,
+            "median_relative_error": 0.465012329073
+          }
+        }
+      ],
+      "date": "2026-07-03",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-07-03.zip",
+        "rows": 288,
+        "backward_steps": 0,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-07-03T00:00:00+00:00",
+        "max_label": "2026-07-03T23:55:00+00:00"
+      },
+      "zip_sha256": "5f9b4a9f4b225e7b08edda353b08bdae3016fa52486bd7d594be0165d0181f12"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.069061266204,
+          "mae": 0.670143931523,
+          "median_relative_error": 0.480072761364
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.99937520881,
+          "mae": 0.004821368756,
+          "median_relative_error": 0.0001777415
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999890336441,
+            "mae": 0.00347304899,
+            "median_relative_error": 0.000199417634
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.049537435148,
+            "mae": 0.740471164181,
+            "median_relative_error": 0.564234362417
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999462659022,
+            "mae": 0.005332250784,
+            "median_relative_error": 9.3694103e-05
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.232592136344,
+            "mae": 0.6675559816,
+            "median_relative_error": 0.526624786915
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999795794755,
+            "mae": 0.004179409472,
+            "median_relative_error": 0.000374873718
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.036984167044,
+            "mae": 0.677968464196,
+            "median_relative_error": 0.451842315697
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.997248598433,
+            "mae": 0.006300765781,
+            "median_relative_error": 0.00014511255
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.158949180306,
+            "mae": 0.594580116116,
+            "median_relative_error": 0.473709443039
+          }
+        }
+      ],
+      "date": "2026-07-04",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-07-04.zip",
+        "rows": 288,
+        "backward_steps": 0,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-07-04T00:00:00+00:00",
+        "max_label": "2026-07-04T23:55:00+00:00"
+      },
+      "zip_sha256": "710145c97cd53a6804765181f48ebc1d79df9b80f42ab434499c97124f699120"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.124014316745,
+          "mae": 0.602631248544,
+          "median_relative_error": 0.437049380938
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999312181348,
+          "mae": 0.005473128454,
+          "median_relative_error": 0.000148232018
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999883848901,
+            "mae": 0.003030493331,
+            "median_relative_error": 0.0001551629
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.227653412464,
+            "mae": 0.529388638621,
+            "median_relative_error": 0.390939462338
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999137454725,
+            "mae": 0.006029462705,
+            "median_relative_error": 0.000120736068
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.304396003015,
+            "mae": 0.457005793805,
+            "median_relative_error": 0.359584923861
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999184249956,
+            "mae": 0.005564168836,
+            "median_relative_error": 0.000149663349
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.288495372073,
+            "mae": 0.624570937914,
+            "median_relative_error": 0.429066209969
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999269728814,
+            "mae": 0.007268388944,
+            "median_relative_error": 0.000164528485
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.048574247022,
+            "mae": 0.799559623836,
+            "median_relative_error": 0.52443438657
+          }
+        }
+      ],
+      "date": "2026-07-05",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-07-05.zip",
+        "rows": 288,
+        "backward_steps": 43,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-07-05T00:00:00+00:00",
+        "max_label": "2026-07-05T23:55:00+00:00"
+      },
+      "zip_sha256": "479c94aa7915cd4dbd1e35cf975dd527b5e5a1a837a750ae1b431732a03e0739"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.125308080506,
+          "mae": 0.597312970355,
+          "median_relative_error": 0.46493835247
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999428334692,
+          "mae": 0.003719797443,
+          "median_relative_error": 0.00016305554
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999789910504,
+            "mae": 0.003190682282,
+            "median_relative_error": 0.000127951572
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.291231522292,
+            "mae": 0.647723757649,
+            "median_relative_error": 0.441439587734
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999813771016,
+            "mae": 0.003026261966,
+            "median_relative_error": 0.000329252309
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.008307079121,
+            "mae": 0.570473325755,
+            "median_relative_error": 0.49394566698
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.997196002788,
+            "mae": 0.005329944002,
+            "median_relative_error": 0.000280639451
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.134860457307,
+            "mae": 0.473146178426,
+            "median_relative_error": 0.393516013084
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999827159399,
+            "mae": 0.00333230152,
+            "median_relative_error": 0.000152688595
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.027322122873,
+            "mae": 0.697908619591,
+            "median_relative_error": 0.53066200419
+          }
+        }
+      ],
+      "date": "2026-10-14",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-10-14.zip",
+        "rows": 288,
+        "backward_steps": 34,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-10-14T00:00:00+00:00",
+        "max_label": "2026-10-14T23:55:00+00:00"
+      },
+      "zip_sha256": "cf7200945d538837729a55c2c7d350f303f0028aab03135a5f152a9a9fa5b87a"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.18872421808,
+          "mae": 0.649415581442,
+          "median_relative_error": 0.501813080743
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999449443072,
+          "mae": 0.004558070541,
+          "median_relative_error": 0.000199378672
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999103072216,
+            "mae": 0.005813014487,
+            "median_relative_error": 0.000269261088
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.13962510133,
+            "mae": 0.646088008682,
+            "median_relative_error": 0.505455316148
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999199164694,
+            "mae": 0.006138913971,
+            "median_relative_error": 0.000167145922
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.207993076883,
+            "mae": 0.656029400006,
+            "median_relative_error": 0.523001527799
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999982079582,
+            "mae": 0.001060758993,
+            "median_relative_error": 0.000206950898
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.216630843999,
+            "mae": 0.544791482431,
+            "median_relative_error": 0.464534306996
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999640426633,
+            "mae": 0.005219594711,
+            "median_relative_error": 0.0001364357
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.187404638711,
+            "mae": 0.750753434648,
+            "median_relative_error": 0.521119487847
+          }
+        }
+      ],
+      "date": "2026-10-15",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-10-15.zip",
+        "rows": 288,
+        "backward_steps": 20,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-10-15T00:00:00+00:00",
+        "max_label": "2026-10-15T23:55:00+00:00"
+      },
+      "zip_sha256": "5f1c31bdf645489221d120079529bd311168258ef524a669e88908db22139d90"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.121022350681,
+          "mae": 0.632185405422,
+          "median_relative_error": 0.447597305035
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999230272071,
+          "mae": 0.003348154002,
+          "median_relative_error": 0.000164387017
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.99993049431,
+            "mae": 0.002767704707,
+            "median_relative_error": 0.000257052526
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.179789303987,
+            "mae": 0.623108126696,
+            "median_relative_error": 0.489124596828
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999933857938,
+            "mae": 0.001944573878,
+            "median_relative_error": 0.000228595525
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.336202908434,
+            "mae": 0.522382712149,
+            "median_relative_error": 0.417210181695
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.996913099893,
+            "mae": 0.006751087474,
+            "median_relative_error": 0.000157626304
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.112145211309,
+            "mae": 0.610955481873,
+            "median_relative_error": 0.382959082573
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.99996590747,
+            "mae": 0.00192924995,
+            "median_relative_error": 9.5786052e-05
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.029410972133,
+            "mae": 0.772295300968,
+            "median_relative_error": 0.481689211572
+          }
+        }
+      ],
+      "date": "2026-10-16",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-10-16.zip",
+        "rows": 288,
+        "backward_steps": 23,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-10-16T00:00:00+00:00",
+        "max_label": "2026-10-16T23:55:00+00:00"
+      },
+      "zip_sha256": "af929289e13a2c3c4480493bde556ec30bd51b7cd9f7d0cd5ce2a61b8e5e0575"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.015986786718,
+          "mae": 0.894196387367,
+          "median_relative_error": 0.631923671141
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999770386093,
+          "mae": 0.003666001271,
+          "median_relative_error": 9.2139642e-05
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.99932546187,
+            "mae": 0.006134265923,
+            "median_relative_error": 7.1546841e-05
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.154790731798,
+            "mae": 0.609502854956,
+            "median_relative_error": 0.521805852289
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999927887803,
+            "mae": 0.002245147706,
+            "median_relative_error": 0.000110618797
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.218987401262,
+            "mae": 1.140823584781,
+            "median_relative_error": 0.769383201107
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999982607896,
+            "mae": 0.001656228692,
+            "median_relative_error": 0.000113177438
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.006148783808,
+            "mae": 0.936040725408,
+            "median_relative_error": 0.593960062305
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999528279855,
+            "mae": 0.004628362763,
+            "median_relative_error": 9.476948e-05
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.145971340786,
+            "mae": 0.890418384324,
+            "median_relative_error": 0.612614368781
+          }
+        }
+      ],
+      "date": "2026-10-17",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-10-17.zip",
+        "rows": 288,
+        "backward_steps": 21,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-10-17T00:00:00+00:00",
+        "max_label": "2026-10-17T23:55:00+00:00"
+      },
+      "zip_sha256": "d79099270ab554a4ad24e4e1c1d4cb621a712ef1a59b2bb051900619e754cb24"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.110326412819,
+          "mae": 0.861315770183,
+          "median_relative_error": 0.544744025777
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999892254234,
+          "mae": 0.002659856576,
+          "median_relative_error": 0.000117956563
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999985668404,
+            "mae": 0.001504131483,
+            "median_relative_error": 9.7624306e-05
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.03572019347,
+            "mae": 1.083475850281,
+            "median_relative_error": 0.640124260986
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999833695813,
+            "mae": 0.005619772558,
+            "median_relative_error": 0.000110737233
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.125835554416,
+            "mae": 1.172389099132,
+            "median_relative_error": 0.657142247161
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999733507263,
+            "mae": 0.002749710921,
+            "median_relative_error": 0.00015161945
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.026001457195,
+            "mae": 0.677376402755,
+            "median_relative_error": 0.437299166633
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999994901624,
+            "mae": 0.000765811342,
+            "median_relative_error": 8.3782971e-05
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.092968571584,
+            "mae": 0.512021728566,
+            "median_relative_error": 0.403347031411
+          }
+        }
+      ],
+      "date": "2026-10-18",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-10-18.zip",
+        "rows": 288,
+        "backward_steps": 26,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-10-18T00:00:00+00:00",
+        "max_label": "2026-10-18T23:55:00+00:00"
+      },
+      "zip_sha256": "134cd1910e91e3f46fd1e62704385057257de7125642adf72d61401ea13cc795"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.106507246301,
+          "mae": 0.705356805308,
+          "median_relative_error": 0.464552569405
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999868909055,
+          "mae": 0.002895294849,
+          "median_relative_error": 0.000204327201
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999838708887,
+            "mae": 0.00269647467,
+            "median_relative_error": 0.000204323241
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.231850425794,
+            "mae": 0.581714491404,
+            "median_relative_error": 0.431005769344
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999947245884,
+            "mae": 0.003650908991,
+            "median_relative_error": 0.000296143095
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.027946641133,
+            "mae": 0.824857955811,
+            "median_relative_error": 0.53112237042
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999968940802,
+            "mae": 0.001407452276,
+            "median_relative_error": 0.000217419014
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.221349426266,
+            "mae": 0.693366042865,
+            "median_relative_error": 0.39376115106
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999652859135,
+            "mae": 0.003826343458,
+            "median_relative_error": 0.000137579339
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.081281027577,
+            "mae": 0.721488731154,
+            "median_relative_error": 0.507398619125
+          }
+        }
+      ],
+      "date": "2026-10-19",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-10-19.zip",
+        "rows": 288,
+        "backward_steps": 32,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-10-19T00:00:00+00:00",
+        "max_label": "2026-10-19T23:55:00+00:00"
+      },
+      "zip_sha256": "1d9d1e842d8b2232b92a47ff6fc4b5c289ea8bca9d68ff62b472f972385e5a77"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": 0.210346918983,
+          "mae": 0.573618820689,
+          "median_relative_error": 0.434667101761
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.999632001539,
+          "mae": 0.003244897653,
+          "median_relative_error": 0.000167796599
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999978654593,
+            "mae": 0.001300640866,
+            "median_relative_error": 0.00018036441
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.318340621425,
+            "mae": 0.508352766143,
+            "median_relative_error": 0.428470611086
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999987315911,
+            "mae": 0.001299024077,
+            "median_relative_error": 0.000141948427
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.330661877117,
+            "mae": 0.532098011829,
+            "median_relative_error": 0.398907353287
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.998261219902,
+            "mae": 0.006080271985,
+            "median_relative_error": 0.000174141845
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.09613689149,
+            "mae": 0.542789089244,
+            "median_relative_error": 0.410072640705
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999824387487,
+            "mae": 0.004299653685,
+            "median_relative_error": 0.000144895741
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.064290858924,
+            "mae": 0.711235415538,
+            "median_relative_error": 0.520355584948
+          }
+        }
+      ],
+      "date": "2026-10-20",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-10-20.zip",
+        "rows": 288,
+        "backward_steps": 31,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-10-20T00:00:00+00:00",
+        "max_label": "2026-10-20T23:55:00+00:00"
+      },
+      "zip_sha256": "bc7bde46301d87d8f161454715547913f9b5a984b127d5bce809cbcbe535ae06"
+    },
+    {
+      "qualified": true,
+      "reason": "empirical_window_verified",
+      "offset_minutes": 0,
+      "scores": {
+        "-5": {
+          "pairs": 288,
+          "r": -0.014648526533,
+          "mae": 0.751095357872,
+          "median_relative_error": 0.49231932569
+        },
+        "0": {
+          "pairs": 288,
+          "r": 0.998665020802,
+          "mae": 0.006130003385,
+          "median_relative_error": 0.00018887566
+        }
+      },
+      "six_hour_checks": [
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999675812769,
+            "mae": 0.003778611409,
+            "median_relative_error": 0.00011678202
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.010986315283,
+            "mae": 0.843950755148,
+            "median_relative_error": 0.52217288644
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.996962904004,
+            "mae": 0.011163368437,
+            "median_relative_error": 0.000242734364
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.14541491308,
+            "mae": 0.900254486861,
+            "median_relative_error": 0.534851688416
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.999925559654,
+            "mae": 0.002170281837,
+            "median_relative_error": 0.000223504962
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": -0.005862678016,
+            "mae": 0.625325958467,
+            "median_relative_error": 0.38839637927
+          }
+        },
+        {
+          "chosen": {
+            "pairs": 72,
+            "r": 0.99884096002,
+            "mae": 0.007407751858,
+            "median_relative_error": 0.000184166024
+          },
+          "alternative": {
+            "pairs": 72,
+            "r": 0.070800359338,
+            "mae": 0.634850231013,
+            "median_relative_error": 0.486008888044
+          }
+        }
+      ],
+      "date": "2026-10-21",
+      "source": {
+        "file": "BTCUSDT-metrics-2026-10-21.zip",
+        "rows": 288,
+        "backward_steps": 25,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-10-21T00:00:00+00:00",
+        "max_label": "2026-10-21T23:55:00+00:00"
+      },
+      "zip_sha256": "55bbdadd5aaf0d04b07b510663e24074762b9616deeefb3687568a408a3d0432"
+    }
+  ]
+}

@@ -7,3 +7,5 @@ data/derivatives/** -text whitespace=cr-at-eol
 data/archive_feasibility/** -text whitespace=cr-at-eol
 data/archive_feasibility/**/raw/** -whitespace
 data/archive_normalized/** -text
+data/archive_coverage/** -text
+data/archive_coverage/**/raw/** -whitespace

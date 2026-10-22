@@ -1,0 +1,1190 @@
+[
+  {
+    "date": "2021-12-01",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": -5,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2021-12-01.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2021-12-01.zip",
+        "zip_sha256": "12fbd76343893fe56a75ae8086ea3c4f0a1a5780e1b2003640d8847daf0cfdde",
+        "csv_sha256": "4e86d3afe38556bac1fa4585158d0cba4460fba763ef28d4cba954c557cf28c1",
+        "checksum_sha256": "69a0ed99aa35fea84d9253087a79614df01d3ea8da986ce2bef78fd86f15c46a",
+        "collected_at_utc": "2026-10-22T08:39:25.176598+00:00",
+        "checksum_collected_at_utc": "2026-10-22T08:39:26.294097+00:00",
+        "source_last_modified": "Fri, 16 Jun 2023 11:35:54 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2021-11-30.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2021-11-30.zip",
+        "zip_sha256": "1b9b454b4201312c49eba9b9f6543422285fd28fba1842ed775d78be369e18aa",
+        "csv_sha256": "22614bbf1e758b829d944509c711e5318a659d6c2779309608829942e617cd96",
+        "checksum_sha256": "9e735c667c643bc694b20887876cf269f4a3decbcb7abcfb51262e2a5fdf8416",
+        "collected_at_utc": "2026-10-22T09:10:02.073777+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:03.051931+00:00",
+        "published_at_utc": null,
+        "schema_variant": "2021 headerless official 12-column futures klines"
+      },
+      {
+        "file": "BTCUSDT-5m-2021-12-01.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2021-12-01.zip",
+        "zip_sha256": "3add6c315a692a1428ecaaf032789de4d05d67bea8db25021c8f9a29a14791ce",
+        "csv_sha256": "f4d321e1ed5f79bc963615428923edbdf768f530e6c2ee002aaa3cf57f7b1693",
+        "checksum_sha256": "1c305b37d5feb231cbdd297efcb94bc15315fd64a5ed336d057bbd766a6dbcea",
+        "collected_at_utc": "2026-10-22T09:10:03.888546+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:04.910817+00:00",
+        "published_at_utc": null,
+        "schema_variant": "2021 headerless official 12-column futures klines"
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "fd8278bf7975960cc5cb3273b3776120225f813caae0e94c1ddb05b33cc070de"
+  },
+  {
+    "date": "2025-06-24",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2025-06-24.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2025-06-24.zip",
+        "zip_sha256": "3531fe46815e556485499cc329ab53853e4e110302c35e45ef350b2fc246a452",
+        "csv_sha256": "f061f8a311c953a053564ae2baff46e8b962a4b9ec67773cfb9705c30a4352a0",
+        "checksum_sha256": "5f4546c206e4a10757c9afb09b881b6924ef1d9ca80eb1057c38e96ebcd1b7e0",
+        "collected_at_utc": "2026-10-22T08:39:27.449812+00:00",
+        "checksum_collected_at_utc": "2026-10-22T08:39:29.971264+00:00",
+        "source_last_modified": "Mon, 03 Aug 2026 08:34:05 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2025-06-23.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2025-06-23.zip",
+        "zip_sha256": "56426eab793c23e189df506e482f4373bcbe9179a98a885ed3ec648cadf56d9d",
+        "csv_sha256": "7d7aa02469e87d7e08198361095ae9a2ed49aaccdbb24aa94be30c6f6bb73dd8",
+        "checksum_sha256": "34d141094d081af8622383e26fb179eceb32fc7f3ed4dbd685b831510d0cb67d",
+        "collected_at_utc": "2026-10-22T09:10:05.976112+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:06.898729+00:00",
+        "source_last_modified": "Tue, 24 Jun 2025 07:47:22 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2025-06-24.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2025-06-24.zip",
+        "zip_sha256": "5287af9b026f45e53e244095f79ebc3342e9b48b5bc1c3fe24d0a04a206391aa",
+        "csv_sha256": "9b1572aca3cb64e445e504b9d75a595ae9cb2304d40bf23f235dcb30476e0570",
+        "checksum_sha256": "516ba30019e425cf223b20fee335929c95f1efefc0940400cdd6071276aadd0a",
+        "collected_at_utc": "2026-10-22T09:10:07.733612+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:08.735965+00:00",
+        "source_last_modified": "Wed, 25 Jun 2025 08:07:28 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "993979c53e82ae03a115c4265297eba7c50d6bfa66c6dfb3ff996657384165c1"
+  },
+  {
+    "date": "2026-06-01",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-06-01.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-06-01.zip",
+        "zip_sha256": "b97a449430eb330ecb3105daefebe9113a9d85ff7de3c597ae06b348b941327b",
+        "csv_sha256": "56ede12bbd415e19ad9a9652d325548ac261d55c7b21c5d7b3826356cdb3e223",
+        "checksum_sha256": "5b42f13aabeecc27c09b370b09cb41a2bf5f4ea5949e8977e8f349a48b2feb1e",
+        "collected_at_utc": "2026-10-22T09:09:25.250173+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:26.377292+00:00",
+        "source_last_modified": "Sat, 22 Aug 2026 01:30:47 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-05-31.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-05-31.zip",
+        "zip_sha256": "8aa8b52a042ce2af257fdd389e98304bfd6694c6b0aed32fcad8ca6feeff0998",
+        "csv_sha256": "f2dadb0086420e3be3d947b3f9286c8c45c56026ae87693240c51c55eb279fc7",
+        "checksum_sha256": "e3797845b69f1501c5d45515efbfc5fa15c0713862e92ee2f0d164a5a594c525",
+        "collected_at_utc": "2026-10-22T09:10:09.568847+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:10.693237+00:00",
+        "source_last_modified": "Mon, 01 Jun 2026 10:14:00 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-01.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-01.zip",
+        "zip_sha256": "49ede3613f6a58b4d00d4cdb4918ee454926002557409e5b1699f0f2522c86c3",
+        "csv_sha256": "f7dfbfcfa85bfe3df9bad1eb9b1b1f0b3bb1cb3a114dba8668e8c72693d20953",
+        "checksum_sha256": "9fb5085dd81f578a020f099a9a51a7aa037184a55221885ddaacf31f2ddc6146",
+        "collected_at_utc": "2026-10-22T09:10:11.506971+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:12.294567+00:00",
+        "source_last_modified": "Tue, 02 Jun 2026 09:57:05 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "3becc222f3d4b47cce24811474e74bc3c07fba409807688604ed1ea06fc75a50"
+  },
+  {
+    "date": "2026-06-20",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-06-20.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-06-20.zip",
+        "zip_sha256": "72968edc3f9e1655486df398686f418c941c8a17569a74237b6befb7a9af465b",
+        "csv_sha256": "45d5e869126e373709548a8d399489e1f2781a19b8e8c03a449aa999d109ee0d",
+        "checksum_sha256": "842a8d44f9e1dcd15656e1f01d8d747c6e45746490eab3a570922d86e395e1c5",
+        "collected_at_utc": "2026-10-22T09:09:27.408561+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:28.379024+00:00",
+        "source_last_modified": "Mon, 03 Aug 2026 06:52:43 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-19.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-19.zip",
+        "zip_sha256": "a85b50afd8b42fb05ba1f0acee5b5e72f8d5ed8881f759bc470e1d1390bbd72a",
+        "csv_sha256": "f8ea99a43d6010fb372d8d9468c4d965590f86dfda836b5761d68c812cacba8e",
+        "checksum_sha256": "3ced7c991b66c766f8b3d62c336a95c94a8aeafc3e6c3f868b2c9629ae0a859b",
+        "collected_at_utc": "2026-10-22T09:10:13.299182+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:14.045859+00:00",
+        "source_last_modified": "Sat, 20 Jun 2026 09:30:08 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-20.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-20.zip",
+        "zip_sha256": "0282b080cadaf71722892cf5bac5c378241e0a8c2581891bd7b0fa2e7d7bc932",
+        "csv_sha256": "0b5efe2d9c7e928fafc2cf94070cedeaf38911b0d8dfff454180035d85e127c2",
+        "checksum_sha256": "5793e35982b73a61f8a61e9713c830f27a9965e7a598d45c66ace8d1013f14d8",
+        "collected_at_utc": "2026-10-22T09:10:15.022050+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:16.165100+00:00",
+        "source_last_modified": "Sun, 21 Jun 2026 09:12:26 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "5252f0d425ee54e11f42955faa7e8dbb8b5a74202aaa4934ceae4701a6c2c32d"
+  },
+  {
+    "date": "2026-06-21",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-06-21.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-06-21.zip",
+        "zip_sha256": "59a8ce6caef388fa1802a282bf9b74a5b859385af3c2ca41f3af59e7fa36f630",
+        "csv_sha256": "cbdaf0feaa1eb6cc88147abf0d5f943e31004a8c6ae6daa7e253a0b9267dd7e8",
+        "checksum_sha256": "5a0a9a56183dc093adc5996a20e37c123c1b7020c54ba8b2fdfa328c53b570c2",
+        "collected_at_utc": "2026-10-22T09:09:29.380902+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:30.534960+00:00",
+        "source_last_modified": "Fri, 31 Jul 2026 18:19:56 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-20.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-20.zip",
+        "zip_sha256": "0282b080cadaf71722892cf5bac5c378241e0a8c2581891bd7b0fa2e7d7bc932",
+        "csv_sha256": "0b5efe2d9c7e928fafc2cf94070cedeaf38911b0d8dfff454180035d85e127c2",
+        "checksum_sha256": "5793e35982b73a61f8a61e9713c830f27a9965e7a598d45c66ace8d1013f14d8",
+        "collected_at_utc": "2026-10-22T09:10:15.022050+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:16.165100+00:00",
+        "source_last_modified": "Sun, 21 Jun 2026 09:12:26 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-21.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-21.zip",
+        "zip_sha256": "dfbf40bb3e7508c12489f03abcd781b4decd0108da6df7ef9a2954efb0f71be2",
+        "csv_sha256": "faca3f299fb2b35b2d40fd32990fdb89ca5ffd39a553ac87fa21cbb6470b9208",
+        "checksum_sha256": "bdd01674caa06079ca96ae90f11f6cc4dffd1b3403849e6871b670acaccf6365",
+        "collected_at_utc": "2026-10-22T09:10:17.405935+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:18.353338+00:00",
+        "source_last_modified": "Mon, 22 Jun 2026 09:32:33 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "aba3e3f7ea2d08df26a2cf12c17220d00d734318550653b4338b477e5a13f7b8"
+  },
+  {
+    "date": "2026-06-22",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-06-22.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-06-22.zip",
+        "zip_sha256": "da5bdc742fc273ec69e5f4480c5ae297db50db14c5af384ba6fd8806878ddb67",
+        "csv_sha256": "723ac31e668fe4faea3d172caece4b2fa06a52900d86be24f378f06c5e6fa5ad",
+        "checksum_sha256": "bd55a29971f84b4cd67d3484f6436d0a5b36a318aad3758669e05b698e9e8d09",
+        "collected_at_utc": "2026-10-22T09:09:31.575430+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:32.541448+00:00",
+        "source_last_modified": "Thu, 30 Jul 2026 18:07:22 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-21.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-21.zip",
+        "zip_sha256": "dfbf40bb3e7508c12489f03abcd781b4decd0108da6df7ef9a2954efb0f71be2",
+        "csv_sha256": "faca3f299fb2b35b2d40fd32990fdb89ca5ffd39a553ac87fa21cbb6470b9208",
+        "checksum_sha256": "bdd01674caa06079ca96ae90f11f6cc4dffd1b3403849e6871b670acaccf6365",
+        "collected_at_utc": "2026-10-22T09:10:17.405935+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:18.353338+00:00",
+        "source_last_modified": "Mon, 22 Jun 2026 09:32:33 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-22.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-22.zip",
+        "zip_sha256": "0f740b5d0b6bda3cc4b7a91f0e480012eeee301b0765a107ac0c64cf86e1eed2",
+        "csv_sha256": "79dd20e9a0bd24f79cfd22a2816d79650d19bdf913bcc55d4009305f8df51838",
+        "checksum_sha256": "ec543be0885e9939fa4cc81ab35af07c3038690fb9588927176ab9c081106271",
+        "collected_at_utc": "2026-10-22T09:10:19.381229+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:20.168722+00:00",
+        "source_last_modified": "Tue, 23 Jun 2026 10:42:57 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "8993a794581590e74d19d948649c68060c4356e1f8c753a6567f2039f32cd262"
+  },
+  {
+    "date": "2026-06-23",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-06-23.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-06-23.zip",
+        "zip_sha256": "df14d71acd73d1349eaeae6e281d8eacc7187dfca966c599ff051de0a76f6820",
+        "csv_sha256": "6c7a554dc11dcce67082f6238945ef95a3803736b1fa29405f3bf297655c943d",
+        "checksum_sha256": "9598bc5d3400daa21994a99da87a969af1c87bc00c9bc29c55740b606f8e7471",
+        "collected_at_utc": "2026-10-22T08:39:30.824837+00:00",
+        "checksum_collected_at_utc": "2026-10-22T08:39:32.046393+00:00",
+        "source_last_modified": "Thu, 30 Jul 2026 08:34:23 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-22.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-22.zip",
+        "zip_sha256": "0f740b5d0b6bda3cc4b7a91f0e480012eeee301b0765a107ac0c64cf86e1eed2",
+        "csv_sha256": "79dd20e9a0bd24f79cfd22a2816d79650d19bdf913bcc55d4009305f8df51838",
+        "checksum_sha256": "ec543be0885e9939fa4cc81ab35af07c3038690fb9588927176ab9c081106271",
+        "collected_at_utc": "2026-10-22T09:10:19.381229+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:20.168722+00:00",
+        "source_last_modified": "Tue, 23 Jun 2026 10:42:57 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-23.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-23.zip",
+        "zip_sha256": "641bbad5d2ff48d55cc10899d1005fe2a142c0e875d83f2ce4e178b71c838b2c",
+        "csv_sha256": "1af9238a60686f9b839963d7572edab891e35add156c61095bcca6d5e093eebd",
+        "checksum_sha256": "2afe95b9ffa3eee33897040eaae4159558316bf6400086b3241e2c2adbd1abf7",
+        "collected_at_utc": "2026-10-22T09:10:21.198603+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:22.091695+00:00",
+        "source_last_modified": "Wed, 24 Jun 2026 10:12:27 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "0e3d68a84a7a895c90a13045786813199b48ee816c4d48277dcb3879909617c6"
+  },
+  {
+    "date": "2026-06-24",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-06-24.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-06-24.zip",
+        "zip_sha256": "6bb5ab473189fa7c935b4d9a58d34b2c96cc329cd74fd6f9f17f8abc48ece649",
+        "csv_sha256": "e0146960af4724088ff2338f05139da926b1bfda7adb38d698ba4adc8459d6f6",
+        "checksum_sha256": "3219fb9bd0b0ebfc50f930b5cde915a10930a3ec3af72832ebc984c3e30c9c0f",
+        "collected_at_utc": "2026-10-22T08:39:33.209831+00:00",
+        "checksum_collected_at_utc": "2026-10-22T08:39:34.455627+00:00",
+        "source_last_modified": "Wed, 29 Jul 2026 06:12:20 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-23.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-23.zip",
+        "zip_sha256": "641bbad5d2ff48d55cc10899d1005fe2a142c0e875d83f2ce4e178b71c838b2c",
+        "csv_sha256": "1af9238a60686f9b839963d7572edab891e35add156c61095bcca6d5e093eebd",
+        "checksum_sha256": "2afe95b9ffa3eee33897040eaae4159558316bf6400086b3241e2c2adbd1abf7",
+        "collected_at_utc": "2026-10-22T09:10:21.198603+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:22.091695+00:00",
+        "source_last_modified": "Wed, 24 Jun 2026 10:12:27 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-24.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-24.zip",
+        "zip_sha256": "9651ac1b307459ed1f570c144af5bec3d8c12c550d2a17027cff25a5c0989fcf",
+        "csv_sha256": "33991a3b3d9d88f03c86a6558b7871732a2825a0d6df8dfe34ca6f46b23e88e1",
+        "checksum_sha256": "3bede25d5ed1421bc880662cf102a571b42caeb1ec67d8f2e020052d66253286",
+        "collected_at_utc": "2026-10-22T08:39:46.128095+00:00",
+        "checksum_collected_at_utc": "2026-10-22T08:39:47.654451+00:00",
+        "source_last_modified": "Thu, 25 Jun 2026 09:34:20 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "1bac7cbfb1fb356e7be1de3fe92c85878a14a9e6be12f3efc436c01e21f82b22"
+  },
+  {
+    "date": "2026-06-25",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-06-25.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-06-25.zip",
+        "zip_sha256": "56e0751dabd8108d61d1f9de86931ac68e901dad202d4dbac03173e2768be68e",
+        "csv_sha256": "c2afa88716d65a3e53d7243629cb4bd5abbe34d0e70fcbee557233eb9d5b4b35",
+        "checksum_sha256": "4d56c033651a245dd3cd05a0b77f17546d402415663cac4ddacd135246e85d7f",
+        "collected_at_utc": "2026-10-22T08:39:35.334385+00:00",
+        "checksum_collected_at_utc": "2026-10-22T08:39:36.345143+00:00",
+        "source_last_modified": "Tue, 28 Jul 2026 04:26:19 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-24.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-24.zip",
+        "zip_sha256": "9651ac1b307459ed1f570c144af5bec3d8c12c550d2a17027cff25a5c0989fcf",
+        "csv_sha256": "33991a3b3d9d88f03c86a6558b7871732a2825a0d6df8dfe34ca6f46b23e88e1",
+        "checksum_sha256": "3bede25d5ed1421bc880662cf102a571b42caeb1ec67d8f2e020052d66253286",
+        "collected_at_utc": "2026-10-22T08:39:46.128095+00:00",
+        "checksum_collected_at_utc": "2026-10-22T08:39:47.654451+00:00",
+        "source_last_modified": "Thu, 25 Jun 2026 09:34:20 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-25.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-25.zip",
+        "zip_sha256": "cb37bcf943fa5a0fe2d142e84064e9b9211ab073fff62c364e3f2ad806e65a69",
+        "csv_sha256": "2cf191494e4bad49bb1a72f15c0e01b1e3336e01a1bf43a4799542e95c660124",
+        "checksum_sha256": "04d12186484ca38f7fe383d9d16e931f1d99acccce83437be85289d71fc6621f",
+        "collected_at_utc": "2026-10-22T08:39:48.764336+00:00",
+        "checksum_collected_at_utc": "2026-10-22T08:39:49.940916+00:00",
+        "source_last_modified": "Fri, 26 Jun 2026 09:14:47 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "8e7c03fddfd0560bb5835e491a9ad10714d32e2d2e525bbcb6eba69270e2669b"
+  },
+  {
+    "date": "2026-06-26",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-06-26.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-06-26.zip",
+        "zip_sha256": "c06c1de4e3ab250acff83e71feb56344ae5b3cf31cd420f3ea9cfcf492976b0c",
+        "csv_sha256": "877476b311d50db8c32b51d09d9ff0973f925ffeaeed44a51409a8bbfea25a5d",
+        "checksum_sha256": "edc58e4e9297a6169b1e9155b0cc11cfff1ee44f2854c9bbbe4ca83a5a58acf9",
+        "collected_at_utc": "2026-10-22T08:39:37.215877+00:00",
+        "checksum_collected_at_utc": "2026-10-22T08:39:38.635003+00:00",
+        "source_last_modified": "Mon, 27 Jul 2026 07:09:29 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-25.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-25.zip",
+        "zip_sha256": "cb37bcf943fa5a0fe2d142e84064e9b9211ab073fff62c364e3f2ad806e65a69",
+        "csv_sha256": "2cf191494e4bad49bb1a72f15c0e01b1e3336e01a1bf43a4799542e95c660124",
+        "checksum_sha256": "04d12186484ca38f7fe383d9d16e931f1d99acccce83437be85289d71fc6621f",
+        "collected_at_utc": "2026-10-22T08:39:48.764336+00:00",
+        "checksum_collected_at_utc": "2026-10-22T08:39:49.940916+00:00",
+        "source_last_modified": "Fri, 26 Jun 2026 09:14:47 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-26.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-26.zip",
+        "zip_sha256": "1fe05a63c64dd9cee2e47388040bfcd7b3d970a84e14e6514bef4033062067b4",
+        "csv_sha256": "648d2a6a23427b9a0f539b3e30df61118b053052e5f4cfb21e5c2cd630e0b71e",
+        "checksum_sha256": "4dc6a9a07acbc4619a008efbd8cca74d9a74129da8df9b823f7c186f10423762",
+        "collected_at_utc": "2026-10-22T09:10:22.979931+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:23.949173+00:00",
+        "source_last_modified": "Sat, 27 Jun 2026 08:58:41 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "7b7dfab14db1e3b7b1db0e23e0c956340af83e0e871b61304e7dc11331359ade"
+  },
+  {
+    "date": "2026-06-27",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-06-27.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-06-27.zip",
+        "zip_sha256": "ab979a9e005f2b0de2e437efd6a2d94fe9ce88a32a70a8c741bc265e6d6cbc91",
+        "csv_sha256": "0510797b698f4a651be366393ce8b7e630b37d89888580036ba9996588fd5a51",
+        "checksum_sha256": "714d9b7c0bb0f1e26cb5ff5a985451dca57ea3e919c35b7844814597a9563a93",
+        "collected_at_utc": "2026-10-22T09:09:33.392478+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:34.416892+00:00",
+        "source_last_modified": "Mon, 27 Jul 2026 04:58:29 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-26.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-26.zip",
+        "zip_sha256": "1fe05a63c64dd9cee2e47388040bfcd7b3d970a84e14e6514bef4033062067b4",
+        "csv_sha256": "648d2a6a23427b9a0f539b3e30df61118b053052e5f4cfb21e5c2cd630e0b71e",
+        "checksum_sha256": "4dc6a9a07acbc4619a008efbd8cca74d9a74129da8df9b823f7c186f10423762",
+        "collected_at_utc": "2026-10-22T09:10:22.979931+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:23.949173+00:00",
+        "source_last_modified": "Sat, 27 Jun 2026 08:58:41 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-27.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-27.zip",
+        "zip_sha256": "56e531047e4d35f96e654abb08a44b751d941ff48b7d6670d404c94093c8a29a",
+        "csv_sha256": "cdb86918c62a94f193db952878fb190f3f1e15f4530f40e2a105affd71e673d3",
+        "checksum_sha256": "8420a911b5fd45c33530bfbdcbcce8a326ab58a8cd81ba5df3508232c5b2b243",
+        "collected_at_utc": "2026-10-22T09:10:24.786294+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:25.939562+00:00",
+        "source_last_modified": "Sun, 28 Jun 2026 08:43:51 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "5e3b86c50cb25bc92695f20a89edc6972b16e0a54dccf37a8f5d925b21f9ea8a"
+  },
+  {
+    "date": "2026-06-28",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-06-28.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-06-28.zip",
+        "zip_sha256": "c2d5bc7d9352edc666c0eb4afefef5b5ccc118226c26018069e7811c91652017",
+        "csv_sha256": "1660c91eefb2a8a0ff662c30493f795cb336e2fd9814f98dfaf490c95586ad4f",
+        "checksum_sha256": "a93ca1db600d5433dc219ef81d2a5a97e522ce1d639d9b98e4f35bb2f8ffbdb7",
+        "collected_at_utc": "2026-10-22T09:09:35.336783+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:36.478479+00:00",
+        "source_last_modified": "Wed, 07 Oct 2026 14:55:47 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-27.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-27.zip",
+        "zip_sha256": "56e531047e4d35f96e654abb08a44b751d941ff48b7d6670d404c94093c8a29a",
+        "csv_sha256": "cdb86918c62a94f193db952878fb190f3f1e15f4530f40e2a105affd71e673d3",
+        "checksum_sha256": "8420a911b5fd45c33530bfbdcbcce8a326ab58a8cd81ba5df3508232c5b2b243",
+        "collected_at_utc": "2026-10-22T09:10:24.786294+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:25.939562+00:00",
+        "source_last_modified": "Sun, 28 Jun 2026 08:43:51 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-28.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-28.zip",
+        "zip_sha256": "59c742abf5f61f796845a3cafa305625d296ce92e6d9b8f543741a1d22076319",
+        "csv_sha256": "55ecc991d546e2a062ad5a40de060bbc76cb8595465691b2a12d3cd2bc1788a7",
+        "checksum_sha256": "fbde0170542905314254e28be36b117a58c420854499a3027b82c571714e298c",
+        "collected_at_utc": "2026-10-22T09:10:27.145748+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:28.417818+00:00",
+        "source_last_modified": "Mon, 29 Jun 2026 09:48:15 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "c7b91d623f190260a368b49b0bcd21e46cebcc723d22f5d6855b5129face1af6"
+  },
+  {
+    "date": "2026-06-29",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-06-29.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-06-29.zip",
+        "zip_sha256": "eee03d532b47764dc7ae6694764349dd74f594942be3ca36800720040076fcfa",
+        "csv_sha256": "4c51d28c2261310a784ffcd82916692a2d801f424b7148241809165cdc790711",
+        "checksum_sha256": "0421466603310bc00cb425107acb6722642ddc6a9bd64291297a55e82b189442",
+        "collected_at_utc": "2026-10-22T09:09:37.585393+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:38.554437+00:00",
+        "source_last_modified": "Thu, 23 Jul 2026 06:54:14 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-28.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-28.zip",
+        "zip_sha256": "59c742abf5f61f796845a3cafa305625d296ce92e6d9b8f543741a1d22076319",
+        "csv_sha256": "55ecc991d546e2a062ad5a40de060bbc76cb8595465691b2a12d3cd2bc1788a7",
+        "checksum_sha256": "fbde0170542905314254e28be36b117a58c420854499a3027b82c571714e298c",
+        "collected_at_utc": "2026-10-22T09:10:27.145748+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:28.417818+00:00",
+        "source_last_modified": "Mon, 29 Jun 2026 09:48:15 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-29.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-29.zip",
+        "zip_sha256": "73d7e5129b5b2a46e2ecddd79e9ef3fa35446ffd7345516aa9a0dd0ec826ad61",
+        "csv_sha256": "57d1b08b85978349d1b5d626203e89af5ce240e26c2edde24f9ab97d1a401515",
+        "checksum_sha256": "43215aeba7d4bfcb9f8712f7c06d09cf277cc994745b16d128807cf2a6640c57",
+        "collected_at_utc": "2026-10-22T09:10:29.318451+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:30.240765+00:00",
+        "source_last_modified": "Tue, 30 Jun 2026 10:41:49 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "4c3bbf99f737a1e4bc754a195ab831799bd590151e0e418c24446f58cf67bb70"
+  },
+  {
+    "date": "2026-06-30",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-06-30.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-06-30.zip",
+        "zip_sha256": "c7d744cb21cfaed8cce5bf5323b1ffeb13e9ac8c60d76f59cd97257ffc83cde4",
+        "csv_sha256": "92fe3892f5929a29efe1cfb75b1abfd6dffbda16aa4caf9eb50b89c9f5d8e168",
+        "checksum_sha256": "22bf882b1cadf6f0a32605509f9e3dc20c1315cdc93b790806d7d5fe9e95207e",
+        "collected_at_utc": "2026-10-22T09:09:39.361074+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:40.314887+00:00",
+        "source_last_modified": "Wed, 22 Jul 2026 07:54:35 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-29.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-29.zip",
+        "zip_sha256": "73d7e5129b5b2a46e2ecddd79e9ef3fa35446ffd7345516aa9a0dd0ec826ad61",
+        "csv_sha256": "57d1b08b85978349d1b5d626203e89af5ce240e26c2edde24f9ab97d1a401515",
+        "checksum_sha256": "43215aeba7d4bfcb9f8712f7c06d09cf277cc994745b16d128807cf2a6640c57",
+        "collected_at_utc": "2026-10-22T09:10:29.318451+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:30.240765+00:00",
+        "source_last_modified": "Tue, 30 Jun 2026 10:41:49 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-30.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-30.zip",
+        "zip_sha256": "03a232eb3bc47ca9a84c64d53d27022a63440a37e7beb0228d7c122e3f217f88",
+        "csv_sha256": "74ad596a3789124ec286bf8e8a188d6975b8ac607a4cece908872f9de145c7b2",
+        "checksum_sha256": "b088df1166076093a4de47da58d42cc869c3a186d311159cceb056fa5f7d8263",
+        "collected_at_utc": "2026-10-22T09:10:31.558966+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:32.361305+00:00",
+        "source_last_modified": "Wed, 01 Jul 2026 10:49:55 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "7ba39f7bc6510ecd99a78f28e2c7fa58759f0dbd8d047992cef6596bcc682d2a"
+  },
+  {
+    "date": "2026-07-01",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-07-01.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-07-01.zip",
+        "zip_sha256": "4a16be30dbbbb1042a9085c4e896b0aa57c5718314c5d0c19e689c1d175a5cd8",
+        "csv_sha256": "4f00de3d568f416f9da3806bd9ee902123baf95d2d609add130bb2ca83f0535e",
+        "checksum_sha256": "763f92215ff3f3d596b03f125b908df8f069baf4223678a456bc10fa33017a10",
+        "collected_at_utc": "2026-10-22T08:39:41.529335+00:00",
+        "checksum_collected_at_utc": "2026-10-22T08:39:42.634476+00:00",
+        "source_last_modified": "Tue, 21 Jul 2026 05:37:26 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-06-30.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-06-30.zip",
+        "zip_sha256": "03a232eb3bc47ca9a84c64d53d27022a63440a37e7beb0228d7c122e3f217f88",
+        "csv_sha256": "74ad596a3789124ec286bf8e8a188d6975b8ac607a4cece908872f9de145c7b2",
+        "checksum_sha256": "b088df1166076093a4de47da58d42cc869c3a186d311159cceb056fa5f7d8263",
+        "collected_at_utc": "2026-10-22T09:10:31.558966+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:32.361305+00:00",
+        "source_last_modified": "Wed, 01 Jul 2026 10:49:55 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-07-01.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-07-01.zip",
+        "zip_sha256": "815b1f31bfa740aa96802ad6a81c6cf8c0a6577e1120a45d49dc0c07742a425e",
+        "csv_sha256": "48df459e0a030fa8e116622affe7197ab7f2502ef70046f0afe5347d68218203",
+        "checksum_sha256": "2562103ff164f4c4453184a917907e1813f98a31b1b4d3f0a2a8743d8a21afe4",
+        "collected_at_utc": "2026-10-22T09:10:33.211330+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:34.143394+00:00",
+        "source_last_modified": "Thu, 02 Jul 2026 10:09:29 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "82f9581d600cb96f2857442dbb755967e511783ab6db9c9abbe094695c3c44c3"
+  },
+  {
+    "date": "2026-07-02",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-07-02.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-07-02.zip",
+        "zip_sha256": "655ffce8f0e2cd88482094b1511c7097468930d596a804d1faab9b06d72957a1",
+        "csv_sha256": "ed40138752fb2bb20eea10fee6b34767cbbf9622a6f0022c19e0b5c2022724da",
+        "checksum_sha256": "c835ff00829128e3273b5d1a3f58f05005c12979d69c3be4dbd51cb1c0d7b709",
+        "collected_at_utc": "2026-10-22T09:09:41.317123+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:42.424859+00:00",
+        "source_last_modified": "Mon, 20 Jul 2026 11:33:47 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-07-01.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-07-01.zip",
+        "zip_sha256": "815b1f31bfa740aa96802ad6a81c6cf8c0a6577e1120a45d49dc0c07742a425e",
+        "csv_sha256": "48df459e0a030fa8e116622affe7197ab7f2502ef70046f0afe5347d68218203",
+        "checksum_sha256": "2562103ff164f4c4453184a917907e1813f98a31b1b4d3f0a2a8743d8a21afe4",
+        "collected_at_utc": "2026-10-22T09:10:33.211330+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:34.143394+00:00",
+        "source_last_modified": "Thu, 02 Jul 2026 10:09:29 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-07-02.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-07-02.zip",
+        "zip_sha256": "55b05faf77bc297f7415e14c4b37a4a910a433df0a2205914166978f8019a5c2",
+        "csv_sha256": "0e6469a426128a7ec5a098e6350ae7fcdb78e0fc98c126f8aaaa9d4344f7f1af",
+        "checksum_sha256": "9a8c8af84e57ee76bfaa53f194da662cc2e1b1b169a8be7c3e27d5fa84c95e03",
+        "collected_at_utc": "2026-10-22T09:10:34.937310+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:35.848510+00:00",
+        "source_last_modified": "Fri, 03 Jul 2026 09:29:25 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "e63e2c72251a1d460c18c7dc416b10983ae48a54ce3f593121c92342903405c9"
+  },
+  {
+    "date": "2026-07-03",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-07-03.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-07-03.zip",
+        "zip_sha256": "5f9b4a9f4b225e7b08edda353b08bdae3016fa52486bd7d594be0165d0181f12",
+        "csv_sha256": "40d1762dcd51278951f00fc47ac727cc28368d3950c1033f636cbc201d2e7f45",
+        "checksum_sha256": "585d502f42c69f10ee10e3184e3ef1d87bd5dc2490c6426744f2e85688727db9",
+        "collected_at_utc": "2026-10-22T09:09:43.229929+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:44.231302+00:00",
+        "source_last_modified": "Mon, 20 Jul 2026 08:37:05 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-07-02.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-07-02.zip",
+        "zip_sha256": "55b05faf77bc297f7415e14c4b37a4a910a433df0a2205914166978f8019a5c2",
+        "csv_sha256": "0e6469a426128a7ec5a098e6350ae7fcdb78e0fc98c126f8aaaa9d4344f7f1af",
+        "checksum_sha256": "9a8c8af84e57ee76bfaa53f194da662cc2e1b1b169a8be7c3e27d5fa84c95e03",
+        "collected_at_utc": "2026-10-22T09:10:34.937310+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:35.848510+00:00",
+        "source_last_modified": "Fri, 03 Jul 2026 09:29:25 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-07-03.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-07-03.zip",
+        "zip_sha256": "6a9a29266701da06eabb2fbbec65eb002653725f449cdc5292b1cef9e350b8c0",
+        "csv_sha256": "06355eebef30b150c1566fa4ab8ef170cc9b866c6adcc6929df3729586a1111d",
+        "checksum_sha256": "e148d9ad97e45b560bc577c4ab4d066cc95cce6482a7e687bdda66c061fa4fff",
+        "collected_at_utc": "2026-10-22T09:10:36.861293+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:37.819637+00:00",
+        "source_last_modified": "Sat, 04 Jul 2026 09:21:49 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "79046c593910300598d8040ddd3872bb02e4e07b2a3b1f876823a53b4a0855ac"
+  },
+  {
+    "date": "2026-07-04",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-07-04.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-07-04.zip",
+        "zip_sha256": "710145c97cd53a6804765181f48ebc1d79df9b80f42ab434499c97124f699120",
+        "csv_sha256": "20db92dc3f9a06bd4d545963c8f45169d54b9d3bb44beaf081a527394c59675b",
+        "checksum_sha256": "032d680d034685ac11cfe558aeaf9df5baa206136ffdb46523dc1e78fd30de80",
+        "collected_at_utc": "2026-10-22T09:09:45.025625+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:45.955246+00:00",
+        "source_last_modified": "Fri, 17 Jul 2026 14:54:54 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-07-03.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-07-03.zip",
+        "zip_sha256": "6a9a29266701da06eabb2fbbec65eb002653725f449cdc5292b1cef9e350b8c0",
+        "csv_sha256": "06355eebef30b150c1566fa4ab8ef170cc9b866c6adcc6929df3729586a1111d",
+        "checksum_sha256": "e148d9ad97e45b560bc577c4ab4d066cc95cce6482a7e687bdda66c061fa4fff",
+        "collected_at_utc": "2026-10-22T09:10:36.861293+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:37.819637+00:00",
+        "source_last_modified": "Sat, 04 Jul 2026 09:21:49 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-07-04.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-07-04.zip",
+        "zip_sha256": "8e12779fb8369ecd0d8bc71a91fe14053d5a5896fc7339606f6d277390edc08a",
+        "csv_sha256": "6c656c9b42708da9dcb193e4b33770dbc0303a321be2c5c5e943ad528acbfbd5",
+        "checksum_sha256": "51afc45e1d932f58e2c6649ebdf6a8c2501b2b9652cf4232859a549df44da084",
+        "collected_at_utc": "2026-10-22T09:10:38.637989+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:39.817687+00:00",
+        "source_last_modified": "Sun, 05 Jul 2026 09:31:49 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "284b18ab6077656c5fb6d8e70df1184a8968f0b0bdb07098b9af3018bc04af25"
+  },
+  {
+    "date": "2026-07-05",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-07-05.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-07-05.zip",
+        "zip_sha256": "479c94aa7915cd4dbd1e35cf975dd527b5e5a1a837a750ae1b431732a03e0739",
+        "csv_sha256": "a55fe943e76c6100d4f5a8339bb4395de94182aff2593f50b517f4e3d5dab456",
+        "checksum_sha256": "9a2ef522391c67b65beba644963f2068b1ad9c1b4c27392ebf3cb2cb9aa44bf6",
+        "collected_at_utc": "2026-10-22T09:09:46.815971+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:48.022851+00:00",
+        "source_last_modified": "Wed, 07 Oct 2026 15:22:38 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-07-04.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-07-04.zip",
+        "zip_sha256": "8e12779fb8369ecd0d8bc71a91fe14053d5a5896fc7339606f6d277390edc08a",
+        "csv_sha256": "6c656c9b42708da9dcb193e4b33770dbc0303a321be2c5c5e943ad528acbfbd5",
+        "checksum_sha256": "51afc45e1d932f58e2c6649ebdf6a8c2501b2b9652cf4232859a549df44da084",
+        "collected_at_utc": "2026-10-22T09:10:38.637989+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:39.817687+00:00",
+        "source_last_modified": "Sun, 05 Jul 2026 09:31:49 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-07-05.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-07-05.zip",
+        "zip_sha256": "afbdd59494e01cffa0f9157a6de476d4821f4ff7b5dee523badbdbed9a90b6fb",
+        "csv_sha256": "ebf0c04e64ddda83303a76d80420917676f14a04aaad77fbfb86c86b25616d69",
+        "checksum_sha256": "c64f03720141dc7c0942671acbd27402708bc571c1e2d27493b35d0c9f2d05d5",
+        "collected_at_utc": "2026-10-22T09:10:40.624609+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:41.551215+00:00",
+        "source_last_modified": "Mon, 06 Jul 2026 10:39:36 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "98a42fe4a18b5c2d82ed26be196a6a34105a7cd08ddb708a5247ec4204429a9a"
+  },
+  {
+    "date": "2026-10-14",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-10-14.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-14.zip",
+        "zip_sha256": "cf7200945d538837729a55c2c7d350f303f0028aab03135a5f152a9a9fa5b87a",
+        "csv_sha256": "23335b467c0266fcac784cc4c9c676db9c8c368ec924df85d72d50ed15575a88",
+        "checksum_sha256": "fb74f4437a0ee25f2c96423c3d51da6239c7ee04adfe336387d09260cf38f880",
+        "collected_at_utc": "2026-10-22T09:09:49.053853+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:50.010958+00:00",
+        "source_last_modified": "Thu, 15 Oct 2026 06:50:45 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-10-13.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-13.zip",
+        "zip_sha256": "25177351a6b096b98eaa77f42e362203de224be94881350a951bfffa059faed6",
+        "csv_sha256": "4c6b50dd2566306b7cf502df0627d1055812bebe9dce9b54e50937321cf7bd90",
+        "checksum_sha256": "1d3654af44cb29526b48841c148e8dbc4c511e0cdc14d8bfe1911db94f50f37c",
+        "collected_at_utc": "2026-10-22T09:10:42.556256+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:43.539217+00:00",
+        "source_last_modified": "Wed, 14 Oct 2026 07:51:19 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-10-14.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-14.zip",
+        "zip_sha256": "21879fa478777d0b68252321d6b2b609160404340126b93640e4d641bc2119ce",
+        "csv_sha256": "e2cca144c0f4550aea87814f2ec72dbbbdbb36072c9510cbd3d1c7d776715e61",
+        "checksum_sha256": "b96689551d2fb69280afaf3ee767db10f734ea08d4324faa2d943b62015a06c6",
+        "collected_at_utc": "2026-10-22T09:10:44.700369+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:45.526979+00:00",
+        "source_last_modified": "Thu, 15 Oct 2026 08:20:09 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "68fe6dda12084381b6883fae978b8e6881e290af64e491450e1f164fd9b86c67"
+  },
+  {
+    "date": "2026-10-15",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-10-15.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-15.zip",
+        "zip_sha256": "5f1c31bdf645489221d120079529bd311168258ef524a669e88908db22139d90",
+        "csv_sha256": "8ccb9ded761a6c6179a4e2167f6a516eaced8a96b3a3137dd75109df6df51ec4",
+        "checksum_sha256": "e83db5cde9085b39e8545c7c620f4de5044fae82648ad61967e6113c828524e5",
+        "collected_at_utc": "2026-10-22T09:09:50.875803+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:51.861319+00:00",
+        "source_last_modified": "Fri, 16 Oct 2026 07:13:04 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-10-14.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-14.zip",
+        "zip_sha256": "21879fa478777d0b68252321d6b2b609160404340126b93640e4d641bc2119ce",
+        "csv_sha256": "e2cca144c0f4550aea87814f2ec72dbbbdbb36072c9510cbd3d1c7d776715e61",
+        "checksum_sha256": "b96689551d2fb69280afaf3ee767db10f734ea08d4324faa2d943b62015a06c6",
+        "collected_at_utc": "2026-10-22T09:10:44.700369+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:45.526979+00:00",
+        "source_last_modified": "Thu, 15 Oct 2026 08:20:09 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-10-15.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-15.zip",
+        "zip_sha256": "def03b137860740b184bb113fce1149e3a1e77f70fcd2153a3715bef787b2b65",
+        "csv_sha256": "c629075e44925de243f8c51494bcb606eda1dc1d265b8897489eaf1dfb5daeb4",
+        "checksum_sha256": "726734b4bcac8f57929adc6a99b8716d75633e357d61edf42248f2ac30a5f4cb",
+        "collected_at_utc": "2026-10-22T09:10:46.695391+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:47.482531+00:00",
+        "source_last_modified": "Fri, 16 Oct 2026 08:38:45 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "b1fd1947302dea810e8badea3e73073b762f62b6f677243f89368781d6c064d2"
+  },
+  {
+    "date": "2026-10-16",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-10-16.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-16.zip",
+        "zip_sha256": "af929289e13a2c3c4480493bde556ec30bd51b7cd9f7d0cd5ce2a61b8e5e0575",
+        "csv_sha256": "ea2666fd45ee5cbdf012a84703ae6fe79d138e3acfe2bd7b92520a19e2b49a91",
+        "checksum_sha256": "09e11da033cb606efa274650c1b18985e239a61dabf770dac246935c7d8bd9e0",
+        "collected_at_utc": "2026-10-22T09:09:52.905143+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:53.853306+00:00",
+        "source_last_modified": "Sat, 17 Oct 2026 06:41:08 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-10-15.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-15.zip",
+        "zip_sha256": "def03b137860740b184bb113fce1149e3a1e77f70fcd2153a3715bef787b2b65",
+        "csv_sha256": "c629075e44925de243f8c51494bcb606eda1dc1d265b8897489eaf1dfb5daeb4",
+        "checksum_sha256": "726734b4bcac8f57929adc6a99b8716d75633e357d61edf42248f2ac30a5f4cb",
+        "collected_at_utc": "2026-10-22T09:10:46.695391+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:47.482531+00:00",
+        "source_last_modified": "Fri, 16 Oct 2026 08:38:45 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-10-16.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-16.zip",
+        "zip_sha256": "507f9d8d3b6c33ea4ce581d1b48a5faf07761ff5af221721dd646e59a3f08d48",
+        "csv_sha256": "b64ac7d6eba9559f800ef27fbc69179c8c35790b60a25f272580787a3884e01b",
+        "checksum_sha256": "3264b74a273669bd4aa538e904c96dcde7777930a08dbd6a0b261255ee92b1e6",
+        "collected_at_utc": "2026-10-22T09:10:48.476300+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:49.238178+00:00",
+        "source_last_modified": "Sat, 17 Oct 2026 08:17:30 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "163640087b2d4891c401d337122cc450191a2bbd3607612130619aea29d0aafc"
+  },
+  {
+    "date": "2026-10-17",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-10-17.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-17.zip",
+        "zip_sha256": "d79099270ab554a4ad24e4e1c1d4cb621a712ef1a59b2bb051900619e754cb24",
+        "csv_sha256": "09bd2934452104a858d00091226c3073d64d72d422b4830d1f1f7ca94cd414cf",
+        "checksum_sha256": "d0d7b105117b455dc8a08ac419753ab81cb17be8bdca901dd8d34548e3266a4d",
+        "collected_at_utc": "2026-10-22T09:09:54.875424+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:55.670216+00:00",
+        "source_last_modified": "Sun, 18 Oct 2026 06:37:16 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-10-16.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-16.zip",
+        "zip_sha256": "507f9d8d3b6c33ea4ce581d1b48a5faf07761ff5af221721dd646e59a3f08d48",
+        "csv_sha256": "b64ac7d6eba9559f800ef27fbc69179c8c35790b60a25f272580787a3884e01b",
+        "checksum_sha256": "3264b74a273669bd4aa538e904c96dcde7777930a08dbd6a0b261255ee92b1e6",
+        "collected_at_utc": "2026-10-22T09:10:48.476300+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:49.238178+00:00",
+        "source_last_modified": "Sat, 17 Oct 2026 08:17:30 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-10-17.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-17.zip",
+        "zip_sha256": "a5bc6c7950653285287b9f8d56dae0285650173dbd57bbe3b7e88e74e3680246",
+        "csv_sha256": "3f6800cfbdfd1a6a6ff14eba8f258d203367cfb0f83ce658c1d625a0d49c6b97",
+        "checksum_sha256": "098c16e44f5a023b7ab385b9e5296ba2248833122ce87dc72e793b00c8b58c71",
+        "collected_at_utc": "2026-10-22T09:10:50.167667+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:50.900067+00:00",
+        "source_last_modified": "Sun, 18 Oct 2026 07:57:05 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "19b3870baff0081e66fa688041c694f50b9d36eec5b34b89ef0f0bb1d1a27534"
+  },
+  {
+    "date": "2026-10-18",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-10-18.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-18.zip",
+        "zip_sha256": "134cd1910e91e3f46fd1e62704385057257de7125642adf72d61401ea13cc795",
+        "csv_sha256": "b9d2018fd70cac0354157cee2180ed1b89fc20ec370811a6cba65be2ef36736d",
+        "checksum_sha256": "dd713284fc1c8f29494270f11afa78fbc079a36fbe05bf837a3fd00cca148323",
+        "collected_at_utc": "2026-10-22T09:09:56.868668+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:57.599486+00:00",
+        "source_last_modified": "Mon, 19 Oct 2026 07:39:34 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-10-17.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-17.zip",
+        "zip_sha256": "a5bc6c7950653285287b9f8d56dae0285650173dbd57bbe3b7e88e74e3680246",
+        "csv_sha256": "3f6800cfbdfd1a6a6ff14eba8f258d203367cfb0f83ce658c1d625a0d49c6b97",
+        "checksum_sha256": "098c16e44f5a023b7ab385b9e5296ba2248833122ce87dc72e793b00c8b58c71",
+        "collected_at_utc": "2026-10-22T09:10:50.167667+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:50.900067+00:00",
+        "source_last_modified": "Sun, 18 Oct 2026 07:57:05 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-10-18.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-18.zip",
+        "zip_sha256": "19f09a3f566064d165d69f3020542f376acc7c765c6d7deb2248914388aa3d8f",
+        "csv_sha256": "8639363db64351fb1ca63e2773e6bf80ac1b65c1d65ded554e901093a177c18a",
+        "checksum_sha256": "fb97cd57cfb2280666cb8e202b9f72078748ee1bd39c1991b84088160b5d8731",
+        "collected_at_utc": "2026-10-22T09:10:51.996444+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:52.956641+00:00",
+        "source_last_modified": "Mon, 19 Oct 2026 09:43:46 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "7458d526caa8452a1657ab8fb49425746e87244a162dc6e63ad4d7d88454fc0d"
+  },
+  {
+    "date": "2026-10-19",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-10-19.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-19.zip",
+        "zip_sha256": "1d9d1e842d8b2232b92a47ff6fc4b5c289ea8bca9d68ff62b472f972385e5a77",
+        "csv_sha256": "8bd6d4c4aa3ddcc1d74543af5a80234c80d753b42b5022c69d9eee22b5248f84",
+        "checksum_sha256": "bbcc22d2bbfb25dd67d986b61093d1198a0c2e46a75e5a264eba83d7c5bd4fcc",
+        "collected_at_utc": "2026-10-22T09:09:58.554688+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:09:59.301568+00:00",
+        "source_last_modified": "Tue, 20 Oct 2026 06:37:32 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-10-18.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-18.zip",
+        "zip_sha256": "19f09a3f566064d165d69f3020542f376acc7c765c6d7deb2248914388aa3d8f",
+        "csv_sha256": "8639363db64351fb1ca63e2773e6bf80ac1b65c1d65ded554e901093a177c18a",
+        "checksum_sha256": "fb97cd57cfb2280666cb8e202b9f72078748ee1bd39c1991b84088160b5d8731",
+        "collected_at_utc": "2026-10-22T09:10:51.996444+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:52.956641+00:00",
+        "source_last_modified": "Mon, 19 Oct 2026 09:43:46 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-10-19.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-19.zip",
+        "zip_sha256": "4339c1eed677cef74b128d2e3d67f554fa07c61323a0fc9d1614d80be5ab9617",
+        "csv_sha256": "b3a910d3ef20849d202a0d082e87cc01c38f407d66a30db93523736d76363978",
+        "checksum_sha256": "67e7c6e2a2eb53cffcb531a914e8258501f9075607816f918bfed4a725534232",
+        "collected_at_utc": "2026-10-22T09:10:53.711187+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:54.609456+00:00",
+        "source_last_modified": "Tue, 20 Oct 2026 08:57:06 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "fc6ffecd3dcb707b8b972644fa48ff4292f8fb7af2ca4782d54bd44238008d9a"
+  },
+  {
+    "date": "2026-10-20",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-10-20.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-20.zip",
+        "zip_sha256": "bc7bde46301d87d8f161454715547913f9b5a984b127d5bce809cbcbe535ae06",
+        "csv_sha256": "8ce281384fd0239ffcb16b9a7019581b3a5c0e6b7dca652fde6c897056883270",
+        "checksum_sha256": "3819acd1e153c72ff8dd44577759dd53044dbf6644c8e8cb00724f2986eea967",
+        "collected_at_utc": "2026-10-22T08:39:43.655715+00:00",
+        "checksum_collected_at_utc": "2026-10-22T08:39:45.000883+00:00",
+        "source_last_modified": "Wed, 21 Oct 2026 06:46:01 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-10-19.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-19.zip",
+        "zip_sha256": "4339c1eed677cef74b128d2e3d67f554fa07c61323a0fc9d1614d80be5ab9617",
+        "csv_sha256": "b3a910d3ef20849d202a0d082e87cc01c38f407d66a30db93523736d76363978",
+        "checksum_sha256": "67e7c6e2a2eb53cffcb531a914e8258501f9075607816f918bfed4a725534232",
+        "collected_at_utc": "2026-10-22T09:10:53.711187+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:54.609456+00:00",
+        "source_last_modified": "Tue, 20 Oct 2026 08:57:06 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-10-20.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-20.zip",
+        "zip_sha256": "e0104e94f5a1110707fe8e19e96a6be8aa593b2294538bdfe10f7d1f886cb3ea",
+        "csv_sha256": "7c0edf9207694bf8e53e65944d67aa5f73cde8d96d651f851825951c8b82a2a1",
+        "checksum_sha256": "52eceddbae24703d1fa2f737c7f297e72f8f21ac8029f671e7b7d7ad909c9d0a",
+        "collected_at_utc": "2026-10-22T09:10:55.446065+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:56.609249+00:00",
+        "source_last_modified": "Wed, 21 Oct 2026 11:55:16 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "ce828600476ee07c1de6d0fa4e1f9198dabc0d2352ca0f762010802876345957"
+  },
+  {
+    "date": "2026-10-21",
+    "field": "sum_taker_long_short_vol_ratio",
+    "offset_minutes": 0,
+    "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+    "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+    "sources": [
+      {
+        "file": "BTCUSDT-metrics-2026-10-21.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-21.zip",
+        "zip_sha256": "55bbdadd5aaf0d04b07b510663e24074762b9616deeefb3687568a408a3d0432",
+        "csv_sha256": "b5a52f4c49668b7f826b9f6f925a4b9797a80b98b5593b5781ed65e73330c43a",
+        "checksum_sha256": "8767972636327b7cebb2b33bd97e62fb119f2da5ebae5daf645f61b5d42175da",
+        "collected_at_utc": "2026-10-22T09:10:00.305678+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:01.266340+00:00",
+        "source_last_modified": "Thu, 22 Oct 2026 06:44:38 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-10-20.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-20.zip",
+        "zip_sha256": "e0104e94f5a1110707fe8e19e96a6be8aa593b2294538bdfe10f7d1f886cb3ea",
+        "csv_sha256": "7c0edf9207694bf8e53e65944d67aa5f73cde8d96d651f851825951c8b82a2a1",
+        "checksum_sha256": "52eceddbae24703d1fa2f737c7f297e72f8f21ac8029f671e7b7d7ad909c9d0a",
+        "collected_at_utc": "2026-10-22T09:10:55.446065+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:56.609249+00:00",
+        "source_last_modified": "Wed, 21 Oct 2026 11:55:16 GMT",
+        "published_at_utc": null
+      },
+      {
+        "file": "BTCUSDT-5m-2026-10-21.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-21.zip",
+        "zip_sha256": "ea557930877523ed41707fc62aa5a15c18322698c48deb61f113e2f226b14b79",
+        "csv_sha256": "e488fb7b74961505b7f6425224842991e5ba6dffe993e3f6202d05c1f5070b95",
+        "checksum_sha256": "7be97e3635c0dceb4fbe56c2874dabce38f148af037163ad52221e854a112696",
+        "collected_at_utc": "2026-10-22T09:10:57.678134+00:00",
+        "checksum_collected_at_utc": "2026-10-22T09:10:58.787202+00:00",
+        "source_last_modified": "Thu, 22 Oct 2026 08:50:37 GMT",
+        "published_at_utc": null
+      }
+    ],
+    "scope": "exact fingerprints, empirical window interpretation; no publication-time claim",
+    "id": "ef990ad0b0a7722c69dab3a21b355a22f92a30dd7f87ad2d06ae8129f5546eff"
+  }
+]

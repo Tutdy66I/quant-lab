@@ -1,0 +1,380 @@
+[
+  {
+    "date": "2021-12-01",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2025-06-24",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-06-01",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-06-20",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-06-21",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-06-22",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-06-23",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-06-24",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-06-25",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-06-26",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-06-27",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-06-28",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-06-29",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-06-30",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-07-01",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-07-02",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-07-03",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-07-04",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-07-05",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-10-14",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-10-15",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-10-16",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-10-17",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-10-18",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-10-19",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-10-20",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  },
+  {
+    "date": "2026-10-21",
+    "fields": [
+      "sum_open_interest",
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio"
+    ],
+    "status": "quarantined",
+    "reason": "no admissible independently collected timing reference",
+    "event_time_utc": null,
+    "research_available_at_utc": null
+  }
+]
