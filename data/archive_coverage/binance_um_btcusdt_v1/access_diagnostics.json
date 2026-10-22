@@ -1,0 +1,14 @@
+{
+  "recorded_at_utc": "2026-10-22T09:13:54.205508+00:00",
+  "provider": "Tardis.dev",
+  "purpose": "independent OI and long/short observation timing reference",
+  "requested_urls": [
+    "https://docs.tardis.dev/legal/terms-of-service.md",
+    "https://docs.tardis.dev/legal/terms-of-service"
+  ],
+  "result": "Both normal HTTP requests returned HTTP 403 Forbidden. No market-data files requested. No retries or alternate-host attempts afterward.",
+  "evidence_type": "execution-tool status output; response bodies were not retained",
+  "raw_response_preserved": false,
+  "permission_status": "unresolved; no implied redistribution license",
+  "field_admission": "OI and all long/short ratios remain quarantined"
+}

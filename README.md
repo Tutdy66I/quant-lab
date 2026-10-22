@@ -111,6 +111,12 @@ python -m research.archive_normalizer verify --output data/archive_normalized/bi
 python -m research.archive_normalizer build --output <新的独立输出目录>
 ```
 
+第三阶段 [可信覆盖扩展验证](docs/可信归档覆盖扩展验证.md) 已核验 27 个日期、7776 个 taker 窗口，最长连续覆盖 16 天；发现 2021 样本与 2025/2026 样本的内容时间解释不同，逐文件绑定指纹，不硬编码历史切换日期。OI/多空比的独立核验仍缺合格参考证据，继续隔离；连续性与历史可见性尚不满足统计模块准入。
+
+```console
+python -m research.archive_coverage verify --output data/archive_normalized/binance_um_btcusdt_coverage_v1
+```
+
 ## 纸面运行状态
 
 当前持续运行原生 Python 观察器；Docker / Hummingbot 已按用户要求暂停。查看[最新观察汇总](docs/纸面观察进度.md)及[持续观察计划](docs/持续观察计划.md)。汇总是带时间戳的定时快照，不是实时状态页。

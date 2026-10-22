@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "verified_at_utc": "2026-10-22T09:13:08.048055+00:00",
+  "source_receipts_sha256": "ffb461dc312b0a8cc33541a6754e276f1c2df2aa5060193e877dd246d390b307",
+  "protocol_sha256": "81d2d20ec965164369098d7da9e8fc57dfc725263fa4405b8bdf331b7d46ef75",
+  "adapter_sha256": "a00a2aace6b4f41bf5a7773f56bf0cf15bf581dbb3d90ab5b68a03b459455744",
+  "normalizer_sha256": "343de3daf65ba3b7bb6a3ae5879bf5455860e3fd822e7360c2a81886d6238bd2",
+  "attribution": "Binance Vision https://data.binance.vision/",
+  "license": "CC BY-NC-SA 4.0",
+  "files": {
+    "validated.jsonl": "d7b913313c8eaef2a30eba27465e9b385c45dab7b29449de7cd26b44d82468a8",
+    "coverage.json": "020c8bb74080a434b4ddfda034b0aada2c3b124d1c7b7fdba0e707ffa7105cbd",
+    "contracts.json": "304e1e90785b1da668b2bdac6006d42d6e312b1798f4036e9fc7109cd494175c",
+    "isolation.json": "865ff35412d8c1509fc6541caff2b64f3c11d65f775d2114cf19fef8248eb2b8",
+    "conflicts.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  }
+}
