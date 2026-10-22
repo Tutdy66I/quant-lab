@@ -98,6 +98,6 @@ python research/binance_archive_phase1.py collect data/archive_feasibility/NEW_V
 
 这是有界的可行性实验工具，没有策略导入、归档适配器接口或定时集成。开发文档及 schema 的 HTTP 202 空体保留为失败证据，不应据此称字段规范已落盘。
 
-本地验证：原有 81 项首次全部通过；加入 3 项离线证据测试后，全套 84 项两次运行均为 83 项通过、1 项错误。错误均来自既有 `test_concurrent_checks_commit_each_fill_once`，Windows 临时目录中 `os.replace` 并发替换快照报 `PermissionError: WinError 5`。三项新增测试分别确认完整证据可确定性回放、原始响应损坏被拒绝、即使本地 receipt 一致也会核对发布者校验文件。未为使测试变绿而修改纸面实现或测试。GitHub 跨平台 CI 结果另见本 PR checks。
+本地最终全套 **84/84 通过**。原有 81 项首次全部通过；加入 3 项离线证据测试后的两次中间运行均为 83 项通过、1 项错误，来自既有 `test_concurrent_checks_commit_each_fill_once`，Windows 临时目录中 `os.replace` 并发替换快照报 `PermissionError: WinError 5`；未修改纸面实现或测试，最终完整复跑通过。三项新增测试分别确认完整证据可确定性回放、原始响应损坏被拒绝、即使本地 receipt 一致也会核对发布者校验文件。初次 Linux CI 发现派生 JSON 使用平台换行导致字节回放失败，已固定为 UTF-8/LF；原始响应字节没有改变。GitHub 跨平台最终 CI 结果见本 PR checks。
 
 进入适配器阶段之前需要决定并固定：各字段及历史分段的真实时间契约、未知时点的隔离规则、版本修订和重复冲突处理、发布可见性模型、完整历史内容检查范围。未来接口至少应分离 `source_label`、`event_time/window_end`、`published_at`、`collected_at` 和 `available_at`，不得改变现有策略或把回顾性档案当作前瞻收益证据。本报告先供审阅，本 PR 不跨入下一阶段，也不合并或部署。
