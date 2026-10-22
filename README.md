@@ -86,6 +86,20 @@ python -m unittest discover -s tests -v
 
 固定方案见 `docs/history_protocol_v1.json`：既有 11 个候选、252/63 滚动验证、相同费用和滑点；以自然年比较阶段，不扩大搜索范围。查看[长期历史验证报告](docs/长期历史验证报告.md)、[第二来源交叉核验](docs/第二来源交叉核验.md)和[数据运行说明](docs/历史数据集.md)。Coinbase BTC/USD 对照覆盖全部日期，差异告警原样保留，不混入主数据。原始数据版本禁止覆盖；重采集必须使用新的 `--dataset` 目录。
 
+## Quant Lab 2.1：衍生品市场状态研究
+
+公开只读采集、市场结构报告及独立统计验证均已实现，覆盖现货日线、USDⓈ-M OI、资金费率、全市场多空账户比和主动买卖量。版本化保存原始响应、来源、时间及 SHA-256；离线校验并重放 JSON/Markdown 报告。独立固定 252/63 天验证比较价格基线与增加衍生品指标后的波动、回撤和趋势持续性预测误差。详见[衍生品市场研究](docs/衍生品市场研究.md)。
+
+```console
+python -m strategies.derivatives_data collect --days 28
+python -m strategies.derivatives_data verify <快照目录>
+python -m strategies.market_structure <快照目录> --output <新报告目录>
+python -m strategies.derivatives_study --output <新研究目录>
+python -m strategies.derivatives_pipeline
+```
+
+实际可用时间不早于采集时间，回补数据不进入更早的历史决策。当前本地 API 返回地区限制 HTTP 451，失败证据已保存，[初始统计状态](data/derivatives/study_v1_initial/study.md)明确为数据不足、0 个验证样本；尚无预测价值结论。已启用独立 Codex 自动任务，每天香港时间 08:15 采集并研究，运行文件仅写入 `runtime/derivatives/`，相同未变故障不重复通知。该模块不修改现有历史数据、原验证协议或纸面账户。
+
 ## 纸面运行状态
 
 当前持续运行原生 Python 观察器；Docker / Hummingbot 已按用户要求暂停。查看[最新观察汇总](docs/纸面观察进度.md)及[持续观察计划](docs/持续观察计划.md)。汇总是带时间戳的定时快照，不是实时状态页。
