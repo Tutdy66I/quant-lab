@@ -129,6 +129,18 @@ python -m research.archive_observer verify --root data/archive_observation/binan
 
 `watch` 为前台循环，本轮未启用后台任务，也未修改现有自动化；详细运行边界及故障处理见验收报告。
 
+## Quant Lab 2.4：Windows 归档运行管理
+
+新增独立单轮运行包装、故障恢复、JSON/Markdown 健康状态和 Windows 计划任务定义，复用 2.3 观察器。默认每小时、登录后触发，避免重复运行；403/451、许可或完整性错误不自动解除。暂时 404 记录为缺口，网络故障按周期有限恢复。
+
+```console
+python -m deployment.archive_service initialize --root runtime/archive_observer_v1
+python -m deployment.archive_service run --root runtime/archive_observer_v1
+python -m deployment.archive_service health --root runtime/archive_observer_v1
+```
+
+实际启用计划任务前需要用户确认并交接旧采集调度；本次尚未启用，不将单轮测试视为长期运行验收。见 [Windows 部署维护手册](docs/QuantLab2.4Windows运行手册.md)和[测试及真实运行证据](docs/QuantLab2.4运行验收.md)。
+
 ## 纸面运行状态
 
 当前持续运行原生 Python 观察器；Docker / Hummingbot 已按用户要求暂停。查看[最新观察汇总](docs/纸面观察进度.md)及[持续观察计划](docs/持续观察计划.md)。汇总是带时间戳的定时快照，不是实时状态页。
