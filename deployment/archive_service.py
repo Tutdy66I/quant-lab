@@ -5,6 +5,7 @@ import ctypes
 from datetime import timedelta
 import json
 import os
+import time
 from pathlib import Path
 from uuid import uuid4
 
@@ -13,6 +14,7 @@ from research import archive_normalizer as n
 
 INTERVAL = timedelta(hours=1)
 MAX_TRANSIENT_FAILURES = 3
+MAX_DUE_WAIT_SECONDS = 60
 
 
 def directory(root):
@@ -301,13 +303,15 @@ def write_health(root, report):
     os.replace(temporary, path)
 
 
-def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive):
+def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive, sleep=time.sleep):
     root = Path(root).resolve()
     manager = directory(root)
     try:
         with lease(manager):
             started = n.iso(clock())
-            receipt = {'started_at_utc': started, 'result': 'error', 'snapshot': None}
+            receipt = {'started_at_utc': started, 'result': 'error', 'snapshot': None,
+                       'pid': os.getpid(), 'trigger_kind': 'unknown', 'phase': 'preflight',
+                       'service_code_sha256': n.sha(Path(__file__).read_bytes().replace(b'\r\n', b'\n'))}
             active = manager / 'running.json'
             owns_intent = False
             try:
@@ -321,13 +325,29 @@ def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive):
                     if alive(abandoned['pid']):
                         raise BlockingIOError('Previous service PID is still live')
                     receipt['interrupted_cycle'] = abandoned
-                atomic(active, {'pid': os.getpid(), 'started_at_utc': started})
+                    receipt['interruption_cause'] = 'unknown; dead PID proves interruption, not its cause'
+                def phase(value, **details):
+                    receipt['phase'] = value
+                    atomic(active, {'pid': os.getpid(), 'started_at_utc': started,
+                                    'phase': value, 'phase_at_utc': n.iso(clock()), **details})
+                phase('cooldown')
                 owns_intent = True
                 last = state['runs'][-1] if state['runs'] else None
                 resume = False
                 if last and n.utc(started) < n.utc(last['finished_at_utc']):
                     raise ValueError('Clock moved backwards')
-                if last and n.utc(started) - n.utc(last['finished_at_utc']) < INTERVAL:
+                eligible = n.utc(last['finished_at_utc']) + INTERVAL if last else n.utc(started)
+                receipt['next_eligible_at_utc'] = n.iso(eligible)
+                remaining = (eligible - clock()).total_seconds()
+                # A fixed hourly trigger can precede the previous finish by a few seconds.
+                # Wait under the OS lease; never shorten the one-hour cooldown or retry HTTP.
+                if 0 < remaining <= MAX_DUE_WAIT_SECONDS:
+                    receipt['cooldown_wait_seconds'] = remaining
+                    sleep(remaining)
+                current = clock()
+                if current < n.utc(started):
+                    raise ValueError('Clock moved backwards during cooldown')
+                if current < eligible:
                     receipt['result'] = 'not_due'
                 else:
                     failures = 0
@@ -340,12 +360,24 @@ def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive):
                         if not resume:
                             receipt['result'] = 'manual_review_required'
                     if receipt['result'] not in ('manual_review_required', 'not_due'):
+                        phase('collecting')
+                        diagnostic_errors = []
+                        def diagnosed_fetch(url, headers):
+                            try:
+                                phase('request', source_url=url)
+                            except OSError as error:
+                                diagnostic_errors.append(str(error))
+                                raise
+                            return fetcher(url, headers)
                         receipt['collection'] = o.collect(root, state['config']['start_date'],
                             str(clock().date() - timedelta(days=1)), resume=resume,
-                            recheck_hours=24, max_requests=25, fetcher=fetcher, clock=clock)
+                            recheck_hours=24, max_requests=25, fetcher=diagnosed_fetch, clock=clock)
+                        if diagnostic_errors:
+                            raise OSError('Cannot persist request diagnostics: ' + diagnostic_errors[0])
                         receipt['automatic_transient_resume'] = resume
                         receipt['result'] = 'failed' if receipt['collection']['stop_reason'] else 'completed'
                 # Anchor even failed HTTP receipts; the failed response remains auditable.
+                phase('snapshot')
                 after = o.replay(root)
                 label = uuid4().hex
                 o.export_snapshot(root, after['runs'][-1]['requested_end_date'], manager / 'snapshots' / label)

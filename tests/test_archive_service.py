@@ -6,6 +6,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 from deployment import archive_service as s
 from research import archive_observer as o
@@ -257,6 +258,73 @@ class ArchiveServiceTests(unittest.TestCase):
         self.assertEqual(receipt['result'], 'error')
         self.assertIn('Clock moved backwards', receipt['error'])
         self.assertEqual(report['runtime_state'], 'manual_review_required')
+
+    def test_hourly_trigger_waits_for_full_cooldown_instead_of_skipping_an_hour(self):
+        end = n.utc(o.replay(self.root)['runs'][-1]['finished_at_utc'])
+        self.clock.value = end + timedelta(seconds=3594)
+        calls = len(self.server.calls)
+        waits = []
+        def sleep(seconds):
+            waits.append(seconds)
+            self.assertEqual(len(self.server.calls), calls)
+            self.clock.value += timedelta(seconds=seconds)
+        receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, sleep=sleep)
+        self.assertEqual(receipt['result'], 'completed')
+        self.assertEqual(len(waits), 1)
+        self.assertGreater(waits[0], 5)
+        run = o.replay(self.root)['runs'][-1]
+        self.assertGreaterEqual(n.utc(run['started_at_utc']) - end, timedelta(hours=1))
+
+    def test_early_trigger_does_not_wait_and_undersleep_does_not_fetch(self):
+        end = n.utc(o.replay(self.root)['runs'][-1]['finished_at_utc'])
+        calls = len(self.server.calls)
+        def no_sleep(seconds):
+            self.fail('Early logon must not wait')
+        self.assertEqual(s.run_cycle(self.root, clock=self.clock, fetcher=self.server,
+                                    sleep=no_sleep)[0]['result'], 'not_due')
+        self.clock.value = end + timedelta(seconds=3594)
+        self.assertEqual(s.run_cycle(self.root, clock=self.clock, fetcher=self.server,
+                                    sleep=lambda seconds: None)[0]['result'], 'not_due')
+        self.assertEqual(len(self.server.calls), calls)
+
+    def test_interruption_keeps_phase_without_claiming_cause(self):
+        manager = s.directory(self.root)
+        s.atomic(manager / 'running.json', {'pid': 123456, 'started_at_utc': n.iso(self.clock()),
+                                         'phase': 'collecting'})
+        self.later()
+        receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, alive=lambda pid: False)
+        self.assertEqual(receipt['interrupted_cycle']['phase'], 'collecting')
+        self.assertTrue(receipt['interruption_cause'].startswith('unknown'))
+        self.assertEqual(receipt['trigger_kind'], 'unknown')
+
+    def test_request_phase_is_persisted_before_fetch(self):
+        self.later()
+        phases = []
+        def fetch(url, headers):
+            intent = json.loads((s.directory(self.root)/'running.json').read_bytes())
+            phases.append(intent['phase'])
+            self.assertEqual(intent['source_url'], url)
+            return self.server(url, headers)
+        receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=fetch)
+        self.assertEqual(receipt['result'], 'completed')
+        self.assertTrue(phases)
+        self.assertEqual(set(phases), {'request'})
+
+    def test_diagnostic_write_failure_requires_review_without_network(self):
+        self.later()
+        original = s.atomic
+        calls = len(self.server.calls)
+        def atomic(path, value):
+            if value.get('phase') == 'request':
+                raise OSError('disk unavailable')
+            return original(path, value)
+        with mock.patch.object(s, 'atomic', side_effect=atomic):
+            receipt, _ = self.cycle()
+        self.assertEqual(receipt['result'], 'error')
+        self.assertIn('Cannot persist request diagnostics', receipt['error'])
+        self.later()
+        self.assertEqual(self.cycle()[0]['result'], 'error')
+        self.assertEqual(calls, len(self.server.calls))
 
 
 if __name__ == '__main__':
