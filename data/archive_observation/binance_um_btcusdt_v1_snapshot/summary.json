@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "observer_started_at_utc": "2026-10-23T02:29:02.066525+00:00",
+  "as_of_utc": "2026-10-23T02:30:37.317806+00:00",
+  "ledger_head_sha256": "ea5cab5d7a16a156e936de48576224edd0dcfee700c424518fa72d5d88c91239",
+  "runs_visible": 2,
+  "successful_metric_archives": 2,
+  "metric_rows": 576,
+  "accepted_taker_windows": 576,
+  "coverage_start": "2026-10-20",
+  "coverage_end": "2026-10-22",
+  "gaps": [
+    {
+      "date": "2026-10-22",
+      "reason": "no_complete_publisher_verified_archive"
+    }
+  ],
+  "archives": [
+    {
+      "date": "2026-10-20",
+      "sha256": "bc7bde46301d87d8f161454715547913f9b5a984b127d5bce809cbcbe535ae06",
+      "first_observed_at_utc": "2026-10-23T02:29:04.071703+00:00",
+      "body_downloads": 1,
+      "confirmations": 2,
+      "first_publisher_verified_at_utc": "2026-10-23T02:29:17.105045+00:00",
+      "last_confirmed_at_utc": "2026-10-23T02:30:23.717233+00:00",
+      "rows": 288,
+      "quality": {
+        "file": "BTCUSDT-metrics-2026-10-20.zip",
+        "rows": 288,
+        "backward_steps": 31,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-10-20T00:00:00+00:00",
+        "max_label": "2026-10-20T23:55:00+00:00"
+      },
+      "published_at_utc": null
+    },
+    {
+      "date": "2026-10-21",
+      "sha256": "55bbdadd5aaf0d04b07b510663e24074762b9616deeefb3687568a408a3d0432",
+      "first_observed_at_utc": "2026-10-23T02:29:10.496451+00:00",
+      "body_downloads": 1,
+      "confirmations": 2,
+      "first_publisher_verified_at_utc": "2026-10-23T02:29:17.105045+00:00",
+      "last_confirmed_at_utc": "2026-10-23T02:30:29.837573+00:00",
+      "rows": 288,
+      "quality": {
+        "file": "BTCUSDT-metrics-2026-10-21.zip",
+        "rows": 288,
+        "backward_steps": 25,
+        "invalid_label_lines": [],
+        "duplicate_label_rows": 0,
+        "off_grid_labels": [],
+        "missing_labels": [],
+        "min_label": "2026-10-21T00:00:00+00:00",
+        "max_label": "2026-10-21T23:55:00+00:00"
+      },
+      "published_at_utc": null
+    }
+  ],
+  "revisions": [],
+  "isolated": [
+    {
+      "date": "2026-10-20",
+      "fields": [
+        "sum_open_interest",
+        "sum_open_interest_value",
+        "count_toptrader_long_short_ratio",
+        "sum_toptrader_long_short_ratio",
+        "count_long_short_ratio"
+      ],
+      "rows": 288,
+      "reason": "unverified metric timing, new file/version or missing exact support fingerprints"
+    },
+    {
+      "date": "2026-10-21",
+      "fields": [
+        "sum_open_interest",
+        "sum_open_interest_value",
+        "count_toptrader_long_short_ratio",
+        "sum_toptrader_long_short_ratio",
+        "count_long_short_ratio"
+      ],
+      "rows": 288,
+      "reason": "unverified metric timing, new file/version or missing exact support fingerprints"
+    }
+  ],
+  "unavailable_objects": [
+    "BTCUSDT-metrics-2026-10-22.zip",
+    "BTCUSDT-metrics-2026-10-22.zip.CHECKSUM",
+    "BTCUSDT-5m-2026-10-22.zip",
+    "BTCUSDT-5m-2026-10-22.zip.CHECKSUM"
+  ],
+  "source_versions": {
+    "terms": {
+      "99c4921dbe023cd68c1a447775707d621453cc78aec6ac0bfe2e6c06a5114ee0": {
+        "first_observed_at_utc": "2026-10-23T02:29:03.247438+00:00",
+        "body_downloads": 1,
+        "confirmations": 2,
+        "first_publisher_verified_at_utc": null,
+        "last_confirmed_at_utc": "2026-10-23T02:30:22.782724+00:00"
+      }
+    },
+    "BTCUSDT-metrics-2026-10-20.zip": {
+      "bc7bde46301d87d8f161454715547913f9b5a984b127d5bce809cbcbe535ae06": {
+        "first_observed_at_utc": "2026-10-23T02:29:04.071703+00:00",
+        "body_downloads": 1,
+        "confirmations": 2,
+        "first_publisher_verified_at_utc": "2026-10-23T02:29:17.105045+00:00",
+        "last_confirmed_at_utc": "2026-10-23T02:30:23.717233+00:00"
+      }
+    },
+    "BTCUSDT-metrics-2026-10-20.zip.CHECKSUM": {
+      "3819acd1e153c72ff8dd44577759dd53044dbf6644c8e8cb00724f2986eea967": {
+        "first_observed_at_utc": "2026-10-23T02:29:05.033828+00:00",
+        "body_downloads": 1,
+        "confirmations": 2,
+        "first_publisher_verified_at_utc": null,
+        "last_confirmed_at_utc": "2026-10-23T02:30:24.670975+00:00"
+      }
+    },
+    "BTCUSDT-5m-2026-10-19.zip": {
+      "4339c1eed677cef74b128d2e3d67f554fa07c61323a0fc9d1614d80be5ab9617": {
+        "first_observed_at_utc": "2026-10-23T02:29:06.055264+00:00",
+        "body_downloads": 1,
+        "confirmations": 2,
+        "first_publisher_verified_at_utc": "2026-10-23T02:29:17.105045+00:00",
+        "last_confirmed_at_utc": "2026-10-23T02:30:25.451095+00:00"
+      }
+    },
+    "BTCUSDT-5m-2026-10-19.zip.CHECKSUM": {
+      "67e7c6e2a2eb53cffcb531a914e8258501f9075607816f918bfed4a725534232": {
+        "first_observed_at_utc": "2026-10-23T02:29:07.071115+00:00",
+        "body_downloads": 1,
+        "confirmations": 2,
+        "first_publisher_verified_at_utc": null,
+        "last_confirmed_at_utc": "2026-10-23T02:30:26.631162+00:00"
+      }
+    },
+    "BTCUSDT-5m-2026-10-20.zip": {
+      "e0104e94f5a1110707fe8e19e96a6be8aa593b2294538bdfe10f7d1f886cb3ea": {
+        "first_observed_at_utc": "2026-10-23T02:29:08.450077+00:00",
+        "body_downloads": 1,
+        "confirmations": 2,
+        "first_publisher_verified_at_utc": "2026-10-23T02:29:17.105045+00:00",
+        "last_confirmed_at_utc": "2026-10-23T02:30:27.646161+00:00"
+      }
+    },
+    "BTCUSDT-5m-2026-10-20.zip.CHECKSUM": {
+      "52eceddbae24703d1fa2f737c7f297e72f8f21ac8029f671e7b7d7ad909c9d0a": {
+        "first_observed_at_utc": "2026-10-23T02:29:09.435455+00:00",
+        "body_downloads": 1,
+        "confirmations": 2,
+        "first_publisher_verified_at_utc": null,
+        "last_confirmed_at_utc": "2026-10-23T02:30:28.634355+00:00"
+      }
+    },
+    "BTCUSDT-metrics-2026-10-21.zip": {
+      "55bbdadd5aaf0d04b07b510663e24074762b9616deeefb3687568a408a3d0432": {
+        "first_observed_at_utc": "2026-10-23T02:29:10.496451+00:00",
+        "body_downloads": 1,
+        "confirmations": 2,
+        "first_publisher_verified_at_utc": "2026-10-23T02:29:17.105045+00:00",
+        "last_confirmed_at_utc": "2026-10-23T02:30:29.837573+00:00"
+      }
+    },
+    "BTCUSDT-metrics-2026-10-21.zip.CHECKSUM": {
+      "8767972636327b7cebb2b33bd97e62fb119f2da5ebae5daf645f61b5d42175da": {
+        "first_observed_at_utc": "2026-10-23T02:29:11.472616+00:00",
+        "body_downloads": 1,
+        "confirmations": 2,
+        "first_publisher_verified_at_utc": null,
+        "last_confirmed_at_utc": "2026-10-23T02:30:30.704019+00:00"
+      }
+    },
+    "BTCUSDT-5m-2026-10-21.zip": {
+      "ea557930877523ed41707fc62aa5a15c18322698c48deb61f113e2f226b14b79": {
+        "first_observed_at_utc": "2026-10-23T02:29:12.575229+00:00",
+        "body_downloads": 1,
+        "confirmations": 2,
+        "first_publisher_verified_at_utc": "2026-10-23T02:29:17.105045+00:00",
+        "last_confirmed_at_utc": "2026-10-23T02:30:31.781215+00:00"
+      }
+    },
+    "BTCUSDT-5m-2026-10-21.zip.CHECKSUM": {
+      "7be97e3635c0dceb4fbe56c2874dabce38f148af037163ad52221e854a112696": {
+        "first_observed_at_utc": "2026-10-23T02:29:13.522740+00:00",
+        "body_downloads": 1,
+        "confirmations": 2,
+        "first_publisher_verified_at_utc": null,
+        "last_confirmed_at_utc": "2026-10-23T02:30:32.640529+00:00"
+      }
+    }
+  },
+  "last_attempt_status": {
+    "terms": 304,
+    "BTCUSDT-metrics-2026-10-20.zip": 304,
+    "BTCUSDT-metrics-2026-10-20.zip.CHECKSUM": 304,
+    "BTCUSDT-5m-2026-10-19.zip": 304,
+    "BTCUSDT-5m-2026-10-19.zip.CHECKSUM": 304,
+    "BTCUSDT-5m-2026-10-20.zip": 304,
+    "BTCUSDT-5m-2026-10-20.zip.CHECKSUM": 304,
+    "BTCUSDT-metrics-2026-10-21.zip": 304,
+    "BTCUSDT-metrics-2026-10-21.zip.CHECKSUM": 304,
+    "BTCUSDT-5m-2026-10-21.zip": 304,
+    "BTCUSDT-5m-2026-10-21.zip.CHECKSUM": 304,
+    "BTCUSDT-metrics-2026-10-22.zip": 404,
+    "BTCUSDT-metrics-2026-10-22.zip.CHECKSUM": 404,
+    "BTCUSDT-5m-2026-10-22.zip": 404,
+    "BTCUSDT-5m-2026-10-22.zip.CHECKSUM": 404
+  },
+  "local_integrity": "verified",
+  "orphan_objects": [],
+  "publisher_verification_failures": {},
+  "official_publication_evidence": null,
+  "independent_oi_long_short_evidence": "not available; remain isolated",
+  "first_observed_evidence_scope": "earliest committed HTTP-200 receipt for these exact bytes in this observer",
+  "prospective_prediction_samples": 0,
+  "statistics_module_enabled": false
+}
