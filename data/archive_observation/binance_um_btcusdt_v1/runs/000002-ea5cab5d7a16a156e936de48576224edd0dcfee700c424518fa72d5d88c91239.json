@@ -1,0 +1,412 @@
+{
+  "previous_sha256": "6fa5d61728a48eca15608a962d968c7670e9680532d274417158c00fa494e403",
+  "config_sha256": "881b0c2f359a5f4523cdac17b6e0c528a38b9fdc86bf71ae55df2b775567a313",
+  "started_at_utc": "2026-10-23T02:30:21.840504+00:00",
+  "finished_at_utc": "2026-10-23T02:30:37.317806+00:00",
+  "requested_end_date": "2026-10-22",
+  "stop_reason": null,
+  "events": [
+    {
+      "name": "terms",
+      "url": "https://raw.githubusercontent.com/binance/binance-public-data/master/TERMS_AND_CONDITIONS.md",
+      "final_url": "https://raw.githubusercontent.com/binance/binance-public-data/master/TERMS_AND_CONDITIONS.md",
+      "status": 304,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 23 Oct 2026 02:30:22 GMT",
+        "Via": "1.1 varnish",
+        "Cache-Control": "max-age=300",
+        "ETag": "\"305dbf1892163216e562ac2e7369263a91264d92277d2bf04d765c69f859a3ad\"",
+        "X-Served-By": "cache-bur-kbur8200042-BUR",
+        "X-Cache": "MISS",
+        "X-Cache-Hits": "0",
+        "X-Timer": "S1792722623.977207,VS0,VE128",
+        "Vary": "Authorization,Accept-Encoding",
+        "Access-Control-Allow-Origin": "*",
+        "Cross-Origin-Resource-Policy": "cross-origin",
+        "X-Fastly-Request-ID": "a6ee6a516c9d53ac50f71b325c63e870ecd03a8a",
+        "Expires": "Fri, 23 Oct 2026 02:35:23 GMT"
+      },
+      "requested_at_utc": "2026-10-23T02:30:21.840568+00:00",
+      "received_at_utc": "2026-10-23T02:30:22.782724+00:00",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "published_at_utc": null,
+      "request_headers": {
+        "If-None-Match": "\"305dbf1892163216e562ac2e7369263a91264d92277d2bf04d765c69f859a3ad\""
+      },
+      "conditional_invalid": false,
+      "revalidated_sha256": "99c4921dbe023cd68c1a447775707d621453cc78aec6ac0bfe2e6c06a5114ee0"
+    },
+    {
+      "name": "BTCUSDT-metrics-2026-10-20.zip",
+      "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-20.zip",
+      "final_url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-20.zip",
+      "status": 304,
+      "headers": {
+        "Connection": "close",
+        "Server": "AmazonS3",
+        "Date": "Fri, 23 Oct 2026 02:30:24 GMT",
+        "Last-Modified": "Wed, 21 Oct 2026 06:46:01 GMT",
+        "ETag": "\"552f89d7f2528cf62c1e935f1fef83a7\"",
+        "X-Cache": "Miss from cloudfront",
+        "Via": "1.1 fb7105f9421933293beb9186f66d67e8.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Pop": "LAX54-P11",
+        "X-Amz-Cf-Id": "qq7XtnzaJN-340FTYPWQ53vr43-ZYvr3taqk6gc18Z_3LsQAlp8C5g=="
+      },
+      "requested_at_utc": "2026-10-23T02:30:22.786196+00:00",
+      "received_at_utc": "2026-10-23T02:30:23.717233+00:00",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "published_at_utc": null,
+      "request_headers": {
+        "If-None-Match": "\"552f89d7f2528cf62c1e935f1fef83a7\""
+      },
+      "conditional_invalid": false,
+      "revalidated_sha256": "bc7bde46301d87d8f161454715547913f9b5a984b127d5bce809cbcbe535ae06"
+    },
+    {
+      "name": "BTCUSDT-metrics-2026-10-20.zip.CHECKSUM",
+      "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-20.zip.CHECKSUM",
+      "final_url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-20.zip.CHECKSUM",
+      "status": 304,
+      "headers": {
+        "Connection": "close",
+        "Server": "AmazonS3",
+        "Date": "Fri, 23 Oct 2026 02:30:25 GMT",
+        "Last-Modified": "Wed, 21 Oct 2026 06:46:01 GMT",
+        "ETag": "\"bcd2bdbd59df90a66abc5b08cf331f46\"",
+        "X-Cache": "Miss from cloudfront",
+        "Via": "1.1 354bc3bad674235f6c264e49e0372e42.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Pop": "LAX54-P11",
+        "X-Amz-Cf-Id": "Qcu4skI8N_nA84LCQL8nR0WkObwttJIMP1AIAeGnBmaLi--WGGDXPQ=="
+      },
+      "requested_at_utc": "2026-10-23T02:30:23.718323+00:00",
+      "received_at_utc": "2026-10-23T02:30:24.670975+00:00",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "published_at_utc": null,
+      "request_headers": {
+        "If-None-Match": "\"bcd2bdbd59df90a66abc5b08cf331f46\""
+      },
+      "conditional_invalid": false,
+      "revalidated_sha256": "3819acd1e153c72ff8dd44577759dd53044dbf6644c8e8cb00724f2986eea967"
+    },
+    {
+      "name": "BTCUSDT-5m-2026-10-19.zip",
+      "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-19.zip",
+      "final_url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-19.zip",
+      "status": 304,
+      "headers": {
+        "Connection": "close",
+        "Server": "AmazonS3",
+        "Date": "Fri, 23 Oct 2026 02:30:26 GMT",
+        "Last-Modified": "Tue, 20 Oct 2026 08:57:06 GMT",
+        "ETag": "\"51a856368c16f4fed7ff5fd06b52739e\"",
+        "X-Cache": "Miss from cloudfront",
+        "Via": "1.1 da01a27621bb31572cbd8602c72c9fea.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Pop": "LAX54-P11",
+        "X-Amz-Cf-Id": "wFClvBqUUdYM_IknGYyQI-f1M4rKOTitogyBpHcGycqTzGh25xfBqg=="
+      },
+      "requested_at_utc": "2026-10-23T02:30:24.676393+00:00",
+      "received_at_utc": "2026-10-23T02:30:25.451095+00:00",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "published_at_utc": null,
+      "request_headers": {
+        "If-None-Match": "\"51a856368c16f4fed7ff5fd06b52739e\""
+      },
+      "conditional_invalid": false,
+      "revalidated_sha256": "4339c1eed677cef74b128d2e3d67f554fa07c61323a0fc9d1614d80be5ab9617"
+    },
+    {
+      "name": "BTCUSDT-5m-2026-10-19.zip.CHECKSUM",
+      "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-19.zip.CHECKSUM",
+      "final_url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-19.zip.CHECKSUM",
+      "status": 304,
+      "headers": {
+        "Connection": "close",
+        "Server": "AmazonS3",
+        "Date": "Fri, 23 Oct 2026 02:30:27 GMT",
+        "Last-Modified": "Tue, 20 Oct 2026 08:57:06 GMT",
+        "ETag": "\"5ffd7b1786e6aa73e96f6f0f5710e2a9\"",
+        "X-Cache": "Miss from cloudfront",
+        "Via": "1.1 440c3e61ef47079d909a882c3cc08ec4.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Pop": "LAX54-P11",
+        "X-Amz-Cf-Id": "dWPRT0c09cKCbz5qIv9VNyQNoirrC7msxL6vjjv8TewmnbgEPQGEUQ=="
+      },
+      "requested_at_utc": "2026-10-23T02:30:25.452125+00:00",
+      "received_at_utc": "2026-10-23T02:30:26.631162+00:00",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "published_at_utc": null,
+      "request_headers": {
+        "If-None-Match": "\"5ffd7b1786e6aa73e96f6f0f5710e2a9\""
+      },
+      "conditional_invalid": false,
+      "revalidated_sha256": "67e7c6e2a2eb53cffcb531a914e8258501f9075607816f918bfed4a725534232"
+    },
+    {
+      "name": "BTCUSDT-5m-2026-10-20.zip",
+      "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-20.zip",
+      "final_url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-20.zip",
+      "status": 304,
+      "headers": {
+        "Connection": "close",
+        "Server": "AmazonS3",
+        "Date": "Fri, 23 Oct 2026 02:30:28 GMT",
+        "Last-Modified": "Wed, 21 Oct 2026 11:55:16 GMT",
+        "ETag": "\"4399115ce2052253df04f8161416e98d\"",
+        "X-Cache": "Miss from cloudfront",
+        "Via": "1.1 decdbca6d1c29900b3f7901d2e2bc954.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Pop": "LAX54-P11",
+        "X-Amz-Cf-Id": "YOYtfN6e4O3lrvNGFKIqKmLxLJ-seau3uqwd55Tx7KYN8iPLxXZOJA=="
+      },
+      "requested_at_utc": "2026-10-23T02:30:26.635681+00:00",
+      "received_at_utc": "2026-10-23T02:30:27.646161+00:00",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "published_at_utc": null,
+      "request_headers": {
+        "If-None-Match": "\"4399115ce2052253df04f8161416e98d\""
+      },
+      "conditional_invalid": false,
+      "revalidated_sha256": "e0104e94f5a1110707fe8e19e96a6be8aa593b2294538bdfe10f7d1f886cb3ea"
+    },
+    {
+      "name": "BTCUSDT-5m-2026-10-20.zip.CHECKSUM",
+      "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-20.zip.CHECKSUM",
+      "final_url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-20.zip.CHECKSUM",
+      "status": 304,
+      "headers": {
+        "Connection": "close",
+        "Server": "AmazonS3",
+        "Date": "Fri, 23 Oct 2026 02:30:29 GMT",
+        "Last-Modified": "Wed, 21 Oct 2026 11:55:16 GMT",
+        "ETag": "\"83bdcbc13e4140f60257e18530788634\"",
+        "X-Cache": "Miss from cloudfront",
+        "Via": "1.1 45aea37f29c701ec26176754f3ff207a.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Pop": "LAX54-P11",
+        "X-Amz-Cf-Id": "5BaIRC1HdBrvwjP2GZeEn59T5FuQGqat84BdOSoBwFdCaRsOfdwweQ=="
+      },
+      "requested_at_utc": "2026-10-23T02:30:27.647242+00:00",
+      "received_at_utc": "2026-10-23T02:30:28.634355+00:00",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "published_at_utc": null,
+      "request_headers": {
+        "If-None-Match": "\"83bdcbc13e4140f60257e18530788634\""
+      },
+      "conditional_invalid": false,
+      "revalidated_sha256": "52eceddbae24703d1fa2f737c7f297e72f8f21ac8029f671e7b7d7ad909c9d0a"
+    },
+    {
+      "name": "BTCUSDT-metrics-2026-10-21.zip",
+      "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-21.zip",
+      "final_url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-21.zip",
+      "status": 304,
+      "headers": {
+        "Connection": "close",
+        "Server": "AmazonS3",
+        "Date": "Fri, 23 Oct 2026 02:30:31 GMT",
+        "Last-Modified": "Thu, 22 Oct 2026 06:44:38 GMT",
+        "ETag": "\"73dfcc7e614dd025623d4cb365b2bbce\"",
+        "X-Cache": "Miss from cloudfront",
+        "Via": "1.1 45aea37f29c701ec26176754f3ff207a.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Pop": "LAX54-P11",
+        "X-Amz-Cf-Id": "xkSzPdqvG0kpbNMFdR-T6TjhUXcESYQomjgajNkgrIfA55F5XLavsQ=="
+      },
+      "requested_at_utc": "2026-10-23T02:30:28.639743+00:00",
+      "received_at_utc": "2026-10-23T02:30:29.837573+00:00",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "published_at_utc": null,
+      "request_headers": {
+        "If-None-Match": "\"73dfcc7e614dd025623d4cb365b2bbce\""
+      },
+      "conditional_invalid": false,
+      "revalidated_sha256": "55bbdadd5aaf0d04b07b510663e24074762b9616deeefb3687568a408a3d0432"
+    },
+    {
+      "name": "BTCUSDT-metrics-2026-10-21.zip.CHECKSUM",
+      "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-21.zip.CHECKSUM",
+      "final_url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-21.zip.CHECKSUM",
+      "status": 304,
+      "headers": {
+        "Connection": "close",
+        "Server": "AmazonS3",
+        "Date": "Fri, 23 Oct 2026 02:30:31 GMT",
+        "Last-Modified": "Thu, 22 Oct 2026 06:44:38 GMT",
+        "ETag": "\"8bd87d5b5990b1894b60d41ac7232b39\"",
+        "X-Cache": "Miss from cloudfront",
+        "Via": "1.1 692c5d47d454ff60e7f0753e5a3f0af6.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Pop": "LAX54-P11",
+        "X-Amz-Cf-Id": "m10F2hYnpM_nBeZfOmCKI-Y9OqxmDXcZCI7Qk29EvjQVn0hbKIDp5A=="
+      },
+      "requested_at_utc": "2026-10-23T02:30:29.838427+00:00",
+      "received_at_utc": "2026-10-23T02:30:30.704019+00:00",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "published_at_utc": null,
+      "request_headers": {
+        "If-None-Match": "\"8bd87d5b5990b1894b60d41ac7232b39\""
+      },
+      "conditional_invalid": false,
+      "revalidated_sha256": "8767972636327b7cebb2b33bd97e62fb119f2da5ebae5daf645f61b5d42175da"
+    },
+    {
+      "name": "BTCUSDT-5m-2026-10-21.zip",
+      "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-21.zip",
+      "final_url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-21.zip",
+      "status": 304,
+      "headers": {
+        "Connection": "close",
+        "Server": "AmazonS3",
+        "Date": "Fri, 23 Oct 2026 02:30:33 GMT",
+        "Last-Modified": "Thu, 22 Oct 2026 08:50:37 GMT",
+        "ETag": "\"dd0019847cdb6f81c6fe0c54401a667e\"",
+        "X-Cache": "Miss from cloudfront",
+        "Via": "1.1 8777d1a884c7a796954425a6bb523f28.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Pop": "LAX54-P11",
+        "X-Amz-Cf-Id": "jXdWoyjhXy0EC1qpiAztYFU3Wo3LU9Q4T8ofvyeuQMVbuRJjOghi_Q=="
+      },
+      "requested_at_utc": "2026-10-23T02:30:30.709279+00:00",
+      "received_at_utc": "2026-10-23T02:30:31.781215+00:00",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "published_at_utc": null,
+      "request_headers": {
+        "If-None-Match": "\"dd0019847cdb6f81c6fe0c54401a667e\""
+      },
+      "conditional_invalid": false,
+      "revalidated_sha256": "ea557930877523ed41707fc62aa5a15c18322698c48deb61f113e2f226b14b79"
+    },
+    {
+      "name": "BTCUSDT-5m-2026-10-21.zip.CHECKSUM",
+      "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-21.zip.CHECKSUM",
+      "final_url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-21.zip.CHECKSUM",
+      "status": 304,
+      "headers": {
+        "Connection": "close",
+        "Server": "AmazonS3",
+        "Date": "Fri, 23 Oct 2026 02:30:33 GMT",
+        "Last-Modified": "Thu, 22 Oct 2026 08:50:37 GMT",
+        "ETag": "\"1429b3c6023af466902a2278384609b6\"",
+        "X-Cache": "Miss from cloudfront",
+        "Via": "1.1 abeb98dce760822dff1daea390a5e438.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Pop": "LAX54-P11",
+        "X-Amz-Cf-Id": "nq9vYINCwJbc6Mpi2N2FrZdvCuQWdi_lsyt2CRYL_2C5-yPp_4o8OA=="
+      },
+      "requested_at_utc": "2026-10-23T02:30:31.782177+00:00",
+      "received_at_utc": "2026-10-23T02:30:32.640529+00:00",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "published_at_utc": null,
+      "request_headers": {
+        "If-None-Match": "\"1429b3c6023af466902a2278384609b6\""
+      },
+      "conditional_invalid": false,
+      "revalidated_sha256": "7be97e3635c0dceb4fbe56c2874dabce38f148af037163ad52221e854a112696"
+    },
+    {
+      "name": "BTCUSDT-metrics-2026-10-22.zip",
+      "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-22.zip",
+      "final_url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-22.zip",
+      "status": 404,
+      "headers": {
+        "Content-Type": "application/xml",
+        "Transfer-Encoding": "chunked",
+        "Connection": "close",
+        "Date": "Fri, 23 Oct 2026 02:30:33 GMT",
+        "Server": "AmazonS3",
+        "X-Cache": "Error from cloudfront",
+        "Via": "1.1 d3a1bfa8dafda0830453dedfc8a076da.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Pop": "LAX54-P11",
+        "X-Amz-Cf-Id": "SiQEY27wFL2jfH2A063T8syeCZBCsIy5ELkAxKma_Qd_7_QTosGMyA=="
+      },
+      "requested_at_utc": "2026-10-23T02:30:32.645451+00:00",
+      "received_at_utc": "2026-10-23T02:30:33.683091+00:00",
+      "body_sha256": "1645a0a7cc5f90ede5fa35fca29d42e7ed14ef39f205e41a4efa3b1d53e50746",
+      "bytes": 359,
+      "published_at_utc": null,
+      "request_headers": {},
+      "conditional_invalid": false,
+      "revalidated_sha256": null
+    },
+    {
+      "name": "BTCUSDT-metrics-2026-10-22.zip.CHECKSUM",
+      "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-22.zip.CHECKSUM",
+      "final_url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-22.zip.CHECKSUM",
+      "status": 404,
+      "headers": {
+        "Content-Type": "application/xml",
+        "Transfer-Encoding": "chunked",
+        "Connection": "close",
+        "Date": "Fri, 23 Oct 2026 02:30:35 GMT",
+        "Server": "AmazonS3",
+        "X-Cache": "Error from cloudfront",
+        "Via": "1.1 692c5d47d454ff60e7f0753e5a3f0af6.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Pop": "LAX54-P11",
+        "X-Amz-Cf-Id": "l8T_fHaLb6s1r7UKfrB7x9GZ-V6ORI5q4JhKuM4ppMCAXsSpjokjgg=="
+      },
+      "requested_at_utc": "2026-10-23T02:30:33.688368+00:00",
+      "received_at_utc": "2026-10-23T02:30:34.927029+00:00",
+      "body_sha256": "b8a616e50eb5f3928df5ebf668a01ca4e72c9f20bfe2c8946c9738a8305950d5",
+      "bytes": 368,
+      "published_at_utc": null,
+      "request_headers": {},
+      "conditional_invalid": false,
+      "revalidated_sha256": null
+    },
+    {
+      "name": "BTCUSDT-5m-2026-10-22.zip",
+      "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-22.zip",
+      "final_url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-22.zip",
+      "status": 404,
+      "headers": {
+        "Content-Type": "application/xml",
+        "Transfer-Encoding": "chunked",
+        "Connection": "close",
+        "Date": "Fri, 23 Oct 2026 02:30:36 GMT",
+        "Server": "AmazonS3",
+        "X-Cache": "Error from cloudfront",
+        "Via": "1.1 aa5f099352c5555cec23a954f4bd95f4.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Pop": "LAX54-P11",
+        "X-Amz-Cf-Id": "HTAl_B_5vvkeOcT3ozKmv3q6Op9bgZKn1JT5W1tx_khvLOkQWCWr-g=="
+      },
+      "requested_at_utc": "2026-10-23T02:30:34.932240+00:00",
+      "received_at_utc": "2026-10-23T02:30:36.436618+00:00",
+      "body_sha256": "05bbbd9edbfc3cf1c5200ded246e6d061c609c493729cc39edd9ef568804ffc2",
+      "bytes": 336,
+      "published_at_utc": null,
+      "request_headers": {},
+      "conditional_invalid": false,
+      "revalidated_sha256": null
+    },
+    {
+      "name": "BTCUSDT-5m-2026-10-22.zip.CHECKSUM",
+      "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-22.zip.CHECKSUM",
+      "final_url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-22.zip.CHECKSUM",
+      "status": 404,
+      "headers": {
+        "Content-Type": "application/xml",
+        "Transfer-Encoding": "chunked",
+        "Connection": "close",
+        "Date": "Fri, 23 Oct 2026 02:30:37 GMT",
+        "Server": "AmazonS3",
+        "X-Cache": "Error from cloudfront",
+        "Via": "1.1 abeb98dce760822dff1daea390a5e438.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Pop": "LAX54-P11",
+        "X-Amz-Cf-Id": "fY6IrbGDQpIXiYdUzjqJbnI1wAMR2VuJ5dvXogj9HYAsHA3xal5ZEg=="
+      },
+      "requested_at_utc": "2026-10-23T02:30:36.441473+00:00",
+      "received_at_utc": "2026-10-23T02:30:37.312004+00:00",
+      "body_sha256": "934fe901bccbb172c91e798f77140ba02635fb565f98922b22eefb7906487bcc",
+      "bytes": 365,
+      "published_at_utc": null,
+      "request_headers": {},
+      "conditional_invalid": false,
+      "revalidated_sha256": null
+    }
+  ]
+}

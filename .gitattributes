@@ -9,3 +9,4 @@ data/archive_feasibility/**/raw/** -whitespace
 data/archive_normalized/** -text
 data/archive_coverage/** -text
 data/archive_coverage/**/raw/** -whitespace
+data/archive_observation/** -text

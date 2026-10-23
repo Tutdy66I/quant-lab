@@ -1,0 +1,9 @@
+{
+  "ledger_head_sha256": "ea5cab5d7a16a156e936de48576224edd0dcfee700c424518fa72d5d88c91239",
+  "observer_code_sha256": "b453c1fa758513ff458860d41633eb3d76231c2e03c1f28617ae941b9f926409",
+  "semantic_registry_sha256": "304e1e90785b1da668b2bdac6006d42d6e312b1798f4036e9fc7109cd494175c",
+  "files": {
+    "summary.json": "2683b2088e141ae395712cb3a59a3a1ace4978047cc8b8d8d653b2b08dcf2c30",
+    "accepted.jsonl": "56c1ad1efbdf6f0b3b7c64613de8c8f17fffd5f26a8e6cfd57326893ea44368e"
+  }
+}

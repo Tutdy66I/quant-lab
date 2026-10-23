@@ -117,6 +117,18 @@ python -m research.archive_normalizer build --output <新的独立输出目录>
 python -m research.archive_coverage verify --output data/archive_normalized/binance_um_btcusdt_coverage_v1
 ```
 
+## Quant Lab 2.3：前瞻数据证据与持续采集
+
+[实施设计](docs/QuantLab2.3实施设计.md)与[真实验收报告](docs/QuantLab2.3持续观察验收.md)。独立观察器按内容哈希保存原始字节，记录增量观察、首次见证、304 确认、缺口与修订；离线重放校验，沿用精确 taker 契约，OI/多空比保持隔离。实采两轮：2 个 metrics 日包、576 个窗口，10 月 22 日为 404 缺口；新增的是观察证据，尚无前瞻预测样本或官方首次发布证明。
+
+```console
+python -m research.archive_observer collect --root runtime/archive_observer_v1
+python -m research.archive_observer watch --root runtime/archive_observer_v1 --interval-seconds 3600
+python -m research.archive_observer verify --root data/archive_observation/binance_um_btcusdt_v1 --output data/archive_observation/binance_um_btcusdt_v1_snapshot
+```
+
+`watch` 为前台循环，本轮未启用后台任务，也未修改现有自动化；详细运行边界及故障处理见验收报告。
+
 ## 纸面运行状态
 
 当前持续运行原生 Python 观察器；Docker / Hummingbot 已按用户要求暂停。查看[最新观察汇总](docs/纸面观察进度.md)及[持续观察计划](docs/持续观察计划.md)。汇总是带时间戳的定时快照，不是实时状态页。
