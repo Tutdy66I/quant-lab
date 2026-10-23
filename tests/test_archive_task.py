@@ -27,7 +27,13 @@ class ArchiveTaskPlanTests(unittest.TestCase):
             self.assertEqual(find('LogonType'), 'InteractiveToken')
             self.assertEqual(find('RunLevel'), 'LeastPrivilege')
             self.assertEqual(find('ExecutionTimeLimit'), 'PT20M')
-            self.assertIn(data, find('Arguments'))
+            # Windows runners can expand TEMP's 8.3 alias (RUNNER~1) to runneradmin.
+            # Compare filesystem identity, while still checking quoted special characters.
+            arguments = find('Arguments')
+            actual_data = arguments.rsplit(' -DataRoot "', 1)[1][:-1]
+            self.assertEqual(Path(data).resolve(), Path(actual_data).resolve())
+            self.assertIn("archive task ' ", actual_data)
+            self.assertTrue(actual_data.endswith('data & evidence'))
             self.assertIsNotNone(root.find('.//t:LogonTrigger', ns))
             xml = Path(temporary) / 'task.xml'
             xml.write_text(result.stdout.strip(), encoding='utf-16')
