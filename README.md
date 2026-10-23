@@ -139,7 +139,16 @@ python -m deployment.archive_service run --root runtime/archive_observer_v1
 python -m deployment.archive_service health --root runtime/archive_observer_v1
 ```
 
-实际启用计划任务前需要用户确认并交接旧采集调度；本次尚未启用，不将单轮测试视为长期运行验收。见 [Windows 部署维护手册](docs/QuantLab2.4Windows运行手册.md)和[测试及真实运行证据](docs/QuantLab2.4运行验收.md)。
+2026-10-23 本机已确认启用 Windows 任务 `quant-lab-archive-observer`；旧 Codex 归档任务已改为只读监测。首次确认启用为香港时间 11:17:28，7/28 天观察到期分别为 10 月 30 日、11 月 20 日同一时刻；尚未通过长期验收。仓库文档为带日期记录，当前任务状态仍须本机核对。见 [Windows 部署维护手册](docs/QuantLab2.4Windows运行手册.md)和[测试及真实运行证据](docs/QuantLab2.4运行验收.md)。
+
+离线验收报告不采集、不更改任务、不改写健康文件，默认只向 stdout 输出：
+
+```console
+python -m deployment.archive_acceptance --days 7
+python -m deployment.archive_acceptance --days 28 --output runtime/archive_acceptance/review-28d-unique
+```
+
+报告区分采集、限频跳过、失败和中断；未知触发不推断为自动，缺少完整调度历史时完整成功率保持空。到期只进入人工评估，不自动判通过。单轮包装在冷却结束前至多等待 60 秒，避免小时触发早几秒就跳过整个周期，仍保持完整一小时冷却。
 
 ## 纸面运行状态
 
