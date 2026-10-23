@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "captured_at_utc": "2026-10-23T03:09:12.931471+00:00",
+  "base_main_commit": "c3b741c3af0a76e490c6bae24f4620d3733890fb",
+  "task_registered": false,
+  "task_enabled": false,
+  "actual_logon_trigger_verified": false,
+  "actual_reboot_recovery_verified": false,
+  "long_run_acceptance": "not_established",
+  "native_scheduler_xml_validation": "passed without registration",
+  "live_recheck": {
+    "started_at_utc": "2026-10-23T02:59:11.915785+00:00",
+    "finished_at_utc": "2026-10-23T02:59:26.320880+00:00",
+    "ledger_head_sha256": "bc71994306ff3acb505e76f32def5b36f0ef328385b708a586162e82ca7697ac",
+    "stop_reason": null,
+    "response_status_counts": {
+      "304": 11,
+      "404": 4
+    },
+    "receipts": [
+      {
+        "name": "terms",
+        "url": "https://raw.githubusercontent.com/binance/binance-public-data/master/TERMS_AND_CONDITIONS.md",
+        "status": 304,
+        "requested_at_utc": "2026-10-23T02:59:11.915849+00:00",
+        "received_at_utc": "2026-10-23T02:59:12.711977+00:00",
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "name": "BTCUSDT-metrics-2026-10-20.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-20.zip",
+        "status": 304,
+        "requested_at_utc": "2026-10-23T02:59:12.715366+00:00",
+        "received_at_utc": "2026-10-23T02:59:13.526740+00:00",
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "name": "BTCUSDT-metrics-2026-10-20.zip.CHECKSUM",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-20.zip.CHECKSUM",
+        "status": 304,
+        "requested_at_utc": "2026-10-23T02:59:13.527661+00:00",
+        "received_at_utc": "2026-10-23T02:59:14.339396+00:00",
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "name": "BTCUSDT-5m-2026-10-19.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-19.zip",
+        "status": 304,
+        "requested_at_utc": "2026-10-23T02:59:14.344960+00:00",
+        "received_at_utc": "2026-10-23T02:59:15.552498+00:00",
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "name": "BTCUSDT-5m-2026-10-19.zip.CHECKSUM",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-19.zip.CHECKSUM",
+        "status": 304,
+        "requested_at_utc": "2026-10-23T02:59:15.553476+00:00",
+        "received_at_utc": "2026-10-23T02:59:16.542341+00:00",
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "name": "BTCUSDT-5m-2026-10-20.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-20.zip",
+        "status": 304,
+        "requested_at_utc": "2026-10-23T02:59:16.546787+00:00",
+        "received_at_utc": "2026-10-23T02:59:17.543496+00:00",
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "name": "BTCUSDT-5m-2026-10-20.zip.CHECKSUM",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-20.zip.CHECKSUM",
+        "status": 304,
+        "requested_at_utc": "2026-10-23T02:59:17.544360+00:00",
+        "received_at_utc": "2026-10-23T02:59:18.299329+00:00",
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "name": "BTCUSDT-metrics-2026-10-21.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-21.zip",
+        "status": 304,
+        "requested_at_utc": "2026-10-23T02:59:18.303730+00:00",
+        "received_at_utc": "2026-10-23T02:59:19.468793+00:00",
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "name": "BTCUSDT-metrics-2026-10-21.zip.CHECKSUM",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-21.zip.CHECKSUM",
+        "status": 304,
+        "requested_at_utc": "2026-10-23T02:59:19.470067+00:00",
+        "received_at_utc": "2026-10-23T02:59:20.424354+00:00",
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "name": "BTCUSDT-5m-2026-10-21.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-21.zip",
+        "status": 304,
+        "requested_at_utc": "2026-10-23T02:59:20.429631+00:00",
+        "received_at_utc": "2026-10-23T02:59:21.616762+00:00",
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "name": "BTCUSDT-5m-2026-10-21.zip.CHECKSUM",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-21.zip.CHECKSUM",
+        "status": 304,
+        "requested_at_utc": "2026-10-23T02:59:21.617566+00:00",
+        "received_at_utc": "2026-10-23T02:59:22.383153+00:00",
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "name": "BTCUSDT-metrics-2026-10-22.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-22.zip",
+        "status": 404,
+        "requested_at_utc": "2026-10-23T02:59:22.387499+00:00",
+        "received_at_utc": "2026-10-23T02:59:23.189911+00:00",
+        "body_sha256": "0162688d63772c388db361c4cd7f1492d5a332e96388b28d282a55813967b76c",
+        "bytes": 359
+      },
+      {
+        "name": "BTCUSDT-metrics-2026-10-22.zip.CHECKSUM",
+        "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-22.zip.CHECKSUM",
+        "status": 404,
+        "requested_at_utc": "2026-10-23T02:59:23.195364+00:00",
+        "received_at_utc": "2026-10-23T02:59:24.359338+00:00",
+        "body_sha256": "e012c4bdbbaf3adff055d02ea846029b9b79d40f6610612e2dd11d4adbea6695",
+        "bytes": 348
+      },
+      {
+        "name": "BTCUSDT-5m-2026-10-22.zip",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-22.zip",
+        "status": 404,
+        "requested_at_utc": "2026-10-23T02:59:24.365015+00:00",
+        "received_at_utc": "2026-10-23T02:59:25.373039+00:00",
+        "body_sha256": "96726466a234236c20c582e2ee23da479b26605865b6146bf28be0bab78636bd",
+        "bytes": 336
+      },
+      {
+        "name": "BTCUSDT-5m-2026-10-22.zip.CHECKSUM",
+        "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2026-10-22.zip.CHECKSUM",
+        "status": 404,
+        "requested_at_utc": "2026-10-23T02:59:25.378453+00:00",
+        "received_at_utc": "2026-10-23T02:59:26.315135+00:00",
+        "body_sha256": "65c7e25975aabcaf6c156502c15a8168edbe517114f5a15b02ec2c250dd7e7e4",
+        "bytes": 345
+      }
+    ]
+  },
+  "operations_smoke": {
+    "started_at_utc": "2026-10-23T03:05:34.660490+00:00",
+    "finished_at_utc": "2026-10-23T03:05:35.275203+00:00",
+    "result": "not_due",
+    "ledger_head_sha256": "bc71994306ff3acb505e76f32def5b36f0ef328385b708a586162e82ca7697ac"
+  },
+  "snapshot_manifest": {
+    "ledger_head_sha256": "bc71994306ff3acb505e76f32def5b36f0ef328385b708a586162e82ca7697ac",
+    "observer_code_sha256": "b453c1fa758513ff458860d41633eb3d76231c2e03c1f28617ae941b9f926409",
+    "semantic_registry_sha256": "304e1e90785b1da668b2bdac6006d42d6e312b1798f4036e9fc7109cd494175c",
+    "files": {
+      "summary.json": "25373a5432d0e7691d483eeeb709af49aa58fab8f903a9860ed81c087c38465d",
+      "accepted.jsonl": "fcf4e843fd514ef8f57a714611342f5720a72727358ba2ad9613927a9abf21a1"
+    }
+  },
+  "health": {
+    "checked_at_utc": "2026-10-23T03:09:12.437277+00:00",
+    "integrity": "verified",
+    "runtime_state": "healthy",
+    "latest_successful_collection_at_utc": "2026-10-23T02:59:26.320880+00:00",
+    "latest_run_at_utc": "2026-10-23T02:59:26.320880+00:00",
+    "latest_run_result": "completed",
+    "verified_metric_dates": [
+      "2026-10-20",
+      "2026-10-21"
+    ],
+    "verified_coverage_segments": [
+      {
+        "start": "2026-10-20",
+        "end": "2026-10-21",
+        "days": 2
+      }
+    ],
+    "verified_metric_rows": 576,
+    "accepted_taker_windows": 576,
+    "unresolved_gaps": [
+      {
+        "date": "2026-10-22",
+        "reason": "no_complete_publisher_verified_archive"
+      }
+    ],
+    "revisions": [],
+    "orphan_objects": [],
+    "isolated": [
+      {
+        "date": "2026-10-20",
+        "fields": [
+          "sum_open_interest",
+          "sum_open_interest_value",
+          "count_toptrader_long_short_ratio",
+          "sum_toptrader_long_short_ratio",
+          "count_long_short_ratio"
+        ],
+        "rows": 288,
+        "reason": "unverified metric timing, new file/version or missing exact support fingerprints"
+      },
+      {
+        "date": "2026-10-21",
+        "fields": [
+          "sum_open_interest",
+          "sum_open_interest_value",
+          "count_toptrader_long_short_ratio",
+          "sum_toptrader_long_short_ratio",
+          "count_long_short_ratio"
+        ],
+        "rows": 288,
+        "reason": "unverified metric timing, new file/version or missing exact support fingerprints"
+      }
+    ],
+    "prospective_prediction_samples": 0,
+    "official_publication_at_utc": null,
+    "statistics_module_enabled": false
+  },
+  "local_test_result": {
+    "platform": "Windows",
+    "python": "3.13",
+    "tests_run": 139,
+    "result": "passed",
+    "native_task_tests": 2
+  },
+  "unverified": [
+    "Actual registration and enablement",
+    "Real logon/reboot/resume trigger",
+    "Real unattended network recovery",
+    "Battery and sleep behavior",
+    "20-minute time limit termination",
+    "7/28-day continuity"
+  ]
+}
