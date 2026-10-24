@@ -10,6 +10,32 @@ import xml.etree.ElementTree as ET
 
 @unittest.skipUnless(os.name == 'nt', 'Windows Task Scheduler plan validation')
 class ArchiveTaskPlanTests(unittest.TestCase):
+    def test_history_export_filters_task_and_never_changes_log(self):
+        script = Path(__file__).resolve().parents[1] / 'deployment/archive-task-history.ps1'
+        command = r'''
+param($ExportScript)
+$ErrorActionPreference='Stop'
+function Get-WinEvent {
+    param($ListLog, $FilterHashtable, $MaxEvents)
+    if ($ListLog) { return [pscustomobject]@{IsEnabled=$true} }
+    foreach ($name in @('\quant-lab-archive-observer','\unrelated')) {
+        $entry=[pscustomobject]@{Xml=('<Event><EventData><Data Name="TaskName">'+$name+'</Data></EventData></Event>')}
+        $entry | Add-Member ScriptMethod ToXml { return $this.Xml }
+        $entry
+    }
+}
+& $ExportScript
+'''
+        with tempfile.TemporaryDirectory() as temporary:
+            harness = Path(temporary) / 'history-test.ps1'
+            harness.write_text(command, encoding='utf-8')
+            result = subprocess.run(['powershell.exe', '-NoProfile', '-NonInteractive',
+                '-ExecutionPolicy', 'RemoteSigned', '-File', str(harness), str(script)],
+                capture_output=True, text=True, check=True)
+            root = ET.fromstring(result.stdout.strip())
+            self.assertEqual(len(root), 1)
+            self.assertEqual(root.find('.//Data').text, '\\quant-lab-archive-observer')
+
     def test_plan_roundtrips_paths_and_validates_in_native_scheduler(self):
         script = Path(__file__).resolve().parents[1] / 'deployment/archive-service.ps1'
         with tempfile.TemporaryDirectory(prefix="archive task ' ") as temporary:

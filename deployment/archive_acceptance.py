@@ -7,6 +7,8 @@ from pathlib import Path
 import time
 
 from deployment import archive_service as s
+from deployment import archive_diagnostics as diagnostics
+from deployment import archive_task_history
 from research import archive_observer as o
 from research import archive_normalizer as n
 
@@ -16,7 +18,8 @@ def inventory(path):
     return {'files': len(files), 'bytes': sum(p.stat().st_size for p in files)}
 
 
-def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now):
+def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now, scheduler_events=None):
+    report_started = time.perf_counter()
     if days not in (7, 28):
         raise ValueError('Acceptance stage must be 7 or 28 days')
     instant = clock()
@@ -34,6 +37,7 @@ def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now):
     due = enabled + timedelta(days=days)
     result = {
         'schema_version': 1, 'stage_days': days, 'checked_at_utc': n.iso(instant),
+        'operations_code_sha256': diagnostics.code_fingerprints(),
         'enabled_at_utc': deployment['enabled_at_utc'], 'due_at_utc': n.iso(due),
         'elapsed_seconds': (instant - enabled).total_seconds(),
         'stage': 'not_due' if instant < due else 'due_for_manual_review',
@@ -80,19 +84,7 @@ def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now):
     outcomes = Counter(r['result'] for r in cycles)
     terminal = sum(outcomes[k] for k in ('completed', 'not_due', 'failed', 'error', 'manual_review_required'))
     normal = outcomes['completed'] + outcomes['not_due']
-    successful = [r for r in state['runs'] if not r['stop_reason']
-                  and n.utc(r['finished_at_utc']) <= instant]
-    cursor = enabled
-    successful_gaps = []
-    for run in successful:
-        end = n.utc(run['finished_at_utc'])
-        if end < enabled:
-            continue
-        successful_gaps.append({'start_utc': n.iso(cursor), 'end_utc': n.iso(end),
-                                'seconds': (end - cursor).total_seconds()})
-        cursor = end
-    successful_gaps.append({'start_utc': n.iso(cursor), 'end_utc': n.iso(instant),
-                            'seconds': (instant - cursor).total_seconds(), 'open_interval': True})
+    successful_gaps = diagnostics.successful_intervals(state['runs'], enabled, instant)
     interruptions = [{'reported_at_utc': r['finished_at_utc'], **r['interrupted_cycle'],
                       'cause': r.get('interruption_cause', 'unknown')}
                      for r in cycles if r.get('interrupted_cycle')]
@@ -145,6 +137,10 @@ def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now):
         unresolved_gaps=summary['gaps'], overdue_gaps=overdue, observed_gap_recoveries=recoveries,
         revisions=summary['revisions'], metric_rows=summary['metric_rows'],
         latest_collection_stop_reason=state['runs'][-1]['stop_reason'] if state['runs'] else None,
+        latest_failure_diagnostic=diagnostics.failure(root, state['runs'][-1] if state['runs'] else None),
+        operations_duration_seconds={'count': len(cycles), 'max': max([
+            (n.utc(r['finished_at_utc']) - n.utc(r['started_at_utc'])).total_seconds()
+            for r in cycles], default=None)},
         metric_grid_quality=[{'date': item['date'], 'quality': item['quality']} for item in summary['archives']],
         accepted_taker_windows=summary['accepted_taker_windows'], isolated=summary['isolated'],
         orphan_objects=summary['orphan_objects'], publisher_verification_failures=summary['publisher_verification_failures'],
@@ -153,6 +149,10 @@ def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now):
         deployment_disk_growth_bytes=None,
         disk_growth_limitation='No deployment-time byte inventory is established; this is a current measurement.',
     )
+    result['review_criteria'] = diagnostics.criteria(result)
+    result['scheduler_history'] = (archive_task_history.read(scheduler_events, enabled, instant)
+                                   if scheduler_events else {'coverage': 'unavailable'})
+    result['total_report_seconds'] = time.perf_counter() - report_started
     return result
 
 
@@ -166,10 +166,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, default=o.DEFAULT_ROOT)
     parser.add_argument('--days', type=int, choices=(7, 28), default=7)
+    parser.add_argument('--scheduler-events', type=Path, help='Optional exported event XML; no system log changes')
     parser.add_argument('--output', type=Path, help='New report directory; stdout only when omitted')
     args = parser.parse_args()
     try:
-        result = report(args.root, days=args.days)
+        result = report(args.root, days=args.days, scheduler_events=args.scheduler_events)
         if args.output:
             output = args.output.resolve()
             if output.is_relative_to(args.root.resolve()) or output.is_relative_to(s.directory(args.root)):
