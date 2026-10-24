@@ -11,6 +11,7 @@ from uuid import uuid4
 
 from research import archive_observer as o
 from research import archive_normalizer as n
+from deployment import archive_diagnostics as diagnostics
 
 INTERVAL = timedelta(hours=1)
 MAX_TRANSIENT_FAILURES = 3
@@ -203,6 +204,7 @@ def health(root, clock=o.now):
     """Read-only, offline assessment. JSON/Markdown are projections, not ledgers."""
     instant = clock()
     result = {'schema_version': 1, 'checked_at_utc': n.iso(instant),
+              'operations_code_sha256': diagnostics.code_fingerprints(),
               'runtime_state': 'uninitialized', 'integrity': 'unknown',
               'latest_successful_collection_at_utc': None, 'latest_run_at_utc': None,
               'latest_run_result': None, 'verified_metric_dates': [], 'verified_coverage_segments': [],
@@ -243,6 +245,7 @@ def health(root, clock=o.now):
                           latest_request_statuses=[{'name': e['name'], 'status': e['status']} for e in last['events']])
             good = next((r for r in reversed(runs) if not r['stop_reason']), None)
             result['latest_successful_collection_at_utc'] = good['finished_at_utc'] if good else None
+            result['latest_failure_diagnostic'] = diagnostics.failure(Path(root), last)
             if last['stop_reason']:
                 result['runtime_state'] = 'retry_pending' if transient(last) else 'manual_review_required'
                 failures = 0
@@ -254,7 +257,13 @@ def health(root, clock=o.now):
                     result['runtime_state'] = 'manual_review_required'
                     result['anomalies'].append('transient_retry_budget_exhausted')
                 result['anomalies'].append(last['stop_reason'])
-            if instant - n.utc(last['finished_at_utc']) > timedelta(hours=3):
+            result['successful_collection_age_seconds'] = (
+                (instant - n.utc(good['finished_at_utc'])).total_seconds() if good else None)
+            intervals = diagnostics.successful_intervals(runs, n.utc(runs[0]['started_at_utc']), instant)
+            result['longest_successful_collection_interval_seconds'] = max(g['seconds'] for g in intervals)
+            if not good:
+                result['anomalies'].append('no_successful_collection')
+            if good and instant - n.utc(good['finished_at_utc']) > timedelta(hours=3):
                 result['anomalies'].append('no_completed_collection_for_over_3_hours')
         else:
             result['anomalies'].append('no_collection_runs')
@@ -310,6 +319,8 @@ def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive, sleep=
         with lease(manager):
             started = n.iso(clock())
             receipt = {'started_at_utc': started, 'result': 'error', 'snapshot': None,
+                       'operations_code_sha256': diagnostics.code_fingerprints(),
+                       'execution_context': diagnostics.execution_context(),
                        'pid': os.getpid(), 'trigger_kind': 'unknown', 'phase': 'preflight',
                        'service_code_sha256': n.sha(Path(__file__).read_bytes().replace(b'\r\n', b'\n'))}
             active = manager / 'running.json'

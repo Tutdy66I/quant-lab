@@ -67,6 +67,7 @@ class ArchiveServiceTests(unittest.TestCase):
         calls = len(self.server.calls)
         receipt, report = self.cycle()
         self.assertEqual(receipt['result'], 'not_due')
+        self.assertIn('python_version', receipt['execution_context'])
         self.assertEqual(len(self.server.calls), calls)
         self.assertEqual({p.name: p.read_bytes() for p in (self.root / 'runs').glob('*.json')}, original)
         self.assertEqual(report['accepted_taker_windows'], 288)
@@ -124,6 +125,16 @@ class ArchiveServiceTests(unittest.TestCase):
         self.assertEqual(receipt['result'], 'manual_review_required')
         self.assertEqual(calls, len(self.server.calls))
         self.assertEqual(report['runtime_state'], 'manual_review_required')
+
+    def test_recent_failure_and_skip_cannot_hide_old_success(self):
+        self.later(4)
+        self.server.status = (None, b'CERTIFICATE_VERIFY_FAILED self-signed certificate')
+        _, report = self.cycle()
+        self.assertIn('no_completed_collection_for_over_3_hours', report['anomalies'])
+        self.assertGreater(report['successful_collection_age_seconds'], 10800)
+        self.assertEqual(report['latest_failure_diagnostic']['category'], 'tls_certificate_validation')
+        self.assertEqual(self.cycle()[0]['result'], 'not_due')
+        self.assertIn('no_completed_collection_for_over_3_hours', s.health(self.root, self.clock)['anomalies'])
 
     def test_restriction_rate_limit_license_and_redirect_never_auto_resume(self):
         for status in (403, 451, 429, 401):

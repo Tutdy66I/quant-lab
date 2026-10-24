@@ -46,6 +46,9 @@ class ArchiveAcceptanceTests(unittest.TestCase):
         self.assertIsNone(r['schedule_punctuality_rate'])
         self.assertEqual(original, self.files())
         self.assertEqual(calls, len(self.server.calls))
+        self.assertEqual(r['scheduler_history']['coverage'], 'unavailable')
+        self.assertEqual(r['review_criteria']['checks']['scheduler_denominator'], 'not_assessable')
+        self.assertGreaterEqual(r['total_report_seconds'], r['offline_replay_seconds'])
 
     def test_exact_due_dates_use_deployment_not_earlier_manual_baseline(self):
         monitor = self.root.with_name('archive_observer_monitor')
@@ -72,6 +75,8 @@ class ArchiveAcceptanceTests(unittest.TestCase):
         self.assertEqual(r['operation_normal_completion_rate'], 0)
         self.assertGreater(r['longest_successful_collection_interval_seconds'], 3*3600)
         self.assertTrue(r['collection_gaps_over_3_hours'])
+        self.assertEqual(r['review_criteria']['decision'], 'blocked')
+        self.assertEqual(r['review_criteria']['checks']['latest_collection'], 'fail')
 
     def test_corrupt_old_snapshot_cannot_hide_behind_latest_healthy_snapshot(self):
         s.run_cycle(self.root, clock=self.clock, fetcher=self.server)
