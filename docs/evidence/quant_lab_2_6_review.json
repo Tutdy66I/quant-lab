@@ -1,0 +1,590 @@
+{
+  "schema_version": 1,
+  "quant_lab_version": "2.6",
+  "checked_at_utc": "2026-10-27T09:42:54.798129+00:00",
+  "baseline_commit": "aa645ce8ec2d817de9381dd19ba4d44b8617be15",
+  "branch": "codex/quant-lab-26-audit",
+  "auditor_lf_sha256": "2b059496b5b43d345fa375e6960f3feb606664c0aa6ef168a8b8f764d01165a1",
+  "implementation_state": "local_uncommitted_not_pushed",
+  "complete_report": {
+    "path": "runtime/quant_lab_26_review_20261027/audit-delivery/report.json",
+    "sha256": "81930d5b18ced9c3ab93648eaf6c8dd34e5e0f86111470d618327d114b9a69d0",
+    "markdown_sha256": "9205e2b43cd1adce703271cef90796950ed3d44016815add3fbca92b10157c87"
+  },
+  "source_file_fingerprint_count": 897,
+  "read_consistency": {
+    "changed_or_missing_inputs": [],
+    "added_inputs": []
+  },
+  "enabled_at_utc": "2026-10-23T03:17:28.4036105Z",
+  "acceptance_stages": {
+    "7": {
+      "stage": "not_due",
+      "due_at_utc": "2026-10-30T03:17:28.403610+00:00",
+      "long_run_acceptance": "not_established",
+      "review_criteria": {
+        "version": 1,
+        "checks": {
+          "observation_period": "not_due",
+          "integrity": "pass",
+          "successful_collection_gaps": "fail",
+          "latest_collection": "pass",
+          "overdue_archive_gaps": "pass",
+          "scheduler_denominator": "not_assessable",
+          "real_logon_reboot_recovery": "unverified",
+          "source_revision_handling_in_real_operation": "unverified",
+          "statistics_disabled": "pass"
+        },
+        "decision": "blocked",
+        "policy": "Any failure blocks acceptance. Unknown evidence stays unresolved; manual review is required."
+      }
+    },
+    "28": {
+      "stage": "not_due",
+      "due_at_utc": "2026-11-20T03:17:28.403610+00:00",
+      "long_run_acceptance": "not_established",
+      "review_criteria": {
+        "version": 1,
+        "checks": {
+          "observation_period": "not_due",
+          "integrity": "pass",
+          "successful_collection_gaps": "fail",
+          "latest_collection": "pass",
+          "overdue_archive_gaps": "pass",
+          "scheduler_denominator": "not_assessable",
+          "real_logon_reboot_recovery": "unverified",
+          "source_revision_handling_in_real_operation": "unverified",
+          "statistics_disabled": "pass",
+          "capacity_trend": "not_assessable"
+        },
+        "decision": "blocked",
+        "policy": "Any failure blocks acceptance. Unknown evidence stays unresolved; manual review is required."
+      }
+    }
+  },
+  "report_state": "ready_for_review",
+  "long_run_acceptance": "not_established",
+  "operations": {
+    "verified_snapshots": 63,
+    "observed_operations": 61,
+    "operation_outcomes": {
+      "not_due": 19,
+      "completed": 33,
+      "failed": 9
+    },
+    "successful_collection_runs": 33,
+    "failed_collection_runs": 9,
+    "collection_gaps_over_3_hours": [
+      {
+        "start_utc": "2026-10-23T06:22:06.587416+00:00",
+        "end_utc": "2026-10-23T09:22:47.303959+00:00",
+        "seconds": 10840.716543
+      },
+      {
+        "start_utc": "2026-10-23T09:22:47.303959+00:00",
+        "end_utc": "2026-10-23T13:22:03.455474+00:00",
+        "seconds": 14356.151515
+      },
+      {
+        "start_utc": "2026-10-23T14:22:04.742938+00:00",
+        "end_utc": "2026-10-24T04:22:08.046176+00:00",
+        "seconds": 50403.303238
+      },
+      {
+        "start_utc": "2026-10-24T05:22:28.375339+00:00",
+        "end_utc": "2026-10-24T09:22:05.858535+00:00",
+        "seconds": 14377.483196
+      },
+      {
+        "start_utc": "2026-10-24T14:23:03.546138+00:00",
+        "end_utc": "2026-10-25T05:18:15.058201+00:00",
+        "seconds": 53711.512063
+      },
+      {
+        "start_utc": "2026-10-25T13:22:36.084131+00:00",
+        "end_utc": "2026-10-26T04:22:06.544560+00:00",
+        "seconds": 53970.460429
+      },
+      {
+        "start_utc": "2026-10-26T14:22:07.910771+00:00",
+        "end_utc": "2026-10-27T02:41:45.068502+00:00",
+        "seconds": 44377.157731
+      }
+    ],
+    "longest_successful_collection_interval_seconds": 53970.460429,
+    "interruptions": [
+      {
+        "reported_at_utc": "2026-10-23T09:22:47.910090+00:00",
+        "pid": 24440,
+        "started_at_utc": "2026-10-23T08:22:00.654532+00:00",
+        "cause": "unknown"
+      },
+      {
+        "reported_at_utc": "2026-10-23T13:22:04.104295+00:00",
+        "pid": 2948,
+        "started_at_utc": "2026-10-23T12:26:45.011266+00:00",
+        "cause": "unknown"
+      },
+      {
+        "reported_at_utc": "2026-10-25T05:18:16.036425+00:00",
+        "pid": 43260,
+        "started_at_utc": "2026-10-24T15:22:02.008979+00:00",
+        "phase": "cooldown",
+        "phase_at_utc": "2026-10-24T15:22:03.820581+00:00",
+        "cause": "unknown; dead PID proves interruption, not its cause"
+      },
+      {
+        "reported_at_utc": "2026-10-26T02:46:16.076740+00:00",
+        "pid": 21144,
+        "started_at_utc": "2026-10-25T14:22:00.571959+00:00",
+        "phase": "cooldown",
+        "phase_at_utc": "2026-10-25T14:22:01.255575+00:00",
+        "cause": "unknown; dead PID proves interruption, not its cause"
+      }
+    ],
+    "unresolved_gaps": [],
+    "overdue_gaps": [],
+    "observed_gap_recoveries": [
+      {
+        "name": "BTCUSDT-metrics-2026-10-22.zip",
+        "first_missing_observed_at_utc": "2026-10-23T02:47:07.918707+00:00",
+        "publisher_verified_at_utc": "2026-10-23T09:22:47.303959+00:00",
+        "sha256": "73c21e8326685f58af582d06df71a6259ae788677c769aa2163c21804ffa5fa3"
+      },
+      {
+        "name": "BTCUSDT-metrics-2026-10-23.zip",
+        "first_missing_observed_at_utc": "2026-10-24T04:22:03.425225+00:00",
+        "publisher_verified_at_utc": "2026-10-24T09:22:05.858535+00:00",
+        "sha256": "5a7d2293f58953632f5d59357e2dd875f50f5c462a06a42700f8b20cb35cde3e"
+      },
+      {
+        "name": "BTCUSDT-metrics-2026-10-24.zip",
+        "first_missing_observed_at_utc": "2026-10-25T05:18:09.974702+00:00",
+        "publisher_verified_at_utc": "2026-10-25T08:22:59.565012+00:00",
+        "sha256": "6d7a4ace8a2fbf0ae3a10d77cb179b7c6adfa6d9be8492efe46d17c2e6aac4de"
+      },
+      {
+        "name": "BTCUSDT-metrics-2026-10-25.zip",
+        "first_missing_observed_at_utc": "2026-10-26T04:22:03.619394+00:00",
+        "publisher_verified_at_utc": "2026-10-26T07:22:21.056351+00:00",
+        "sha256": "3a2d9c2cb9cd025f85718eac01156e6335e5f76eb7f2cca4d6b604bc24c6eefc"
+      },
+      {
+        "name": "BTCUSDT-metrics-2026-10-26.zip",
+        "first_missing_observed_at_utc": "2026-10-27T02:41:40.832791+00:00",
+        "publisher_verified_at_utc": "2026-10-27T07:22:42.843296+00:00",
+        "sha256": "fd05e028d3341acb38d96f9bc856adcc075c36513b17ee803553c9af51ec7b45"
+      }
+    ],
+    "revisions": [],
+    "orphan_objects": [],
+    "publisher_verification_failures": {},
+    "observer_head_sha256": "8d27a89eadd4cb44a553fb933ed482a4d9341a9781ace6cd1e5905023f6b6862",
+    "operations_head_sha256": "36478f43ac4dd5018746f46e002029e894b54b02556280411735793d55c8ce0e",
+    "deployment_sha256": "c14eb8c7a8196aed546805395642419f227b8f465f9b01ca3e7c2ff3d03656fc"
+  },
+  "failure_categories": {
+    "network_other": 5,
+    "tls_certificate_validation": 2,
+    "network_timeout": 2
+  },
+  "historical_collection_failures": [
+    {
+      "started_at_utc": "2026-10-23T11:22:00.940628+00:00",
+      "finished_at_utc": "2026-10-23T11:22:22.852905+00:00",
+      "diagnostic": {
+        "category": "network_other",
+        "stop_reason": "access_or_network_failure",
+        "status": null,
+        "host": "raw.githubusercontent.com",
+        "evidence_sha256": "ddb472a5b1db3e26decad0c574bc45a0c48ebd20639a0782948c22567250cd3f",
+        "diagnostic_python_version": "3.12.14",
+        "interpreter_scope": "Reporter interpreter; historical collector interpreter is unknown."
+      },
+      "next_successful_collection_at_utc": "2026-10-23T13:22:03.455474+00:00",
+      "recovery_scope": "Later committed collection only; failure cause is not proven resolved."
+    },
+    {
+      "started_at_utc": "2026-10-24T02:28:49.401444+00:00",
+      "finished_at_utc": "2026-10-24T02:28:49.523863+00:00",
+      "diagnostic": {
+        "category": "tls_certificate_validation",
+        "stop_reason": "access_or_network_failure",
+        "status": null,
+        "host": "raw.githubusercontent.com",
+        "evidence_sha256": "de730cc214a225e5e90af2b6da4f801d077ce90070ed02d2ba4253a795a16edf",
+        "diagnostic_python_version": "3.12.14",
+        "interpreter_scope": "Reporter interpreter; historical collector interpreter is unknown."
+      },
+      "next_successful_collection_at_utc": "2026-10-24T04:22:08.046176+00:00",
+      "recovery_scope": "Later committed collection only; failure cause is not proven resolved."
+    },
+    {
+      "started_at_utc": "2026-10-24T06:22:28.521346+00:00",
+      "finished_at_utc": "2026-10-24T06:22:50.422561+00:00",
+      "diagnostic": {
+        "category": "network_other",
+        "stop_reason": "access_or_network_failure",
+        "status": null,
+        "host": "raw.githubusercontent.com",
+        "evidence_sha256": "ddb472a5b1db3e26decad0c574bc45a0c48ebd20639a0782948c22567250cd3f",
+        "diagnostic_python_version": "3.12.14",
+        "interpreter_scope": "Reporter interpreter; historical collector interpreter is unknown."
+      },
+      "next_successful_collection_at_utc": "2026-10-24T09:22:05.858535+00:00",
+      "recovery_scope": "Later committed collection only; failure cause is not proven resolved."
+    },
+    {
+      "started_at_utc": "2026-10-24T07:22:50.565131+00:00",
+      "finished_at_utc": "2026-10-24T07:23:33.522371+00:00",
+      "diagnostic": {
+        "category": "network_other",
+        "stop_reason": "access_or_network_failure",
+        "status": null,
+        "host": "raw.githubusercontent.com",
+        "evidence_sha256": "ddb472a5b1db3e26decad0c574bc45a0c48ebd20639a0782948c22567250cd3f",
+        "diagnostic_python_version": "3.12.14",
+        "interpreter_scope": "Reporter interpreter; historical collector interpreter is unknown."
+      },
+      "next_successful_collection_at_utc": "2026-10-24T09:22:05.858535+00:00",
+      "recovery_scope": "Later committed collection only; failure cause is not proven resolved."
+    },
+    {
+      "started_at_utc": "2026-10-24T12:22:23.871055+00:00",
+      "finished_at_utc": "2026-10-24T12:22:43.534037+00:00",
+      "diagnostic": {
+        "category": "network_other",
+        "stop_reason": "access_or_network_failure",
+        "status": null,
+        "host": "raw.githubusercontent.com",
+        "evidence_sha256": "ddb472a5b1db3e26decad0c574bc45a0c48ebd20639a0782948c22567250cd3f",
+        "diagnostic_python_version": "3.12.14",
+        "interpreter_scope": "Reporter interpreter; historical collector interpreter is unknown."
+      },
+      "next_successful_collection_at_utc": "2026-10-24T13:22:44.968173+00:00",
+      "recovery_scope": "Later committed collection only; failure cause is not proven resolved."
+    },
+    {
+      "started_at_utc": "2026-10-25T07:22:08.550321+00:00",
+      "finished_at_utc": "2026-10-25T07:22:53.827219+00:00",
+      "diagnostic": {
+        "category": "network_timeout",
+        "stop_reason": "access_or_network_failure",
+        "status": null,
+        "host": "raw.githubusercontent.com",
+        "evidence_sha256": "5f158748fe5bff3eb3ad776032f6d39d65dfff626eade84703e8253deefe58da",
+        "diagnostic_python_version": "3.12.14",
+        "interpreter_scope": "Reporter interpreter; historical collector interpreter is unknown."
+      },
+      "next_successful_collection_at_utc": "2026-10-25T08:22:59.565012+00:00",
+      "recovery_scope": "Later committed collection only; failure cause is not proven resolved."
+    },
+    {
+      "started_at_utc": "2026-10-25T09:22:59.847993+00:00",
+      "finished_at_utc": "2026-10-25T09:23:57.969809+00:00",
+      "diagnostic": {
+        "category": "network_other",
+        "stop_reason": "access_or_network_failure",
+        "status": null,
+        "host": "raw.githubusercontent.com",
+        "evidence_sha256": "ddb472a5b1db3e26decad0c574bc45a0c48ebd20639a0782948c22567250cd3f",
+        "diagnostic_python_version": "3.12.14",
+        "interpreter_scope": "Reporter interpreter; historical collector interpreter is unknown."
+      },
+      "next_successful_collection_at_utc": "2026-10-25T11:22:09.818553+00:00",
+      "recovery_scope": "Later committed collection only; failure cause is not proven resolved."
+    },
+    {
+      "started_at_utc": "2026-10-26T02:46:14.806923+00:00",
+      "finished_at_utc": "2026-10-26T02:46:14.884415+00:00",
+      "diagnostic": {
+        "category": "tls_certificate_validation",
+        "stop_reason": "access_or_network_failure",
+        "status": null,
+        "host": "raw.githubusercontent.com",
+        "evidence_sha256": "de730cc214a225e5e90af2b6da4f801d077ce90070ed02d2ba4253a795a16edf",
+        "diagnostic_python_version": "3.12.14",
+        "interpreter_scope": "Reporter interpreter; historical collector interpreter is unknown."
+      },
+      "next_successful_collection_at_utc": "2026-10-26T04:22:06.544560+00:00",
+      "recovery_scope": "Later committed collection only; failure cause is not proven resolved."
+    },
+    {
+      "started_at_utc": "2026-10-26T09:22:24.664796+00:00",
+      "finished_at_utc": "2026-10-26T09:22:55.808314+00:00",
+      "diagnostic": {
+        "category": "network_timeout",
+        "stop_reason": "access_or_network_failure",
+        "status": null,
+        "host": "raw.githubusercontent.com",
+        "evidence_sha256": "5f158748fe5bff3eb3ad776032f6d39d65dfff626eade84703e8253deefe58da",
+        "diagnostic_python_version": "3.12.14",
+        "interpreter_scope": "Reporter interpreter; historical collector interpreter is unknown."
+      },
+      "next_successful_collection_at_utc": "2026-10-26T10:23:52.455680+00:00",
+      "recovery_scope": "Later committed collection only; failure cause is not proven resolved."
+    }
+  ],
+  "retrospective_acquisition_delays": [
+    {
+      "date": "2026-10-20",
+      "seconds_after_day_end": 182830.755986,
+      "first_publisher_verified_at_utc": "2026-10-23T02:47:10.755986+00:00",
+      "current_archive_available": true,
+      "historical_delay_retained": true,
+      "observed_unverified_seconds": 16.166634,
+      "operational_unverified_seconds": 0,
+      "observed_gap_over_48_hours": false,
+      "operational_gap_over_48_hours": false,
+      "pre_observation_availability": "unknown",
+      "published_at_utc": null,
+      "scope": "Day-end acquisition age includes retrospective backfill; observed/operational gaps are separate."
+    }
+  ],
+  "operational_archive_gaps_over_48_hours": [],
+  "scheduler": {
+    "coverage": "partial_or_unknown",
+    "source_sha256": "526e8dd0873343552e3067be75fca3e37beb242cc88dd74ae03dfa286b280003",
+    "event_count": 288,
+    "proven_receipt_associations": 0,
+    "task_execution_success_rate": null,
+    "schedule_punctuality_rate": null
+  },
+  "scheduler_instance_count": 48,
+  "windows_status": {
+    "checked_at_utc": "2026-10-27T09:44:32.8482977Z",
+    "task_name": "quant-lab-archive-observer",
+    "state": "Ready",
+    "last_run_local": "2026-10-27T17:21:59.0000000+08:00",
+    "last_task_result": 0,
+    "next_run_local": "2026-10-27T18:21:58.0000000+08:00",
+    "wake_to_run": false,
+    "multiple_instances": "IgnoreNew",
+    "log_enabled": true,
+    "log_mode": "Circular",
+    "log_maximum_bytes": 10485760,
+    "scope": "Read-only metadata; exit code does not establish collection success"
+  },
+  "research": {
+    "decision": "insufficient_evidence",
+    "formal_statistics_allowed": false,
+    "statistics_module_enabled": false,
+    "source_verifications": {
+      "normalization_v1": {
+        "integrity": "verified",
+        "verified_files": 7,
+        "accepted_records": 576,
+        "manifest_sha256": "f1eb5d3f27af5b31b5efeca5291615b8fb3396a12e06892261b23175ab57cc3c"
+      },
+      "coverage_v1": {
+        "integrity": "verified",
+        "verified_files": 6,
+        "manifest_sha256": "42564f1ce52ff50d243ded57a63c4b485682820de9bbe45e9b88dcd261bcf3aa"
+      }
+    },
+    "historical_coverage": {
+      "decision": "insufficient_evidence",
+      "formal_statistics_allowed": false,
+      "statistics_module_enabled": false,
+      "prospective_prediction_samples": 0,
+      "qualified_rows_audited": 7776,
+      "issues": [],
+      "continuous_runs": [
+        {
+          "start_utc": "2021-11-30T23:55:00+00:00",
+          "end_utc": "2021-12-01T23:55:00+00:00",
+          "windows": 288,
+          "duration_days": 1.0
+        },
+        {
+          "start_utc": "2025-06-24T00:00:00+00:00",
+          "end_utc": "2025-06-25T00:00:00+00:00",
+          "windows": 288,
+          "duration_days": 1.0
+        },
+        {
+          "start_utc": "2026-06-01T00:00:00+00:00",
+          "end_utc": "2026-06-02T00:00:00+00:00",
+          "windows": 288,
+          "duration_days": 1.0
+        },
+        {
+          "start_utc": "2026-06-20T00:00:00+00:00",
+          "end_utc": "2026-07-06T00:00:00+00:00",
+          "windows": 4608,
+          "duration_days": 16.0
+        },
+        {
+          "start_utc": "2026-10-14T00:00:00+00:00",
+          "end_utc": "2026-10-22T00:00:00+00:00",
+          "windows": 2304,
+          "duration_days": 8.0
+        }
+      ],
+      "longest_continuous_days": 16.0,
+      "post_deployment_event_windows": 0,
+      "prospective_continuous_runs": [],
+      "minimum_frozen_train_days": 252,
+      "minimum_frozen_validation_days": 63,
+      "minimum_contiguous_days_for_one_split": 315,
+      "coverage_gate": "insufficient_evidence",
+      "published_at_utc": null,
+      "historical_availability_proven": false,
+      "reasons": [
+        "Backfilled windows are never treated as known at their event times.",
+        "Window counts are not independent prediction samples.",
+        "Coverage alone cannot establish field admission, targets or prospective sample eligibility."
+      ]
+    },
+    "current_observer": {
+      "decision": "insufficient_evidence",
+      "formal_statistics_allowed": false,
+      "statistics_module_enabled": false,
+      "prospective_prediction_samples": 0,
+      "qualified_rows_audited": 576,
+      "issues": [],
+      "continuous_runs": [
+        {
+          "start_utc": "2026-10-20T00:00:00+00:00",
+          "end_utc": "2026-10-22T00:00:00+00:00",
+          "windows": 576,
+          "duration_days": 2.0
+        }
+      ],
+      "longest_continuous_days": 2.0,
+      "post_deployment_event_windows": 0,
+      "prospective_continuous_runs": [],
+      "minimum_frozen_train_days": 252,
+      "minimum_frozen_validation_days": 63,
+      "minimum_contiguous_days_for_one_split": 315,
+      "coverage_gate": "insufficient_evidence",
+      "published_at_utc": null,
+      "historical_availability_proven": false,
+      "reasons": [
+        "Backfilled windows are never treated as known at their event times.",
+        "Window counts are not independent prediction samples.",
+        "Coverage alone cannot establish field admission, targets or prospective sample eligibility."
+      ]
+    },
+    "observed_archive_versions": [
+      {
+        "date": "2026-10-20",
+        "zip_sha256": "bc7bde46301d87d8f161454715547913f9b5a984b127d5bce809cbcbe535ae06",
+        "first_observed_at_utc": "2026-10-23T02:46:56.773536+00:00",
+        "first_publisher_verified_at_utc": "2026-10-23T02:47:10.755986+00:00",
+        "last_confirmed_at_utc": "2026-10-23T02:59:13.526740+00:00",
+        "published_at_utc": null,
+        "accepted_taker_windows": 288,
+        "earliest_taker_research_available_at_utc": "2026-10-23T02:47:10.755986+00:00",
+        "other_fields": "quarantined; no independent semantic evidence"
+      },
+      {
+        "date": "2026-10-21",
+        "zip_sha256": "55bbdadd5aaf0d04b07b510663e24074762b9616deeefb3687568a408a3d0432",
+        "first_observed_at_utc": "2026-10-23T02:47:03.016096+00:00",
+        "first_publisher_verified_at_utc": "2026-10-23T02:47:10.755986+00:00",
+        "last_confirmed_at_utc": "2026-10-23T02:59:19.468793+00:00",
+        "published_at_utc": null,
+        "accepted_taker_windows": 288,
+        "earliest_taker_research_available_at_utc": "2026-10-23T02:47:10.755986+00:00",
+        "other_fields": "quarantined; no independent semantic evidence"
+      },
+      {
+        "date": "2026-10-22",
+        "zip_sha256": "73c21e8326685f58af582d06df71a6259ae788677c769aa2163c21804ffa5fa3",
+        "first_observed_at_utc": "2026-10-23T09:22:40.475482+00:00",
+        "first_publisher_verified_at_utc": "2026-10-23T09:22:47.303959+00:00",
+        "last_confirmed_at_utc": "2026-10-24T10:22:07.763660+00:00",
+        "published_at_utc": null,
+        "accepted_taker_windows": 0,
+        "earliest_taker_research_available_at_utc": null,
+        "other_fields": "quarantined; no independent semantic evidence"
+      },
+      {
+        "date": "2026-10-23",
+        "zip_sha256": "5a7d2293f58953632f5d59357e2dd875f50f5c462a06a42700f8b20cb35cde3e",
+        "first_observed_at_utc": "2026-10-24T09:22:03.133648+00:00",
+        "first_publisher_verified_at_utc": "2026-10-24T09:22:05.858535+00:00",
+        "last_confirmed_at_utc": "2026-10-25T11:22:04.541473+00:00",
+        "published_at_utc": null,
+        "accepted_taker_windows": 0,
+        "earliest_taker_research_available_at_utc": null,
+        "other_fields": "quarantined; no independent semantic evidence"
+      },
+      {
+        "date": "2026-10-24",
+        "zip_sha256": "6d7a4ace8a2fbf0ae3a10d77cb179b7c6adfa6d9be8492efe46d17c2e6aac4de",
+        "first_observed_at_utc": "2026-10-25T08:22:56.366301+00:00",
+        "first_publisher_verified_at_utc": "2026-10-25T08:22:59.565012+00:00",
+        "last_confirmed_at_utc": "2026-10-26T10:23:49.739809+00:00",
+        "published_at_utc": null,
+        "accepted_taker_windows": 0,
+        "earliest_taker_research_available_at_utc": null,
+        "other_fields": "quarantined; no independent semantic evidence"
+      },
+      {
+        "date": "2026-10-25",
+        "zip_sha256": "3a2d9c2cb9cd025f85718eac01156e6335e5f76eb7f2cca4d6b604bc24c6eefc",
+        "first_observed_at_utc": "2026-10-26T07:22:18.393653+00:00",
+        "first_publisher_verified_at_utc": "2026-10-26T07:22:21.056351+00:00",
+        "last_confirmed_at_utc": "2026-10-27T07:22:35.689716+00:00",
+        "published_at_utc": null,
+        "accepted_taker_windows": 0,
+        "earliest_taker_research_available_at_utc": null,
+        "other_fields": "quarantined; no independent semantic evidence"
+      },
+      {
+        "date": "2026-10-26",
+        "zip_sha256": "fd05e028d3341acb38d96f9bc856adcc075c36513b17ee803553c9af51ec7b45",
+        "first_observed_at_utc": "2026-10-27T07:22:38.920473+00:00",
+        "first_publisher_verified_at_utc": "2026-10-27T07:22:42.843296+00:00",
+        "last_confirmed_at_utc": "2026-10-27T07:22:38.920473+00:00",
+        "published_at_utc": null,
+        "accepted_taker_windows": 0,
+        "earliest_taker_research_available_at_utc": null,
+        "other_fields": "quarantined; no independent semantic evidence"
+      }
+    ],
+    "independent_oi_long_short_status": "insufficient_evidence; remain quarantined"
+  },
+  "saved_access_restrictions": {
+    "binance_snapshot_sha256": "72bd1b281761bf18b34d93b5446283d8feddb88f4031592436edee8faa11ac98",
+    "recorded_completed_at_ms": 1792809297785,
+    "statuses": {
+      "spot": [
+        451
+      ],
+      "oi": [
+        451
+      ],
+      "long_short": [
+        451
+      ],
+      "taker": [
+        451
+      ],
+      "funding": [
+        451
+      ]
+    },
+    "raw_response_bytes_verified": true,
+    "tardis_diagnostic_file_sha256": "6c046d30891811c7a0d8faf86122151ca6a086e067525e60551ddf0a63f4ebf9",
+    "tardis_raw_http_body_preserved": false,
+    "scope": "Saved historical evidence only; no fresh access probe or permission inference"
+  },
+  "verification": {
+    "python_312_full_suite": "173 passed",
+    "python_313_full_suite": "173 passed",
+    "audit_tests_added": 13,
+    "powershell_syntax": "passed",
+    "git_diff_check": "passed",
+    "remote_ci": "not run; no push",
+    "future_long_run_acceptance": "not_due"
+  },
+  "manual_actions": [
+    "Review historical gaps/failures without resetting the deployment start.",
+    "Preserve further natural scheduler/collector evidence through the due dates.",
+    "Establish shared instance/process evidence before claiming scheduler/receipt association.",
+    "Obtain permitted independent field timing evidence before a new admission review."
+  ]
+}

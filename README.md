@@ -150,6 +150,17 @@ python -m deployment.archive_acceptance --days 28 --output runtime/archive_accep
 
 报告区分采集、限频跳过、失败和中断；未知触发不推断为自动，缺少完整调度历史时完整成功率保持空。到期只进入人工评估，不自动判通过。单轮包装在冷却结束前至多等待 60 秒，避免小时触发早几秒就跳过整个周期，仍保持完整一小时冷却。
 
+## Quant Lab 2.6：离线长期验收与研究准入评估
+
+[2.6 实施与验收结论](docs/QuantLab2.6长期验收与准入评估.md)。复用 2.5 原始对象、回执链和快照重放，保留历史失败、恢复和超过三小时的成功采集间隔；区分回补年龄与实际观察到的 48 小时缺口。调度事件缺少完整分母或可证明的回执关联时，成功率保持未知。7/28 天未到期为 `not_due`，正式研究证据不足为 `insufficient_evidence`，不启用统计模块。
+
+```console
+python -B -m deployment.archive_audit --output runtime/review-26-unique
+python -B -m deployment.archive_audit --scheduler-events runtime/events-unique.xml --output runtime/review-26-with-events-unique
+```
+
+报告输出 JSON 和 Markdown，仅写全新目录；不联网、不改采集协议、策略、纸面账户或 Windows 任务。退出码 0 只表示报告可供复核。
+
 ## 纸面运行状态
 
 当前持续运行原生 Python 观察器；Docker / Hummingbot 已按用户要求暂停。查看[最新观察汇总](docs/纸面观察进度.md)及[持续观察计划](docs/持续观察计划.md)。汇总是带时间戳的定时快照，不是实时状态页。
