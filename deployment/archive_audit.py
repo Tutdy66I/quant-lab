@@ -12,6 +12,7 @@ from deployment import archive_service as service
 from research import archive_coverage as coverage
 from research import archive_normalizer as n
 from research import archive_observer as observer
+from research import archive_observer_compat as observer_compat
 
 
 def fingerprints(paths):
@@ -247,7 +248,7 @@ def report(root=observer.DEFAULT_ROOT, *, clock=observer.now, scheduler_events=N
     root = Path(root).resolve()
     protected = [root, service.directory(root), root.with_name('archive_observer_monitor'), n.ROOT / 'data',
                  *(n.ROOT / 'docs').glob('*protocol*.json'),
-                 *(Path(module.__file__) for module in (acceptance, diagnostics, service, coverage, n, observer)),
+                 *(Path(module.__file__) for module in (acceptance, diagnostics, service, coverage, n, observer, observer_compat)),
                  Path(__file__)]
     if scheduler_events:
         protected.append(Path(scheduler_events).resolve())

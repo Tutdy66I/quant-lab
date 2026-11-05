@@ -10,12 +10,18 @@ from pathlib import Path
 from uuid import uuid4
 
 from research import archive_observer as o
+from research import archive_observer_compat as observer_compat
 from research import archive_normalizer as n
 from deployment import archive_diagnostics as diagnostics
 
 INTERVAL = timedelta(hours=1)
 MAX_TRANSIENT_FAILURES = 3
 MAX_DUE_WAIT_SECONDS = 60
+
+
+class CollectorStateChanged(BaseException):
+    """Abort before network without the collector converting it into an HTTP failure."""
+
 
 
 def directory(root):
@@ -138,7 +144,8 @@ def verify_anchor(root, output):
     """
     output = Path(output)
     manifest = json.loads((output / 'manifest.json').read_bytes())
-    if manifest['observer_code_sha256'] != n.sha(Path(o.__file__).read_bytes().replace(b'\r\n', b'\n')):
+    if not observer_compat.supports_snapshot(manifest['observer_code_sha256'],
+            n.sha(Path(o.__file__).read_bytes().replace(b'\r\n', b'\n'))):
         raise ValueError('Observer code differs from operations anchor')
     if manifest['semantic_registry_sha256'] != n.sha((o.CONTRACT_ROOT / 'contracts.json').read_bytes()):
         raise ValueError('Semantic registry differs from operations anchor')
@@ -169,6 +176,41 @@ def checked(root):
     if checkpoint:
         verify_anchor(root, manager / 'snapshots' / checkpoint)
     state = o.replay(root)
+    # The last committed snapshot is an independent anchor for the collector
+    # head. A collector run without its matching operations receipt is uncertain,
+    # even when a recovery authorization or result was lost during a crash.
+    latest_anchor = manager / 'snapshots' / (checkpoint or 'baseline') / 'manifest.json'
+    anchored_head = json.loads(latest_anchor.read_bytes())['ledger_head_sha256']
+    if state['head'] != anchored_head:
+        raise ValueError('Collector ledger is not anchored by the latest operations receipt; manual investigation required')
+    authorizations = {}
+    completed = set()
+    runs_by_hash = {p.name.split('-', 1)[1][:-5]: json.loads(p.read_bytes())
+                    for p in (Path(root) / 'runs').glob('*.json')}
+    for receipt in history:
+        recovery_id = receipt.get('recovery_id')
+        if receipt.get('result') == 'recovery_authorized':
+            if not recovery_id or recovery_id in authorizations:
+                raise ValueError('Duplicate or invalid recovery authorization')
+            authorizations[recovery_id] = receipt
+        if receipt.get('recovery_outcome_recorded'):
+            auth = authorizations.get(recovery_id)
+            if not auth or recovery_id in completed:
+                raise ValueError('Recovery result has no unique preceding authorization')
+            run_hash = (receipt.get('collection') or {}).get('run_sha256')
+            run = runs_by_hash.get(run_hash)
+            snapshot = receipt.get('snapshot')
+            if not run or not snapshot or run['previous_sha256'] != auth['ledger_head_sha256']:
+                raise ValueError('Recovery result does not match the authorized collector run')
+            if receipt.get('ledger_head_sha256') != run_hash:
+                raise ValueError('Recovery result head differs from collector run')
+            verify_anchor(root, manager / 'snapshots' / snapshot)
+            manifest = json.loads((manager / 'snapshots' / snapshot / 'manifest.json').read_bytes())
+            if manifest['ledger_head_sha256'] != run_hash:
+                raise ValueError('Recovery snapshot does not anchor the authorized run')
+            if (receipt.get('result') == 'completed') != (not run['stop_reason']):
+                raise ValueError('Recovery result disagrees with collector run')
+            completed.add(recovery_id)
     return state, history
 
 
@@ -271,6 +313,14 @@ def health(root, clock=o.now):
             instant - n.utc(g['date'] + 'T00:00:00+00:00') - timedelta(days=1) > timedelta(hours=48)]
         if result['overdue_gaps']:
             result['anomalies'].append('archive_gap_over_48_hours_after_day_end')
+        result['block_reason'] = ('retry_budget_exhausted' if 'transient_retry_budget_exhausted' in result['anomalies'] else
+                                  (result.get('latest_failure_diagnostic') or {}).get('category') if runs and runs[-1]['stop_reason'] else None)
+        result['manual_action'] = ('Investigate evidence; explicit recover-once authorization required for exhausted transient budget'
+                                   if result['block_reason'] == 'retry_budget_exhausted' else
+                                   'Investigate and resolve the identified block; do not bypass source restrictions' if result['block_reason'] else None)
+        if summary['publisher_verification_failures']:
+            result['block_reason'] = 'publisher_integrity_failure'
+            result['manual_action'] = 'Investigate publisher checksum evidence; do not resume collection'
         if state['orphan_objects']:
             result['anomalies'].append('uncommitted_objects_preserved')
         if summary['publisher_verification_failures']:
@@ -279,9 +329,19 @@ def health(root, clock=o.now):
         result['longest_collection_interval_seconds'] = max([
             (n.utc(b['started_at_utc']) - n.utc(a['finished_at_utc'])).total_seconds()
             for a, b in zip(runs, runs[1:])] or [0])
+        pending = {r['recovery_id'] for r in history if r.get('result') == 'recovery_authorized'}
+        pending -= {r['recovery_id'] for r in history if r.get('recovery_outcome_recorded')}
+        if pending:
+            result['runtime_state'] = 'manual_review_required'
+            result['block_reason'] = 'interrupted_recovery_unresolved'
+            result['manual_action'] = 'Investigate the incomplete recovery and its ledger before any further action'
+            result['anomalies'].append('interrupted_recovery_unresolved')
         if history and history[-1]['result'] in ('error', 'manual_review_required'):
             result['runtime_state'] = 'manual_review_required'
             result['anomalies'].append(history[-1].get('error') or history[-1]['result'])
+            if not result['block_reason']:
+                result['block_reason'] = 'operations_manual_review'
+                result['manual_action'] = 'Investigate the operations error before acknowledging review'
         if history and history[-1]['result'] == 'busy':
             result['runtime_state'] = 'busy'
             result['anomalies'].append(history[-1]['error'])
@@ -294,7 +354,8 @@ def health(root, clock=o.now):
             if result['runtime_state'] in ('healthy', 'degraded'):
                 result['runtime_state'] = 'collector_running_or_stale_lock'
     except (OSError, ValueError, KeyError, TypeError) as error:
-        result.update(runtime_state='manual_review_required', integrity='unverified',
+        result.update(runtime_state='manual_review_required', integrity='unverified', block_reason='integrity_or_operations_unverified',
+                      manual_action='Investigate evidence and repair offline before any recovery',
                       anomalies=[type(error).__name__ + ': ' + str(error)])
     return result
 
@@ -312,7 +373,12 @@ def write_health(root, report):
     os.replace(temporary, path)
 
 
-def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive, sleep=time.sleep):
+def require_recovery_durability():
+    """Fail closed until the platform has a validated durable authorization protocol."""
+    raise RuntimeError('Controlled recovery disabled: authorization durability is not established; manual investigation required')
+
+
+def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive, sleep=time.sleep, recovery_reason=None):
     root = Path(root).resolve()
     manager = directory(root)
     try:
@@ -327,6 +393,11 @@ def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive, sleep=
             owns_intent = False
             try:
                 state, history = checked(root)
+                # A durable authorization without its outcome is never silently replayed.
+                pending = {r['recovery_id'] for r in history if r.get('result') == 'recovery_authorized'}
+                pending -= {r['recovery_id'] for r in history if r.get('recovery_outcome_recorded')}
+                if pending:
+                    raise ValueError('Unresolved interrupted recovery requires manual investigation')
                 # An operations exception requires explicit human repair/adoption, never silent retry.
                 if history and history[-1]['result'] == 'error':
                     raise ValueError('Previous operations error requires manual review')
@@ -360,20 +431,50 @@ def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive, sleep=
                     raise ValueError('Clock moved backwards during cooldown')
                 if current < eligible:
                     receipt['result'] = 'not_due'
+                    if recovery_reason is not None:
+                        receipt['error'] = 'Cooldown not elapsed; no recovery authorized'
                 else:
                     failures = 0
                     for previous in reversed(state['runs']):
                         if not transient(previous):
                             break
                         failures += 1
-                    if last and last['stop_reason']:
+                    if recovery_reason is not None:
+                        if not recovery_reason.strip():
+                            raise ValueError('A recovery reason is required')
+                        if not last or not transient(last) or failures < MAX_TRANSIENT_FAILURES:
+                            raise ValueError('Controlled recovery requires an exhausted transient retry budget')
+                        summary = o.snapshot(root, str(current.date() - timedelta(days=1)))
+                        if state['orphan_objects'] or summary['publisher_verification_failures']:
+                            raise ValueError('Integrity anomalies prevent controlled recovery')
+                        require_recovery_durability()
+                        recovery_id = uuid4().hex
+                        append_receipt(manager, {'started_at_utc': n.iso(clock()),
+                            'finished_at_utc': n.iso(clock()), 'result': 'recovery_authorized',
+                            'snapshot': None, 'recovery_id': recovery_id, 'reason': recovery_reason,
+                            'ledger_head_sha256': state['head'], 'failure_count': failures})
+                        receipt.update(recovery_id=recovery_id, recovery_reason=recovery_reason)
+                        resume = True
+                    elif last and last['stop_reason']:
                         resume = transient(last) and failures < MAX_TRANSIENT_FAILURES
                         if not resume:
                             receipt['result'] = 'manual_review_required'
                     if receipt['result'] not in ('manual_review_required', 'not_due'):
                         phase('collecting')
                         diagnostic_errors = []
+                        head_checked = False
                         def diagnosed_fetch(url, headers):
+                            nonlocal head_checked
+                            if not head_checked:
+                                # collect() holds the collector lock here. A stale service
+                                # preflight must not bypass a newer stop or cooldown.
+                                try:
+                                    current_head = o.replay(root)['head']
+                                except Exception as error:
+                                    raise CollectorStateChanged('Collector ledger became unverified after preflight') from error
+                                if current_head != state['head']:
+                                    raise CollectorStateChanged('Collector ledger changed after preflight')
+                                head_checked = True
                             try:
                                 phase('request', source_url=url)
                             except OSError as error:
@@ -382,10 +483,12 @@ def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive, sleep=
                             return fetcher(url, headers)
                         receipt['collection'] = o.collect(root, state['config']['start_date'],
                             str(clock().date() - timedelta(days=1)), resume=resume,
-                            recheck_hours=24, max_requests=25, fetcher=diagnosed_fetch, clock=clock)
+                            recheck_hours=24, max_requests=25, fetcher=diagnosed_fetch, clock=clock,
+                            managed_lease=observer_compat.MANAGED_LEASE)
                         if diagnostic_errors:
                             raise OSError('Cannot persist request diagnostics: ' + diagnostic_errors[0])
-                        receipt['automatic_transient_resume'] = resume
+                        receipt['automatic_transient_resume'] = resume and recovery_reason is None
+                        receipt['controlled_recovery'] = recovery_reason is not None
                         receipt['result'] = 'failed' if receipt['collection']['stop_reason'] else 'completed'
                 # Anchor even failed HTTP receipts; the failed response remains auditable.
                 phase('snapshot')
@@ -395,6 +498,10 @@ def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive, sleep=
                 o.verify_snapshot(root, manager / 'snapshots' / label)
                 receipt['snapshot'] = label
                 receipt['ledger_head_sha256'] = after['head']
+                if receipt.get('recovery_id') and receipt['result'] in ('completed', 'failed'):
+                    receipt['recovery_outcome_recorded'] = True
+            except CollectorStateChanged as error:
+                receipt.update(result='error', error=str(error))
             except BlockingIOError as error:
                 receipt.update(result='busy', error=str(error))
             except Exception as error:
@@ -432,9 +539,10 @@ def review(root, reason, clock=o.now):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=('initialize', 'run', 'health', 'review'))
+    parser.add_argument('command', choices=('initialize', 'run', 'health', 'review', 'recover-once'))
     parser.add_argument('--root', type=Path, default=o.DEFAULT_ROOT)
     parser.add_argument('--reason', default='')
+    parser.add_argument('--authorize-recovery', action='store_true')
     args = parser.parse_args()
     if args.command == 'initialize':
         result = initialize(args.root)
@@ -444,9 +552,14 @@ def main():
     elif args.command == 'review':
         result = review(args.root, args.reason)
     else:
-        receipt, report = run_cycle(args.root)
+        if args.command == 'recover-once' and (not args.authorize_recovery or not args.reason.strip()):
+            parser.error('recover-once requires --authorize-recovery and --reason')
+        receipt, report = run_cycle(args.root, recovery_reason=args.reason if args.command == 'recover-once' else None)
         print(json.dumps({'receipt': receipt, 'health': report}, ensure_ascii=False))
-        raise SystemExit(2 if receipt['result'] in ('error', 'failed', 'manual_review_required') else 0)
+        failed = receipt['result'] in ('error', 'failed', 'manual_review_required')
+        if args.command == 'recover-once':
+            failed = receipt['result'] != 'completed'
+        raise SystemExit(2 if failed else 0)
     print(json.dumps(result, ensure_ascii=False, indent=2))
     raise SystemExit(2 if result.get('runtime_state') == 'manual_review_required' else 0)
 

@@ -13,6 +13,7 @@ from urllib.request import Request, HTTPRedirectHandler, build_opener
 from uuid import uuid4
 
 from research import archive_normalizer as n
+from research import archive_observer_compat as compat
 from research import archive_coverage as coverage
 
 DEFAULT_ROOT=n.ROOT/'runtime/archive_observer_v1'
@@ -225,12 +226,18 @@ def replay(root,as_of=None):
             'orphan_objects':sorted(all_objects-referenced),'all_runs_end':n.iso(previous_time)}
 
 
-def collect(root,start_date,end_date,*,refresh=False,resume=False,recheck_hours=24,max_requests=25,fetcher=fetch,clock=now):
+def collect(root,start_date,end_date,*,refresh=False,resume=False,recheck_hours=24,max_requests=25,fetcher=fetch,clock=now,managed_lease=None):
     root=Path(root).resolve()
     start,end=day(start_date),day(end_date)
     if start>end or (end-start).days>3650 or end>=clock().date() or recheck_hours<0 or not 2<=max_requests<=100:
         raise ValueError('Use completed UTC dates, valid interval and 2..100 request budget')
+    # Reject before creating a collector lock, then check again while holding it.
+    manager = root.with_name(root.name + '_service')
+    if os.path.lexists(manager) and managed_lease is not compat.MANAGED_LEASE:
+        raise PermissionError('Service-managed observer: collect/watch must use archive_service')
     with writer(root):
+        if os.path.lexists(manager) and managed_lease is not compat.MANAGED_LEASE:
+            raise PermissionError('Service-managed observer: collect/watch must use archive_service')
         if not (root/'config.json').exists():
             if any(p.name!='collector.lock' for p in root.iterdir()):
                 raise ValueError('Observer requires an empty independent directory')
@@ -395,8 +402,12 @@ def verify_snapshot(root,output):
     rows=result.pop('accepted')
     expected={'summary.json':n.json_bytes(result),
         'accepted.jsonl':b''.join((json.dumps(r,ensure_ascii=False,sort_keys=True)+'\n').encode('utf-8') for r in rows)}
+    recorded=json.loads((output/'manifest.json').read_bytes())['observer_code_sha256']
+    current=n.sha(Path(__file__).read_bytes().replace(b'\r\n',b'\n'))
+    if not compat.supports_snapshot(recorded,current):
+        raise ValueError('Snapshot observer code fingerprint is not compatible')
     expected['manifest.json']=n.json_bytes({'ledger_head_sha256':result['ledger_head_sha256'],
-        'observer_code_sha256':n.sha(Path(__file__).read_bytes().replace(b'\r\n',b'\n')),
+        'observer_code_sha256':recorded,
         'semantic_registry_sha256':n.sha((CONTRACT_ROOT/'contracts.json').read_bytes()),
         'files':{name:n.sha(blob) for name,blob in expected.items()}})
     if {p.name for p in output.iterdir()}!=set(expected) or any((output/k).read_bytes()!=v for k,v in expected.items()):

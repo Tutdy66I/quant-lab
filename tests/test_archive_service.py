@@ -50,6 +50,11 @@ class ArchiveServiceTests(unittest.TestCase):
         self.root = Path(self.temp.name) / 'observer'
         self.clock = Clock()
         self.server = Server()
+        # Most protocol tests simulate a future validated durability backend.
+        self.real_durability_check = s.require_recovery_durability
+        barrier = mock.patch.object(s, 'require_recovery_durability', return_value=None)
+        barrier.start()
+        self.addCleanup(barrier.stop)
         self.collect()
         s.initialize(self.root, self.clock)
 
@@ -61,6 +66,46 @@ class ArchiveServiceTests(unittest.TestCase):
 
     def later(self, hours=1):
         self.clock.value += timedelta(hours=hours)
+
+    def test_managed_cli_cannot_collect_or_resume_but_can_verify(self):
+        before = {str(p.relative_to(self.root)): p.read_bytes()
+                  for p in self.root.rglob('*') if p.is_file()}
+        for command in ('collect', 'watch'):
+            for resume in (False, True):
+                args = [sys.executable, '-B', '-m', 'research.archive_observer', command,
+                        '--root', str(self.root)]
+                if resume:
+                    args.append('--resume-after-review')
+                result = subprocess.run(args, capture_output=True, text=True, timeout=15)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('Service-managed observer', result.stderr)
+        result = subprocess.run([sys.executable, '-B', '-m', 'research.archive_observer',
+                                 'verify', '--root', str(self.root)],
+                                capture_output=True, text=True, timeout=15)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        result = subprocess.run([sys.executable, '-B', '-m', 'research.archive_observer',
+                                 'snapshot', '--root', str(self.root), '--end', '2026-10-20'],
+                                capture_output=True, text=True, timeout=15)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(before, {str(p.relative_to(self.root)): p.read_bytes()
+                                  for p in self.root.rglob('*') if p.is_file()})
+
+    def test_unrecognized_historical_code_fingerprint_is_rejected(self):
+        from research import archive_observer_compat as compat
+        self.assertTrue(compat.supports_snapshot(compat.LEGACY_OBSERVER_SHA256,
+                                                compat.GUARDED_OBSERVER_SHA256))
+        self.assertFalse(compat.supports_snapshot('0' * 64, compat.GUARDED_OBSERVER_SHA256))
+        self.assertFalse(compat.supports_snapshot(compat.LEGACY_OBSERVER_SHA256, '1' * 64))
+        self.assertFalse(compat.supports_snapshot('1' * 64, '1' * 64))
+        snapshot = s.directory(self.root) / 'snapshots' / 'baseline'
+        manifest = snapshot / 'manifest.json'
+        data = json.loads(manifest.read_bytes())
+        data['observer_code_sha256'] = '0' * 64
+        manifest.write_bytes(n.json_bytes(data))
+        with self.assertRaisesRegex(ValueError, 'fingerprint'):
+            o.verify_snapshot(self.root, snapshot)
+        with self.assertRaisesRegex(ValueError, 'code differs'):
+            s.verify_anchor(self.root, snapshot)
 
     def test_adopts_without_rewriting_old_evidence_and_suppresses_early_logon(self):
         original = {p.name: p.read_bytes() for p in (self.root / 'runs').glob('*.json')}
@@ -125,6 +170,221 @@ class ArchiveServiceTests(unittest.TestCase):
         self.assertEqual(receipt['result'], 'manual_review_required')
         self.assertEqual(calls, len(self.server.calls))
         self.assertEqual(report['runtime_state'], 'manual_review_required')
+
+    def test_duplicate_recovery_result_fails_closed(self):
+        self.server.status = (503, b'temporary')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        self.later()
+        self.server.status = None
+        receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='checked')
+        self.assertEqual(receipt['result'], 'completed')
+        s.append_receipt(s.directory(self.root), receipt)
+        with self.assertRaisesRegex(ValueError, 'unique preceding authorization'):
+            s.checked(self.root)
+        calls = len(self.server.calls)
+        self.later()
+        self.assertEqual(self.cycle()[0]['result'], 'error')
+        self.assertEqual(len(self.server.calls), calls)
+
+    def test_recovery_result_loss_is_unresolved_and_never_replayed(self):
+        self.server.status = (503, b'temporary')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        self.later()
+        self.server.status = None
+        receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='checked')
+        self.assertEqual(receipt['result'], 'completed')
+        sorted((s.directory(self.root) / 'cycles').glob('*.json'))[-1].unlink()
+        calls = len(self.server.calls)
+        self.later()
+        result, report = self.cycle()
+        self.assertEqual(result['result'], 'error')
+        self.assertEqual(report['integrity'], 'unverified')
+        self.assertEqual(len(self.server.calls), calls)
+        with self.assertRaisesRegex(ValueError, 'not anchored'):
+            s.review(self.root, 'acknowledge', self.clock)
+
+    def test_missing_recovery_authorization_and_result_do_not_hide_collector_run(self):
+        self.server.status = (503, b'temporary')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        self.later()
+        self.server.status = None
+        receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='checked')
+        self.assertEqual(receipt['result'], 'completed')
+        paths = sorted((s.directory(self.root) / 'cycles').glob('*.json'))
+        # Simulate loss of both newest directory entries in disposable fixtures.
+        paths[-1].unlink()
+        paths[-2].unlink()
+        calls = len(self.server.calls)
+        self.later()
+        receipt, report = self.cycle()
+        self.assertEqual(receipt['result'], 'error')
+        self.assertEqual(report['integrity'], 'unverified')
+        self.assertEqual(calls, len(self.server.calls))
+        with self.assertRaisesRegex(ValueError, 'not anchored'):
+            s.review(self.root, 'acknowledge', self.clock)
+
+    def test_unvalidated_durability_blocks_before_authorization_and_fetch(self):
+        self.server.status = (503, b'temporary')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        self.later()
+        calls = len(self.server.calls)
+        with mock.patch.object(s, 'require_recovery_durability', side_effect=self.real_durability_check):
+            receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='checked')
+        self.assertEqual(receipt['result'], 'error')
+        self.assertIn('durability is not established', receipt['error'])
+        self.assertEqual(calls, len(self.server.calls))
+        self.assertFalse(any(r['result'] == 'recovery_authorized' for r in s.receipts(s.directory(self.root))[0]))
+
+    def test_review_does_not_authorize_exhausted_budget_and_recovery_is_single_attempt(self):
+        self.server.status = (None, b'network timeout')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        self.later()
+        calls = len(self.server.calls)
+        s.review(self.root, 'acknowledged', self.clock)
+        self.assertEqual(self.cycle()[0]['result'], 'manual_review_required')
+        self.assertEqual(len(self.server.calls), calls)
+        receipt, health = s.run_cycle(self.root, clock=self.clock, fetcher=self.server,
+                                     recovery_reason='Operator investigated network')
+        self.assertEqual(receipt['result'], 'failed')
+        self.assertEqual(len(self.server.calls), calls + 1)
+        history, _ = s.receipts(s.directory(self.root))
+        self.assertEqual(history[-2]['result'], 'recovery_authorized')
+        self.assertEqual(history[-1]['recovery_id'], history[-2]['recovery_id'])
+        self.assertEqual(health['block_reason'], 'retry_budget_exhausted')
+        self.later()
+        self.assertEqual(self.cycle()[0]['result'], 'manual_review_required')
+        self.assertEqual(len(self.server.calls), calls + 1)
+
+    def test_recovery_respects_cooldown_and_can_succeed_only_explicitly(self):
+        self.server.status = (None, b'CERTIFICATE_VERIFY_FAILED')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        calls = len(self.server.calls)
+        early, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='checked')
+        self.assertEqual(early['result'], 'not_due')
+        self.assertEqual(calls, len(self.server.calls))
+        self.later()
+        self.server.status = None
+        receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='checked')
+        self.assertEqual(receipt['result'], 'completed')
+        self.assertTrue(receipt['recovery_outcome_recorded'])
+        self.assertEqual(len(o.replay(self.root)['runs']), 5)
+
+    def test_recovery_cannot_bypass_access_restriction_or_corruption(self):
+        self.later()
+        self.server.status = (451, b'restricted')
+        self.cycle()
+        self.later()
+        calls = len(self.server.calls)
+        result, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='checked')
+        self.assertEqual(result['result'], 'error')
+        self.assertEqual(calls, len(self.server.calls))
+
+    def test_concurrent_recovery_and_authorization_write_failure_never_fetch(self):
+        self.server.status = (503, b'temporary')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        self.later()
+        calls = len(self.server.calls)
+        with s.lease(s.directory(self.root)):
+            receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server,
+                                     recovery_reason='investigated')
+        self.assertEqual(receipt['result'], 'already_running')
+        original = s.append_receipt
+        def failed_authorization(manager, value):
+            if value.get('result') == 'recovery_authorized':
+                raise OSError('disk unavailable')
+            return original(manager, value)
+        with mock.patch.object(s, 'append_receipt', side_effect=failed_authorization):
+            receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server,
+                                     recovery_reason='investigated')
+        self.assertEqual(receipt['result'], 'error')
+        self.assertEqual(len(self.server.calls), calls)
+
+    def test_changed_collector_head_cannot_bypass_new_access_stop(self):
+        self.server.status = (503, b'temporary')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        self.later()
+        original = o.collect
+        def competing_collect(*args, **kwargs):
+            restricted = Server()
+            restricted.status = (451, b'restricted')
+            original(self.root, '2026-10-20', '2026-10-20', resume=True,
+                     clock=self.clock, fetcher=restricted, managed_lease=o.compat.MANAGED_LEASE)
+            self.server.status = None
+            return original(*args, **kwargs)
+        calls = len(self.server.calls)
+        with mock.patch.object(o, 'collect', side_effect=competing_collect):
+            receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server,
+                                     recovery_reason='investigated')
+        self.assertEqual(receipt['result'], 'error')
+        self.assertIn('ledger changed', receipt['error'])
+        self.assertEqual(len(self.server.calls), calls)
+        self.assertEqual(o.replay(self.root)['runs'][-1]['events'][-1]['status'], 451)
+        with self.assertRaisesRegex(ValueError, 'not anchored'):
+            s.review(self.root, 'acknowledge', self.clock)
+        self.later()
+        self.assertEqual(self.cycle()[0]['result'], 'error')
+        self.assertEqual(len(self.server.calls), calls)
+
+    def test_snapshot_failure_after_recovery_success_remains_blocked_after_review(self):
+        self.server.status = (503, b'temporary')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        self.later()
+        self.server.status = None
+        with mock.patch.object(o, 'export_snapshot', side_effect=OSError('disk unavailable')):
+            receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='investigated')
+        self.assertEqual(receipt['result'], 'error')
+        calls = len(self.server.calls)
+        with self.assertRaisesRegex(ValueError, 'not anchored'):
+            s.review(self.root, 'acknowledge failure', self.clock)
+        self.later()
+        receipt, _ = self.cycle()
+        self.assertEqual(receipt['result'], 'error')
+        self.assertEqual(calls, len(self.server.calls))
+
+    def test_controlled_recovery_rejects_corrupted_ledger_before_fetch(self):
+        self.server.status = (503, b'temporary')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        state = o.replay(self.root)
+        digest = next(iter(state['current'].values()))['body_sha256']
+        (self.root / 'objects' / (digest + '.bin')).write_bytes(b'corrupt')
+        self.later()
+        calls = len(self.server.calls)
+        receipt, report = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='investigated')
+        self.assertEqual(receipt['result'], 'error')
+        self.assertEqual(report['integrity'], 'unverified')
+        self.assertEqual(len(self.server.calls), calls)
+
+    def test_interrupted_recovery_authorization_never_auto_replays(self):
+        manager = s.directory(self.root)
+        s.append_receipt(manager, {'started_at_utc': n.iso(self.clock()), 'finished_at_utc': n.iso(self.clock()),
+                                   'result': 'recovery_authorized', 'snapshot': None, 'recovery_id': 'interrupted'})
+        calls = len(self.server.calls)
+        self.later()
+        result, _ = self.cycle()
+        self.assertEqual(result['result'], 'error')
+        s.review(self.root, 'acknowledged only', self.clock)
+        self.assertEqual(self.cycle()[0]['result'], 'error')
+        self.assertEqual(calls, len(self.server.calls))
 
     def test_recent_failure_and_skip_cannot_hide_old_success(self):
         self.later(4)

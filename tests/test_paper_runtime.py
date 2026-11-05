@@ -55,6 +55,45 @@ class PaperRuntimeTests(unittest.TestCase):
         self.assertEqual(fills[1]["mode"], "daily_open_model")
         self.assertGreater(float(fills[1]["delay_seconds"]), 86400)
 
+    def test_provenance_preserves_first_observation_and_marks_backfill(self):
+        self.run_observation(62)
+        first = self.records("decision_provenance")[0]
+        self.assertEqual(first["observation_kind"], "same_utc_day")
+        self.run_observation(65)
+        rows = self.records("decision_provenance")
+        self.assertEqual(rows[0], first)
+        self.assertEqual([r["observation_kind"] for r in rows],
+                         ["same_utc_day", "historical_backfill", "historical_backfill", "same_utc_day"])
+        with (self.directory / "equity.csv").open(newline="", encoding="utf-8") as handle:
+            view = list(csv.DictReader(handle))
+        self.assertEqual(view[0]["first_observed_at"], first["first_observed_at"])
+        self.assertEqual(view[0]["first_observation_sha256"], first["data_sha256"])
+        self.assertNotEqual(view[0]["first_observation_sha256"], view[0]["data_sha256"])
+        self.assertNotEqual(view[0]["observed_at"], first["first_observed_at"])
+
+    def test_status_does_not_migrate_legacy_database(self):
+        self.run_observation(62)
+        with trader.database(self.directory) as db:
+            db.execute('DROP TABLE decision_provenance')
+        db_path = self.directory / 'paper.sqlite3'
+        original = db_path.read_bytes()
+        trader.read_status(self.directory, self.observation(62)[0])
+        self.assertEqual(db_path.read_bytes(), original)
+
+    def test_legacy_database_gets_new_provenance_only_for_new_decisions(self):
+        self.run_observation(62)
+        with trader.database(self.directory) as db:
+            db.execute('DROP TABLE decision_provenance')
+        old_trades = self.records('trades')
+        self.run_observation(63)
+        with (self.directory / 'equity.csv').open(newline='', encoding='utf-8') as handle:
+            rows = list(csv.DictReader(handle))
+        self.assertEqual(rows[0]['observation_kind'], 'unknown_legacy')
+        self.assertEqual(rows[0]['first_observed_at'], '')
+        self.assertEqual(rows[1]['observation_kind'], 'same_utc_day')
+        self.assertTrue(rows[1]['first_observation_sha256'])
+        self.assertEqual(self.records('trades')[:len(old_trades)], old_trades)
+
     def test_no_trade_day_still_records_health_equity_and_snapshot(self):
         now, snapshot = self.observation(len(self.rows))
         health = self.run_observation(len(self.rows))
