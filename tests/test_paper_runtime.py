@@ -55,6 +55,20 @@ class PaperRuntimeTests(unittest.TestCase):
         self.assertEqual(fills[1]["mode"], "daily_open_model")
         self.assertGreater(float(fills[1]["delay_seconds"]), 86400)
 
+    def test_provenance_preserves_first_observation_and_marks_backfill(self):
+        self.run_observation(62)
+        first = self.records("decision_provenance")[0]
+        self.assertEqual(first["observation_kind"], "same_utc_day")
+        self.run_observation(65)
+        rows = self.records("decision_provenance")
+        self.assertEqual(rows[0], first)
+        self.assertEqual([r["observation_kind"] for r in rows],
+                         ["same_utc_day", "historical_backfill", "historical_backfill", "same_utc_day"])
+        with (self.directory / "equity.csv").open(newline="", encoding="utf-8") as handle:
+            view = list(csv.DictReader(handle))
+        self.assertEqual(view[0]["first_observed_at"], first["first_observed_at"])
+        self.assertNotEqual(view[0]["observed_at"], first["first_observed_at"])
+
     def test_no_trade_day_still_records_health_equity_and_snapshot(self):
         now, snapshot = self.observation(len(self.rows))
         health = self.run_observation(len(self.rows))

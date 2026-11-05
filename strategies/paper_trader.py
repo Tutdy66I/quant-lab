@@ -53,6 +53,9 @@ def database(data_dir):
                 action TEXT NOT NULL, cash REAL NOT NULL, pos REAL NOT NULL,
                 mark REAL NOT NULL, equity REAL NOT NULL, final INTEGER NOT NULL,
                 data_sha256 TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS decision_provenance (
+                execution_date TEXT PRIMARY KEY, first_observed_at TEXT NOT NULL,
+                observation_kind TEXT NOT NULL, data_sha256 TEXT NOT NULL);
             CREATE TABLE IF NOT EXISTS runs (
                 id INTEGER PRIMARY KEY AUTOINCREMENT, observed_at TEXT NOT NULL,
                 status TEXT NOT NULL, payload TEXT NOT NULL);
@@ -83,9 +86,13 @@ def export_views(data_dir):
             atomic_json(directory / "state.json", {"model": get_meta(db, "model", MODEL), **state})
             atomic_json(directory / "health.json", health)
             trades = [json.loads(row[0]) for row in db.execute("SELECT payload FROM trades ORDER BY execution_date, action")]
-            daily = [dict(row) for row in db.execute("SELECT * FROM daily ORDER BY date")]
-            fields = ["execution_date", "signal_date", "observed_at", "action", "raw_open", "fill_price", "quantity", "fee", "cash_after", "pos_after", "return_pct", "reason", "mode", "delay_seconds", "data_sha256"]
-            for name, rows, columns in (("trades.csv", trades, fields), ("equity.csv", daily, ["date", "signal_date", "observed_at", "action", "cash", "pos", "mark", "equity", "final", "data_sha256"])):
+            for trade in trades:
+                trade.setdefault("observation_kind", "unknown_legacy")
+            daily = [dict(row) for row in db.execute("SELECT daily.*, decision_provenance.first_observed_at, "
+                "COALESCE(decision_provenance.observation_kind, 'unknown_legacy') AS observation_kind "
+                "FROM daily LEFT JOIN decision_provenance ON daily.date=decision_provenance.execution_date ORDER BY daily.date")]
+            fields = ["execution_date", "signal_date", "observed_at", "action", "raw_open", "fill_price", "quantity", "fee", "cash_after", "pos_after", "return_pct", "reason", "mode", "delay_seconds", "data_sha256", "observation_kind"]
+            for name, rows, columns in (("trades.csv", trades, fields), ("equity.csv", daily, ["date", "signal_date", "observed_at", "action", "cash", "pos", "mark", "equity", "final", "data_sha256", "first_observed_at", "observation_kind"])):
                 temp = directory / f"{name}.{uuid4().hex}.tmp"
                 try:
                     with temp.open("w", encoding="utf-8", newline="") as handle:
@@ -128,7 +135,7 @@ def run_once(data_dir=DEFAULT_DATA, now=None, snapshot=None):
         dates, prices = [c.date for c in candles], [c.close for c in candles]
         snapshots = directory / "snapshots"
         snapshots.mkdir(parents=True, exist_ok=True)
-        name = now.strftime("%Y%m%dT%H%M%S%fZ") + "_" + snapshot["metadata"]["sha256"][:12] + ".json"
+        name = now.strftime("%Y%m%dT%H%M%S%fZ") + "_" + snapshot["metadata"]["sha256"][:12] + "_" + uuid4().hex + ".json"
         atomic_json(snapshots / name, snapshot)
         with database(directory) as db:
             db.execute("BEGIN IMMEDIATE")
@@ -165,7 +172,11 @@ def run_once(data_dir=DEFAULT_DATA, now=None, snapshot=None):
                         state.update(cash=cash, pos=0.0, entry_capital=0.0, entry_price=0.0, entry_date="")
                         action = "sell"
                         trade = {**common, "action": action, "fill_price": fill, "quantity": quantity, "fee": fee, "return_pct": net_return, "reason": "MA20 crosses below MA60 at previous close"}
+                    observation_kind = "historical_backfill" if candle.date < now.astimezone(timezone.utc).date().isoformat() else "same_utc_day"
+                    db.execute("INSERT INTO decision_provenance VALUES (?,?,?,?)",
+                               (candle.date, now.isoformat(), observation_kind, snapshot["metadata"]["sha256"]))
                     if trade:
+                        trade["observation_kind"] = observation_kind
                         trade.update(cash_after=state["cash"], pos_after=state["pos"])
                         db.execute("INSERT INTO trades VALUES (?,?,?)", (candle.date, action, json.dumps(trade, allow_nan=False)))
                     final = index < len(candles) - 1

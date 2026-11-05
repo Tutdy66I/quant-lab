@@ -126,6 +126,81 @@ class ArchiveServiceTests(unittest.TestCase):
         self.assertEqual(calls, len(self.server.calls))
         self.assertEqual(report['runtime_state'], 'manual_review_required')
 
+    def test_review_does_not_authorize_exhausted_budget_and_recovery_is_single_attempt(self):
+        self.server.status = (None, b'network timeout')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        self.later()
+        calls = len(self.server.calls)
+        s.review(self.root, 'acknowledged', self.clock)
+        self.assertEqual(self.cycle()[0]['result'], 'manual_review_required')
+        self.assertEqual(len(self.server.calls), calls)
+        receipt, health = s.run_cycle(self.root, clock=self.clock, fetcher=self.server,
+                                     recovery_reason='Operator investigated network')
+        self.assertEqual(receipt['result'], 'failed')
+        self.assertEqual(len(self.server.calls), calls + 1)
+        history, _ = s.receipts(s.directory(self.root))
+        self.assertEqual(history[-2]['result'], 'recovery_authorized')
+        self.assertEqual(history[-1]['recovery_id'], history[-2]['recovery_id'])
+        self.assertEqual(health['block_reason'], 'retry_budget_exhausted')
+        self.later()
+        self.assertEqual(self.cycle()[0]['result'], 'manual_review_required')
+        self.assertEqual(len(self.server.calls), calls + 1)
+
+    def test_recovery_respects_cooldown_and_can_succeed_only_explicitly(self):
+        self.server.status = (None, b'CERTIFICATE_VERIFY_FAILED')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        calls = len(self.server.calls)
+        early, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='checked')
+        self.assertEqual(early['result'], 'not_due')
+        self.assertEqual(calls, len(self.server.calls))
+        self.later()
+        self.server.status = None
+        receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='checked')
+        self.assertEqual(receipt['result'], 'completed')
+        self.assertTrue(receipt['recovery_outcome_recorded'])
+        self.assertEqual(len(o.replay(self.root)['runs']), 5)
+
+    def test_recovery_cannot_bypass_access_restriction_or_corruption(self):
+        self.later()
+        self.server.status = (451, b'restricted')
+        self.cycle()
+        self.later()
+        calls = len(self.server.calls)
+        result, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='checked')
+        self.assertEqual(result['result'], 'error')
+        self.assertEqual(calls, len(self.server.calls))
+
+    def test_controlled_recovery_rejects_corrupted_ledger_before_fetch(self):
+        self.server.status = (503, b'temporary')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        state = o.replay(self.root)
+        digest = next(iter(state['current'].values()))['body_sha256']
+        (self.root / 'objects' / (digest + '.bin')).write_bytes(b'corrupt')
+        self.later()
+        calls = len(self.server.calls)
+        receipt, report = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='investigated')
+        self.assertEqual(receipt['result'], 'error')
+        self.assertEqual(report['integrity'], 'unverified')
+        self.assertEqual(len(self.server.calls), calls)
+
+    def test_interrupted_recovery_authorization_never_auto_replays(self):
+        manager = s.directory(self.root)
+        s.append_receipt(manager, {'started_at_utc': n.iso(self.clock()), 'finished_at_utc': n.iso(self.clock()),
+                                   'result': 'recovery_authorized', 'snapshot': None, 'recovery_id': 'interrupted'})
+        calls = len(self.server.calls)
+        self.later()
+        result, _ = self.cycle()
+        self.assertEqual(result['result'], 'error')
+        s.review(self.root, 'acknowledged only', self.clock)
+        self.assertEqual(self.cycle()[0]['result'], 'error')
+        self.assertEqual(calls, len(self.server.calls))
+
     def test_recent_failure_and_skip_cannot_hide_old_success(self):
         self.later(4)
         self.server.status = (None, b'CERTIFICATE_VERIFY_FAILED self-signed certificate')
