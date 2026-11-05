@@ -67,7 +67,18 @@ class PaperRuntimeTests(unittest.TestCase):
         with (self.directory / "equity.csv").open(newline="", encoding="utf-8") as handle:
             view = list(csv.DictReader(handle))
         self.assertEqual(view[0]["first_observed_at"], first["first_observed_at"])
+        self.assertEqual(view[0]["first_observation_sha256"], first["data_sha256"])
+        self.assertNotEqual(view[0]["first_observation_sha256"], view[0]["data_sha256"])
         self.assertNotEqual(view[0]["observed_at"], first["first_observed_at"])
+
+    def test_status_does_not_migrate_legacy_database(self):
+        self.run_observation(62)
+        with trader.database(self.directory) as db:
+            db.execute('DROP TABLE decision_provenance')
+        db_path = self.directory / 'paper.sqlite3'
+        original = db_path.read_bytes()
+        trader.read_status(self.directory, self.observation(62)[0])
+        self.assertEqual(db_path.read_bytes(), original)
 
     def test_no_trade_day_still_records_health_equity_and_snapshot(self):
         now, snapshot = self.observation(len(self.rows))

@@ -88,11 +88,11 @@ def export_views(data_dir):
             trades = [json.loads(row[0]) for row in db.execute("SELECT payload FROM trades ORDER BY execution_date, action")]
             for trade in trades:
                 trade.setdefault("observation_kind", "unknown_legacy")
-            daily = [dict(row) for row in db.execute("SELECT daily.*, decision_provenance.first_observed_at, "
+            daily = [dict(row) for row in db.execute("SELECT daily.*, decision_provenance.first_observed_at, decision_provenance.data_sha256 AS first_observation_sha256, "
                 "COALESCE(decision_provenance.observation_kind, 'unknown_legacy') AS observation_kind "
                 "FROM daily LEFT JOIN decision_provenance ON daily.date=decision_provenance.execution_date ORDER BY daily.date")]
             fields = ["execution_date", "signal_date", "observed_at", "action", "raw_open", "fill_price", "quantity", "fee", "cash_after", "pos_after", "return_pct", "reason", "mode", "delay_seconds", "data_sha256", "observation_kind"]
-            for name, rows, columns in (("trades.csv", trades, fields), ("equity.csv", daily, ["date", "signal_date", "observed_at", "action", "cash", "pos", "mark", "equity", "final", "data_sha256", "first_observed_at", "observation_kind"])):
+            for name, rows, columns in (("trades.csv", trades, fields), ("equity.csv", daily, ["date", "signal_date", "observed_at", "action", "cash", "pos", "mark", "equity", "final", "data_sha256", "first_observed_at", "first_observation_sha256", "observation_kind"])):
                 temp = directory / f"{name}.{uuid4().hex}.tmp"
                 try:
                     with temp.open("w", encoding="utf-8", newline="") as handle:
@@ -224,7 +224,8 @@ def read_status(data_dir, now=None):
     path = Path(data_dir) / "paper.sqlite3"
     if not path.exists():
         return {"status": "never_run"}
-    with database(data_dir) as db:
+    # Status must not create or migrate tables in a legacy account.
+    with contextlib.closing(sqlite3.connect(path.resolve().as_uri() + "?mode=ro", uri=True)) as db:
         latest = db.execute("SELECT payload FROM runs ORDER BY id DESC LIMIT 1").fetchone()
     if latest is None:
         return {"status": "never_run"}

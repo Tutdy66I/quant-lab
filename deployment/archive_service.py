@@ -18,6 +18,11 @@ MAX_TRANSIENT_FAILURES = 3
 MAX_DUE_WAIT_SECONDS = 60
 
 
+class CollectorStateChanged(BaseException):
+    """Abort before network without the collector converting it into an HTTP failure."""
+
+
+
 def directory(root):
     root = Path(root).resolve()
     return root.with_name(root.name + '_service')
@@ -405,8 +410,7 @@ def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive, sleep=
                             'finished_at_utc': n.iso(clock()), 'result': 'recovery_authorized',
                             'snapshot': None, 'recovery_id': recovery_id, 'reason': recovery_reason,
                             'ledger_head_sha256': state['head'], 'failure_count': failures})
-                        receipt.update(recovery_id=recovery_id, recovery_reason=recovery_reason,
-                                       recovery_outcome_recorded=True)
+                        receipt.update(recovery_id=recovery_id, recovery_reason=recovery_reason)
                         resume = True
                     elif last and last['stop_reason']:
                         resume = transient(last) and failures < MAX_TRANSIENT_FAILURES
@@ -415,7 +419,19 @@ def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive, sleep=
                     if receipt['result'] not in ('manual_review_required', 'not_due'):
                         phase('collecting')
                         diagnostic_errors = []
+                        head_checked = False
                         def diagnosed_fetch(url, headers):
+                            nonlocal head_checked
+                            if not head_checked:
+                                # collect() holds the collector lock here. A stale service
+                                # preflight must not bypass a newer stop or cooldown.
+                                try:
+                                    current_head = o.replay(root)['head']
+                                except Exception as error:
+                                    raise CollectorStateChanged('Collector ledger became unverified after preflight') from error
+                                if current_head != state['head']:
+                                    raise CollectorStateChanged('Collector ledger changed after preflight')
+                                head_checked = True
                             try:
                                 phase('request', source_url=url)
                             except OSError as error:
@@ -438,6 +454,10 @@ def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive, sleep=
                 o.verify_snapshot(root, manager / 'snapshots' / label)
                 receipt['snapshot'] = label
                 receipt['ledger_head_sha256'] = after['head']
+                if receipt.get('recovery_id') and receipt['result'] in ('completed', 'failed'):
+                    receipt['recovery_outcome_recorded'] = True
+            except CollectorStateChanged as error:
+                receipt.update(result='error', error=str(error))
             except BlockingIOError as error:
                 receipt.update(result='busy', error=str(error))
             except Exception as error:

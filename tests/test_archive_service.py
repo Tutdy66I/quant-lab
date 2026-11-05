@@ -174,6 +174,72 @@ class ArchiveServiceTests(unittest.TestCase):
         self.assertEqual(result['result'], 'error')
         self.assertEqual(calls, len(self.server.calls))
 
+    def test_concurrent_recovery_and_authorization_write_failure_never_fetch(self):
+        self.server.status = (503, b'temporary')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        self.later()
+        calls = len(self.server.calls)
+        with s.lease(s.directory(self.root)):
+            receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server,
+                                     recovery_reason='investigated')
+        self.assertEqual(receipt['result'], 'already_running')
+        original = s.append_receipt
+        def failed_authorization(manager, value):
+            if value.get('result') == 'recovery_authorized':
+                raise OSError('disk unavailable')
+            return original(manager, value)
+        with mock.patch.object(s, 'append_receipt', side_effect=failed_authorization):
+            receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server,
+                                     recovery_reason='investigated')
+        self.assertEqual(receipt['result'], 'error')
+        self.assertEqual(len(self.server.calls), calls)
+
+    def test_changed_collector_head_cannot_bypass_new_access_stop(self):
+        self.server.status = (503, b'temporary')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        self.later()
+        original = o.collect
+        def competing_collect(*args, **kwargs):
+            restricted = Server()
+            restricted.status = (451, b'restricted')
+            original(self.root, '2026-10-20', '2026-10-20', resume=True,
+                     clock=self.clock, fetcher=restricted)
+            self.server.status = None
+            return original(*args, **kwargs)
+        calls = len(self.server.calls)
+        with mock.patch.object(o, 'collect', side_effect=competing_collect):
+            receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server,
+                                     recovery_reason='investigated')
+        self.assertEqual(receipt['result'], 'error')
+        self.assertIn('ledger changed', receipt['error'])
+        self.assertEqual(len(self.server.calls), calls)
+        self.assertEqual(o.replay(self.root)['runs'][-1]['events'][-1]['status'], 451)
+        s.review(self.root, 'acknowledge', self.clock)
+        self.later()
+        self.assertEqual(self.cycle()[0]['result'], 'error')
+        self.assertEqual(len(self.server.calls), calls)
+
+    def test_snapshot_failure_after_recovery_success_remains_blocked_after_review(self):
+        self.server.status = (503, b'temporary')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        self.later()
+        self.server.status = None
+        with mock.patch.object(o, 'export_snapshot', side_effect=OSError('disk unavailable')):
+            receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='investigated')
+        self.assertEqual(receipt['result'], 'error')
+        calls = len(self.server.calls)
+        s.review(self.root, 'acknowledge failure', self.clock)
+        self.later()
+        receipt, _ = self.cycle()
+        self.assertEqual(receipt['result'], 'error')
+        self.assertEqual(calls, len(self.server.calls))
+
     def test_controlled_recovery_rejects_corrupted_ledger_before_fetch(self):
         self.server.status = (503, b'temporary')
         for _ in range(3):
