@@ -231,7 +231,7 @@ class AuditEvidenceTests(unittest.TestCase):
         server.bodies[name] = revised
         server.bodies[name + '.CHECKSUM'] = (n.sha(revised) + '  ' + name + '\n').encode()
         self.clock.value += timedelta(hours=1)
-        observer.collect(self.root, '2026-10-20', '2026-10-20', clock=self.clock, fetcher=server, refresh=True)
+        observer.collect(self.root, '2026-10-20', '2026-10-20', clock=self.clock, fetcher=server, refresh=True, managed_lease=observer.compat.MANAGED_LEASE)
         manager = service.directory(self.root)
         observer.export_snapshot(self.root, '2026-10-20', manager / 'snapshots' / 'revision-test')
         service.append_receipt(manager, {'started_at_utc': n.iso(self.clock()), 'finished_at_utc': n.iso(self.clock()),

@@ -10,6 +10,7 @@ from pathlib import Path
 from uuid import uuid4
 
 from research import archive_observer as o
+from research import archive_observer_compat as observer_compat
 from research import archive_normalizer as n
 from deployment import archive_diagnostics as diagnostics
 
@@ -143,7 +144,8 @@ def verify_anchor(root, output):
     """
     output = Path(output)
     manifest = json.loads((output / 'manifest.json').read_bytes())
-    if manifest['observer_code_sha256'] != n.sha(Path(o.__file__).read_bytes().replace(b'\r\n', b'\n')):
+    if not observer_compat.supports_snapshot(manifest['observer_code_sha256'],
+            n.sha(Path(o.__file__).read_bytes().replace(b'\r\n', b'\n'))):
         raise ValueError('Observer code differs from operations anchor')
     if manifest['semantic_registry_sha256'] != n.sha((o.CONTRACT_ROOT / 'contracts.json').read_bytes()):
         raise ValueError('Semantic registry differs from operations anchor')
@@ -481,7 +483,8 @@ def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive, sleep=
                             return fetcher(url, headers)
                         receipt['collection'] = o.collect(root, state['config']['start_date'],
                             str(clock().date() - timedelta(days=1)), resume=resume,
-                            recheck_hours=24, max_requests=25, fetcher=diagnosed_fetch, clock=clock)
+                            recheck_hours=24, max_requests=25, fetcher=diagnosed_fetch, clock=clock,
+                            managed_lease=observer_compat.MANAGED_LEASE)
                         if diagnostic_errors:
                             raise OSError('Cannot persist request diagnostics: ' + diagnostic_errors[0])
                         receipt['automatic_transient_resume'] = resume and recovery_reason is None

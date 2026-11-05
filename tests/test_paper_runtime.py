@@ -80,6 +80,20 @@ class PaperRuntimeTests(unittest.TestCase):
         trader.read_status(self.directory, self.observation(62)[0])
         self.assertEqual(db_path.read_bytes(), original)
 
+    def test_legacy_database_gets_new_provenance_only_for_new_decisions(self):
+        self.run_observation(62)
+        with trader.database(self.directory) as db:
+            db.execute('DROP TABLE decision_provenance')
+        old_trades = self.records('trades')
+        self.run_observation(63)
+        with (self.directory / 'equity.csv').open(newline='', encoding='utf-8') as handle:
+            rows = list(csv.DictReader(handle))
+        self.assertEqual(rows[0]['observation_kind'], 'unknown_legacy')
+        self.assertEqual(rows[0]['first_observed_at'], '')
+        self.assertEqual(rows[1]['observation_kind'], 'same_utc_day')
+        self.assertTrue(rows[1]['first_observation_sha256'])
+        self.assertEqual(self.records('trades')[:len(old_trades)], old_trades)
+
     def test_no_trade_day_still_records_health_equity_and_snapshot(self):
         now, snapshot = self.observation(len(self.rows))
         health = self.run_observation(len(self.rows))
