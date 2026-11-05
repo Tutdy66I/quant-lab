@@ -174,6 +174,41 @@ def checked(root):
     if checkpoint:
         verify_anchor(root, manager / 'snapshots' / checkpoint)
     state = o.replay(root)
+    # The last committed snapshot is an independent anchor for the collector
+    # head. A collector run without its matching operations receipt is uncertain,
+    # even when a recovery authorization or result was lost during a crash.
+    latest_anchor = manager / 'snapshots' / (checkpoint or 'baseline') / 'manifest.json'
+    anchored_head = json.loads(latest_anchor.read_bytes())['ledger_head_sha256']
+    if state['head'] != anchored_head:
+        raise ValueError('Collector ledger is not anchored by the latest operations receipt; manual investigation required')
+    authorizations = {}
+    completed = set()
+    runs_by_hash = {p.name.split('-', 1)[1][:-5]: json.loads(p.read_bytes())
+                    for p in (Path(root) / 'runs').glob('*.json')}
+    for receipt in history:
+        recovery_id = receipt.get('recovery_id')
+        if receipt.get('result') == 'recovery_authorized':
+            if not recovery_id or recovery_id in authorizations:
+                raise ValueError('Duplicate or invalid recovery authorization')
+            authorizations[recovery_id] = receipt
+        if receipt.get('recovery_outcome_recorded'):
+            auth = authorizations.get(recovery_id)
+            if not auth or recovery_id in completed:
+                raise ValueError('Recovery result has no unique preceding authorization')
+            run_hash = (receipt.get('collection') or {}).get('run_sha256')
+            run = runs_by_hash.get(run_hash)
+            snapshot = receipt.get('snapshot')
+            if not run or not snapshot or run['previous_sha256'] != auth['ledger_head_sha256']:
+                raise ValueError('Recovery result does not match the authorized collector run')
+            if receipt.get('ledger_head_sha256') != run_hash:
+                raise ValueError('Recovery result head differs from collector run')
+            verify_anchor(root, manager / 'snapshots' / snapshot)
+            manifest = json.loads((manager / 'snapshots' / snapshot / 'manifest.json').read_bytes())
+            if manifest['ledger_head_sha256'] != run_hash:
+                raise ValueError('Recovery snapshot does not anchor the authorized run')
+            if (receipt.get('result') == 'completed') != (not run['stop_reason']):
+                raise ValueError('Recovery result disagrees with collector run')
+            completed.add(recovery_id)
     return state, history
 
 
@@ -336,6 +371,11 @@ def write_health(root, report):
     os.replace(temporary, path)
 
 
+def require_recovery_durability():
+    """Fail closed until the platform has a validated durable authorization protocol."""
+    raise RuntimeError('Controlled recovery disabled: authorization durability is not established; manual investigation required')
+
+
 def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive, sleep=time.sleep, recovery_reason=None):
     root = Path(root).resolve()
     manager = directory(root)
@@ -405,6 +445,7 @@ def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive, sleep=
                         summary = o.snapshot(root, str(current.date() - timedelta(days=1)))
                         if state['orphan_objects'] or summary['publisher_verification_failures']:
                             raise ValueError('Integrity anomalies prevent controlled recovery')
+                        require_recovery_durability()
                         recovery_id = uuid4().hex
                         append_receipt(manager, {'started_at_utc': n.iso(clock()),
                             'finished_at_utc': n.iso(clock()), 'result': 'recovery_authorized',

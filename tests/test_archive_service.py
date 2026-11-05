@@ -50,6 +50,11 @@ class ArchiveServiceTests(unittest.TestCase):
         self.root = Path(self.temp.name) / 'observer'
         self.clock = Clock()
         self.server = Server()
+        # Most protocol tests simulate a future validated durability backend.
+        self.real_durability_check = s.require_recovery_durability
+        barrier = mock.patch.object(s, 'require_recovery_durability', return_value=None)
+        barrier.start()
+        self.addCleanup(barrier.stop)
         self.collect()
         s.initialize(self.root, self.clock)
 
@@ -125,6 +130,78 @@ class ArchiveServiceTests(unittest.TestCase):
         self.assertEqual(receipt['result'], 'manual_review_required')
         self.assertEqual(calls, len(self.server.calls))
         self.assertEqual(report['runtime_state'], 'manual_review_required')
+
+    def test_duplicate_recovery_result_fails_closed(self):
+        self.server.status = (503, b'temporary')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        self.later()
+        self.server.status = None
+        receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='checked')
+        self.assertEqual(receipt['result'], 'completed')
+        s.append_receipt(s.directory(self.root), receipt)
+        with self.assertRaisesRegex(ValueError, 'unique preceding authorization'):
+            s.checked(self.root)
+        calls = len(self.server.calls)
+        self.later()
+        self.assertEqual(self.cycle()[0]['result'], 'error')
+        self.assertEqual(len(self.server.calls), calls)
+
+    def test_recovery_result_loss_is_unresolved_and_never_replayed(self):
+        self.server.status = (503, b'temporary')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        self.later()
+        self.server.status = None
+        receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='checked')
+        self.assertEqual(receipt['result'], 'completed')
+        sorted((s.directory(self.root) / 'cycles').glob('*.json'))[-1].unlink()
+        calls = len(self.server.calls)
+        self.later()
+        result, report = self.cycle()
+        self.assertEqual(result['result'], 'error')
+        self.assertEqual(report['integrity'], 'unverified')
+        self.assertEqual(len(self.server.calls), calls)
+        with self.assertRaisesRegex(ValueError, 'not anchored'):
+            s.review(self.root, 'acknowledge', self.clock)
+
+    def test_missing_recovery_authorization_and_result_do_not_hide_collector_run(self):
+        self.server.status = (503, b'temporary')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        self.later()
+        self.server.status = None
+        receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='checked')
+        self.assertEqual(receipt['result'], 'completed')
+        paths = sorted((s.directory(self.root) / 'cycles').glob('*.json'))
+        # Simulate loss of both newest directory entries in disposable fixtures.
+        paths[-1].unlink()
+        paths[-2].unlink()
+        calls = len(self.server.calls)
+        self.later()
+        receipt, report = self.cycle()
+        self.assertEqual(receipt['result'], 'error')
+        self.assertEqual(report['integrity'], 'unverified')
+        self.assertEqual(calls, len(self.server.calls))
+        with self.assertRaisesRegex(ValueError, 'not anchored'):
+            s.review(self.root, 'acknowledge', self.clock)
+
+    def test_unvalidated_durability_blocks_before_authorization_and_fetch(self):
+        self.server.status = (503, b'temporary')
+        for _ in range(3):
+            self.later()
+            self.cycle()
+        self.later()
+        calls = len(self.server.calls)
+        with mock.patch.object(s, 'require_recovery_durability', side_effect=self.real_durability_check):
+            receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='checked')
+        self.assertEqual(receipt['result'], 'error')
+        self.assertIn('durability is not established', receipt['error'])
+        self.assertEqual(calls, len(self.server.calls))
+        self.assertFalse(any(r['result'] == 'recovery_authorized' for r in s.receipts(s.directory(self.root))[0]))
 
     def test_review_does_not_authorize_exhausted_budget_and_recovery_is_single_attempt(self):
         self.server.status = (None, b'network timeout')
@@ -218,7 +295,8 @@ class ArchiveServiceTests(unittest.TestCase):
         self.assertIn('ledger changed', receipt['error'])
         self.assertEqual(len(self.server.calls), calls)
         self.assertEqual(o.replay(self.root)['runs'][-1]['events'][-1]['status'], 451)
-        s.review(self.root, 'acknowledge', self.clock)
+        with self.assertRaisesRegex(ValueError, 'not anchored'):
+            s.review(self.root, 'acknowledge', self.clock)
         self.later()
         self.assertEqual(self.cycle()[0]['result'], 'error')
         self.assertEqual(len(self.server.calls), calls)
@@ -234,7 +312,8 @@ class ArchiveServiceTests(unittest.TestCase):
             receipt, _ = s.run_cycle(self.root, clock=self.clock, fetcher=self.server, recovery_reason='investigated')
         self.assertEqual(receipt['result'], 'error')
         calls = len(self.server.calls)
-        s.review(self.root, 'acknowledge failure', self.clock)
+        with self.assertRaisesRegex(ValueError, 'not anchored'):
+            s.review(self.root, 'acknowledge failure', self.clock)
         self.later()
         receipt, _ = self.cycle()
         self.assertEqual(receipt['result'], 'error')
