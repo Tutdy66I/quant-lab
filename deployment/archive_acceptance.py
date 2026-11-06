@@ -9,6 +9,7 @@ import time
 from deployment import archive_service as s
 from deployment import archive_diagnostics as diagnostics
 from deployment import archive_task_history
+from deployment import archive_instance
 from research import archive_observer as o
 from research import archive_normalizer as n
 
@@ -27,13 +28,25 @@ def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now, scheduler_events=None):
     manager = s.directory(root)
     deployment_blob = (manager / 'deployment.json').read_bytes()
     deployment = json.loads(deployment_blob)
+    instance = archive_instance.metadata(root)
+    expected_task = instance['task_name'] if instance else 'quant-lab-archive-observer'
     if (deployment.get('schema_version') != 1
-            or deployment.get('task_name') != 'quant-lab-archive-observer'
+            or deployment.get('task_name') != expected_task
             or deployment.get('cadence_seconds') != 3600):
         raise ValueError('Unsupported deployment identity or cadence')
     enabled = n.utc(deployment['enabled_at_utc'])
     if enabled > instant:
         raise ValueError('Deployment is in the future')
+    if instance:
+        evidence = deployment.get('activation_evidence') or {}
+        if deployment.get('instance_id') != instance['instance_id'] or not scheduler_events:
+            raise ValueError('Instance activation and scheduler evidence required')
+        history = archive_task_history.read(scheduler_events, enabled, instant, expected_task)
+        if (evidence.get('scheduler_sha256') != history['source_sha256']
+                or not any(e['record_id'] == evidence.get('record_id')
+                           and e['event_id'] in (107, 119)
+                           and n.utc(e['at_utc']) == enabled for e in history['events'])):
+            raise ValueError('Activation start not anchored to selected task event')
     due = enabled + timedelta(days=days)
     result = {
         'schema_version': 1, 'stage_days': days, 'checked_at_utc': n.iso(instant),
@@ -55,6 +68,10 @@ def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now, scheduler_events=None):
         'task_execution_success_rate': None, 'schedule_punctuality_rate': None,
         'prospective_prediction_samples': 0, 'statistics_module_enabled': False,
     }
+    if instance:
+        result['instance_id'] = instance['instance_id']
+        result['start_basis'] = ('Selected task trigger event; conservative observation start, '
+                                 'not proof of exact task-enable time')
     # Do not diagnose a collector's in-progress publication as historical corruption.
     if (manager / 'running.json').exists() or (root / 'collector.lock').exists():
         result['report_state'] = 'pending_active_or_interrupted_cycle'
@@ -150,7 +167,7 @@ def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now, scheduler_events=None):
         disk_growth_limitation='No deployment-time byte inventory is established; this is a current measurement.',
     )
     result['review_criteria'] = diagnostics.criteria(result)
-    result['scheduler_history'] = (archive_task_history.read(scheduler_events, enabled, instant)
+    result['scheduler_history'] = (archive_task_history.read(scheduler_events, enabled, instant, expected_task)
                                    if scheduler_events else {'coverage': 'unavailable'})
     result['total_report_seconds'] = time.perf_counter() - report_started
     return result

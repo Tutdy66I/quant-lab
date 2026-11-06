@@ -14,7 +14,7 @@ TASK = '\\quant-lab-archive-observer'
 TRIGGERS = {107: 'time', 110: 'user', 119: 'logon'}
 
 
-def read(path, start, end):
+def read(path, start, end, task_name='quant-lab-archive-observer'):
     if start > end:
         raise ValueError('Invalid scheduler event interval')
     with Path(path).open('rb') as stream:
@@ -40,7 +40,7 @@ def read(path, start, end):
         data = {item.get('Name'): item.text for item in fields}
         if len(data) != len(fields):
             raise ValueError('Duplicate scheduler event field')
-        if data.get('TaskName') != TASK:
+        if data.get('TaskName') != '\\' + task_name:
             continue
         event_id = int(node.findtext('e:System/e:EventID', namespaces=NS))
         record = int(node.findtext('e:System/e:EventRecordID', namespaces=NS))

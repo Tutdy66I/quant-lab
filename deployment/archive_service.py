@@ -13,6 +13,7 @@ from research import archive_observer as o
 from research import archive_observer_compat as observer_compat
 from research import archive_normalizer as n
 from deployment import archive_diagnostics as diagnostics
+from deployment import archive_instance
 
 INTERVAL = timedelta(hours=1)
 MAX_TRANSIENT_FAILURES = 3
@@ -176,6 +177,7 @@ def checked(root):
     if checkpoint:
         verify_anchor(root, manager / 'snapshots' / checkpoint)
     state = o.replay(root)
+    archive_instance.metadata(root)
     # The last committed snapshot is an independent anchor for the collector
     # head. A collector run without its matching operations receipt is uncertain,
     # even when a recovery authorization or result was lost during a crash.
@@ -255,6 +257,12 @@ def health(root, clock=o.now):
               'official_publication_at_utc': None, 'statistics_module_enabled': False}
     try:
         state, history = checked(root)
+        instance = archive_instance.metadata(root)
+        if instance:
+            result.update(instance_id=instance['instance_id'], source_access='blocked',
+                          cross_instance_admission='not_implemented',
+                          instance_initialized_at_utc=instance['initialized_at_utc'],
+                          deployment_enabled_at_utc=None)
         runs = state['runs']
         end = str(instant.date() - timedelta(days=1))
         summary = o.snapshot(root, end)
@@ -460,11 +468,20 @@ def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive, sleep=
                         if not resume:
                             receipt['result'] = 'manual_review_required'
                     if receipt['result'] not in ('manual_review_required', 'not_due'):
+                        try:
+                            archive_instance.prohibit_network(root)
+                        except PermissionError as error:
+                            receipt.update(result='manual_review_required', error=str(error))
+                    if receipt['result'] not in ('manual_review_required', 'not_due'):
                         phase('collecting')
                         diagnostic_errors = []
                         head_checked = False
                         def diagnosed_fetch(url, headers):
                             nonlocal head_checked
+                            try:
+                                archive_instance.prohibit_network(root)
+                            except (OSError, ValueError, PermissionError) as error:
+                                raise CollectorStateChanged('Source admission changed or remains blocked') from error
                             if not head_checked:
                                 # collect() holds the collector lock here. A stale service
                                 # preflight must not bypass a newer stop or cooldown.
@@ -494,7 +511,9 @@ def run_cycle(root, *, clock=o.now, fetcher=o.fetch, alive=process_alive, sleep=
                 phase('snapshot')
                 after = o.replay(root)
                 label = uuid4().hex
-                o.export_snapshot(root, after['runs'][-1]['requested_end_date'], manager / 'snapshots' / label)
+                snapshot_end = (after['runs'][-1]['requested_end_date'] if after['runs']
+                                else after['config']['start_date'])
+                o.export_snapshot(root, snapshot_end, manager / 'snapshots' / label)
                 o.verify_snapshot(root, manager / 'snapshots' / label)
                 receipt['snapshot'] = label
                 receipt['ledger_head_sha256'] = after['head']

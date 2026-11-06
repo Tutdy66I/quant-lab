@@ -270,8 +270,10 @@ def report(root=observer.DEFAULT_ROOT, *, clock=observer.now, scheduler_events=N
         before = fingerprints(protected)
         result['source_fingerprints'] = before
         deployment = json.loads((service.directory(root) / 'deployment.json').read_bytes())
+        instance = service.archive_instance.metadata(root)
+        expected_task = instance['task_name'] if instance else 'quant-lab-archive-observer'
         if (deployment.get('schema_version') != 1 or deployment.get('cadence_seconds') != 3600
-                or deployment.get('task_name') != 'quant-lab-archive-observer'
+                or deployment.get('task_name') != expected_task
                 or n.utc(deployment['enabled_at_utc']) > instant):
             raise ValueError('Unsupported deployment identity/cadence or future start')
         # Time eligibility is still visible when subsequent integrity checks fail.

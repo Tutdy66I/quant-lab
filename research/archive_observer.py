@@ -341,6 +341,8 @@ def snapshot(root,end_date,as_of=None):
         version=state['versions'][name][event['body_sha256']]
         files.append({'date':date,'sha256':event['body_sha256'],**version,'rows':len(result['rows']),
                       'quality':result['quality'],'published_at_utc':None})
+        if state['config'].get('instance_id'):
+            files[-1]['acquisition_kind'] = 'retrospective_archive_download'
         contract=registry.get(date)
         matched=bool(contract and all(source['file'] in state['verified']
             and state['current'][source['file']]['body_sha256']==source['zip_sha256'] for source in contract['sources']))
@@ -362,7 +364,11 @@ def snapshot(root,end_date,as_of=None):
                 'source_version_sha256':event['body_sha256'],'semantic_contract_id':contract['id'],'source_line':line})
     accepted.sort(key=lambda r:r['window_start_utc'])
     failures={key:pair(key,state['current'],Path(root))[1] for key in state['current'] if key.endswith('.zip') and key not in state['verified']}
-    return {'schema_version':1,'observer_started_at_utc':state['config']['created_at_utc'],
+    # Legacy snapshots retain their exact 2.6/2.7 semantics. For a new
+    # instance initialization is not an observation; the first committed run
+    # is the earliest possible observed runtime.
+    observed_start = (state['runs'][0]['started_at_utc'] if state['runs'] else None) if state['config'].get('instance_id') else state['config']['created_at_utc']
+    return {'schema_version':1,'observer_started_at_utc':observed_start,
         'as_of_utc':as_of,'ledger_head_sha256':state['head'],'runs_visible':len(state['runs']),
         'successful_metric_archives':len(files),'metric_rows':sum(f['rows'] for f in files),
         'accepted_taker_windows':len(accepted),'coverage_start':dates[0] if dates else None,'coverage_end':end_date,

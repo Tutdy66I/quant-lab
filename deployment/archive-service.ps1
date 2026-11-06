@@ -4,12 +4,14 @@ param(
     [string]$Action = 'Plan',
     [string]$PythonExe = '',
     [string]$DataRoot = '',
+    [ValidatePattern('^quant-lab-archive-[a-z0-9][a-z0-9-]{0,47}$')]
+    [string]$TaskName = 'quant-lab-archive-observer',
     [switch]$ConfirmEnable,
     [switch]$PreviousCollectorStopped
 )
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $PSScriptRoot
-$taskName = 'quant-lab-archive-observer'
+$taskName = $TaskName
 if (-not $DataRoot) { $DataRoot = Join-Path $projectRoot 'runtime\archive_observer_v1' }
 $DataRoot = [System.IO.Path]::GetFullPath($DataRoot)
 if (-not $PythonExe) { $PythonExe = (Get-Command python -ErrorAction Stop).Source }
@@ -44,7 +46,7 @@ switch ($Action) {
 }
 $user = [Security.Principal.WindowsIdentity]::GetCurrent().Name
 $hostExe = Join-Path $env:WINDIR 'System32\WindowsPowerShell\v1.0\powershell.exe'
-$arguments = '-NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy RemoteSigned -File "' + $PSCommandPath + '" -Action RunOnce -PythonExe "' + $PythonExe + '" -DataRoot "' + $DataRoot + '"'
+$arguments = '-NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy RemoteSigned -File "' + $PSCommandPath + '" -Action RunOnce -PythonExe "' + $PythonExe + '" -TaskName "' + $TaskName + '" -DataRoot "' + $DataRoot + '"'
 function Escape-Xml([string]$value) { return [System.Security.SecurityElement]::Escape($value) }
 $boundary = (Get-Date).AddMinutes(5).ToString('yyyy-MM-ddTHH:mm:ss')
 # Indefinite hourly repetition plus logon; no password, elevation, wake timer or resident loop.
@@ -66,6 +68,9 @@ $definition = @"
 </Task>
 "@
 if ($Action -eq 'Plan') { $definition; return }
+if ($TaskName -ne 'quant-lab-archive-observer') {
+    throw 'New-instance task installation is disabled: preview only until cross-instance admission is implemented.'
+}
 if (-not $ConfirmEnable -or -not $PreviousCollectorStopped) {
     throw 'Install requires user approval (-ConfirmEnable) and prior collector handover (-PreviousCollectorStopped). Plan does not register or enable any task.'
 }
