@@ -9,6 +9,7 @@ import time
 from deployment import archive_service as s
 from deployment import archive_diagnostics as diagnostics
 from deployment import archive_task_history
+from deployment import archive_instance
 from research import archive_observer as o
 from research import archive_normalizer as n
 
@@ -18,7 +19,7 @@ def inventory(path):
     return {'files': len(files), 'bytes': sum(p.stat().st_size for p in files)}
 
 
-def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now, scheduler_events=None):
+def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now, scheduler_events=None, activation_events=None):
     report_started = time.perf_counter()
     if days not in (7, 28):
         raise ValueError('Acceptance stage must be 7 or 28 days')
@@ -27,13 +28,29 @@ def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now, scheduler_events=None):
     manager = s.directory(root)
     deployment_blob = (manager / 'deployment.json').read_bytes()
     deployment = json.loads(deployment_blob)
+    instance = archive_instance.metadata(root)
+    expected_task = instance['task_name'] if instance else 'quant-lab-archive-observer'
     if (deployment.get('schema_version') != 1
-            or deployment.get('task_name') != 'quant-lab-archive-observer'
+            or deployment.get('task_name') != expected_task
             or deployment.get('cadence_seconds') != 3600):
         raise ValueError('Unsupported deployment identity or cadence')
     enabled = n.utc(deployment['enabled_at_utc'])
     if enabled > instant:
         raise ValueError('Deployment is in the future')
+    scheduler_history = None
+    if instance:
+        evidence = deployment.get('activation_evidence') or {}
+        if deployment.get('instance_id') != instance['instance_id'] or not activation_events:
+            raise ValueError('Instance activation and scheduler evidence required')
+        if scheduler_events and Path(activation_events).resolve() == Path(scheduler_events).resolve():
+            raise ValueError('Activation anchor and scheduler history must be separate files')
+        activation = archive_task_history.read(activation_events, enabled, instant, expected_task)
+        anchors = [e for e in activation['events'] if e['record_id'] == evidence.get('record_id')
+                   and e['event_id'] in (107, 119) and n.utc(e['at_utc']) == enabled]
+        if evidence.get('scheduler_sha256') != activation['source_sha256'] or len(anchors) != 1:
+            raise ValueError('Activation start not anchored to selected task event')
+        if scheduler_events:
+            scheduler_history = archive_task_history.read(scheduler_events, enabled, instant, expected_task, anchors[0])
     due = enabled + timedelta(days=days)
     result = {
         'schema_version': 1, 'stage_days': days, 'checked_at_utc': n.iso(instant),
@@ -55,6 +72,13 @@ def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now, scheduler_events=None):
         'task_execution_success_rate': None, 'schedule_punctuality_rate': None,
         'prospective_prediction_samples': 0, 'statistics_module_enabled': False,
     }
+    if instance:
+        result['instance_id'] = instance['instance_id']
+        result['activation_anchor'] = {'instance_id': instance['instance_id'], 'task_name': expected_task,
+            'record_id': anchors[0]['record_id'], 'event_id': anchors[0]['event_id'],
+            'event_at_utc': anchors[0]['at_utc'], 'source_sha256': activation['source_sha256']}
+        result['start_basis'] = ('Selected task trigger event; conservative observation start, '
+                                 'not proof of exact task-enable time')
     # Do not diagnose a collector's in-progress publication as historical corruption.
     if (manager / 'running.json').exists() or (root / 'collector.lock').exists():
         result['report_state'] = 'pending_active_or_interrupted_cycle'
@@ -150,8 +174,16 @@ def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now, scheduler_events=None):
         disk_growth_limitation='No deployment-time byte inventory is established; this is a current measurement.',
     )
     result['review_criteria'] = diagnostics.criteria(result)
-    result['scheduler_history'] = (archive_task_history.read(scheduler_events, enabled, instant)
-                                   if scheduler_events else {'coverage': 'unavailable'})
+    result['scheduler_history'] = (scheduler_history if scheduler_history is not None else
+        archive_task_history.read(scheduler_events, enabled, instant, expected_task)
+        if scheduler_events else {'coverage': 'unavailable'})
+    if instance:
+        # Do not publish a completed report if its immutable anchor or the
+        # deployment identity changed while the offline replay was running.
+        if (n.sha((manager / 'deployment.json').read_bytes()) != n.sha(deployment_blob)
+                or archive_task_history.read(activation_events, enabled, instant, expected_task) != activation
+                or archive_instance.metadata(root) != instance):
+            raise ValueError('Activation or instance evidence changed during report')
     result['total_report_seconds'] = time.perf_counter() - report_started
     return result
 
@@ -167,10 +199,12 @@ def main():
     parser.add_argument('--root', type=Path, default=o.DEFAULT_ROOT)
     parser.add_argument('--days', type=int, choices=(7, 28), default=7)
     parser.add_argument('--scheduler-events', type=Path, help='Optional exported event XML; no system log changes')
+    parser.add_argument('--activation-events', type=Path, help='Immutable activation event export for an isolated instance')
     parser.add_argument('--output', type=Path, help='New report directory; stdout only when omitted')
     args = parser.parse_args()
     try:
-        result = report(args.root, days=args.days, scheduler_events=args.scheduler_events)
+        result = report(args.root, days=args.days, scheduler_events=args.scheduler_events,
+                        activation_events=args.activation_events)
         if args.output:
             output = args.output.resolve()
             if output.is_relative_to(args.root.resolve()) or output.is_relative_to(s.directory(args.root)):

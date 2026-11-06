@@ -243,7 +243,7 @@ def stages(base):
     return result
 
 
-def report(root=observer.DEFAULT_ROOT, *, clock=observer.now, scheduler_events=None):
+def report(root=observer.DEFAULT_ROOT, *, clock=observer.now, scheduler_events=None, activation_events=None):
     instant = clock()
     root = Path(root).resolve()
     protected = [root, service.directory(root), root.with_name('archive_observer_monitor'), n.ROOT / 'data',
@@ -252,6 +252,8 @@ def report(root=observer.DEFAULT_ROOT, *, clock=observer.now, scheduler_events=N
                  Path(__file__)]
     if scheduler_events:
         protected.append(Path(scheduler_events).resolve())
+    if activation_events:
+        protected.append(Path(activation_events).resolve())
     result = {'schema_version': 1, 'quant_lab_version': '2.6', 'checked_at_utc': n.iso(instant),
               'code_version': code_version(), 'auditor_sha256': n.sha(Path(__file__).read_bytes().replace(b'\r\n', b'\n')),
               'source_fingerprints': {}, 'report_state': 'unverified',
@@ -270,15 +272,18 @@ def report(root=observer.DEFAULT_ROOT, *, clock=observer.now, scheduler_events=N
         before = fingerprints(protected)
         result['source_fingerprints'] = before
         deployment = json.loads((service.directory(root) / 'deployment.json').read_bytes())
+        instance = service.archive_instance.metadata(root)
+        expected_task = instance['task_name'] if instance else 'quant-lab-archive-observer'
         if (deployment.get('schema_version') != 1 or deployment.get('cadence_seconds') != 3600
-                or deployment.get('task_name') != 'quant-lab-archive-observer'
+                or deployment.get('task_name') != expected_task
                 or n.utc(deployment['enabled_at_utc']) > instant):
             raise ValueError('Unsupported deployment identity/cadence or future start')
         # Time eligibility is still visible when subsequent integrity checks fail.
         result['acceptance_stages'] = stages({'checked_at_utc': n.iso(instant),
                                               'enabled_at_utc': deployment['enabled_at_utc'],
                                               'integrity': 'unverified'})
-        base = acceptance.report(root, days=7, clock=lambda: instant, scheduler_events=scheduler_events)
+        base = acceptance.report(root, days=7, clock=lambda: instant, scheduler_events=scheduler_events,
+                                 activation_events=activation_events)
         result.update(operations=base, acceptance_stages=stages(base))
         if base['report_state'] != 'ready_for_review':
             result['report_state'] = base['report_state']
@@ -364,12 +369,14 @@ def markdown(value):
     return '\n'.join(lines)
 
 
-def export(value, output, root=observer.DEFAULT_ROOT, scheduler_events=None):
+def export(value, output, root=observer.DEFAULT_ROOT, scheduler_events=None, activation_events=None):
     output = Path(output).resolve()
     inputs = [Path(root).resolve(), service.directory(root), n.ROOT / 'data',
               Path(root).resolve().with_name('archive_observer_monitor'), n.ROOT / 'docs']
     if scheduler_events:
         inputs.append(Path(scheduler_events).resolve())
+    if activation_events:
+        inputs.append(Path(activation_events).resolve())
     if any(output == p or output.is_relative_to(p) or p.is_relative_to(output) for p in inputs):
         raise ValueError('Use a new output directory outside all original evidence and source inputs')
     output.mkdir(parents=True, exist_ok=False)
@@ -381,11 +388,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, default=observer.DEFAULT_ROOT)
     parser.add_argument('--scheduler-events', type=Path)
+    parser.add_argument('--activation-events', type=Path)
     parser.add_argument('--output', type=Path, required=True, help='New directory; never overwrites evidence')
     args = parser.parse_args()
-    value = report(args.root, scheduler_events=args.scheduler_events)
+    value = report(args.root, scheduler_events=args.scheduler_events, activation_events=args.activation_events)
     try:
-        export(value, args.output, args.root, args.scheduler_events)
+        export(value, args.output, args.root, args.scheduler_events, args.activation_events)
     except (OSError, ValueError) as error:
         print(json.dumps({'report_state': 'output_rejected', 'error': str(error)}, ensure_ascii=False))
         return 2

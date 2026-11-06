@@ -2,7 +2,9 @@
 param(
     [datetime]$Since = (Get-Date).AddDays(-1),
     [datetime]$Until = (Get-Date),
-    [ValidateRange(1, 10000)][int]$MaxEvents = 10000
+    [ValidateRange(1, 10000)][int]$MaxEvents = 10000,
+    [ValidatePattern('^quant-lab-archive-[a-z0-9][a-z0-9-]{0,47}$')]
+    [string]$TaskName = 'quant-lab-archive-observer'
 )
 $ErrorActionPreference = 'Stop'
 if ($Since -gt $Until) { throw 'Since must not exceed Until.' }
@@ -22,7 +24,7 @@ Write-Output '<Events>'
 foreach ($archiveEvent in $archiveEvents) {
     [xml]$archiveXml = $archiveEvent.ToXml()
     $archiveTaskFields = @($archiveXml.Event.EventData.Data | Where-Object Name -eq 'TaskName')
-    if ($archiveTaskFields.Count -eq 1 -and $archiveTaskFields[0].InnerText -eq '\quant-lab-archive-observer') {
+    if ($archiveTaskFields.Count -eq 1 -and $archiveTaskFields[0].InnerText -eq ('\' + $TaskName)) {
         Write-Output $archiveEvent.ToXml()
     }
 }
