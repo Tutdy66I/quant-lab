@@ -14,7 +14,7 @@ TASK = '\\quant-lab-archive-observer'
 TRIGGERS = {107: 'time', 110: 'user', 119: 'logon'}
 
 
-def read(path, start, end, task_name='quant-lab-archive-observer'):
+def read(path, start, end, task_name='quant-lab-archive-observer', anchor_event=None):
     if start > end:
         raise ValueError('Invalid scheduler event interval')
     with Path(path).open('rb') as stream:
@@ -35,25 +35,34 @@ def read(path, start, end, task_name='quant-lab-archive-observer'):
     for node in nodes:
         provider = node.find('e:System/e:Provider', NS)
         if provider is None or provider.get('Name') != PROVIDER:
+            if anchor_event and node.findtext('e:System/e:EventRecordID', namespaces=NS) == str(anchor_event['record_id']):
+                raise ValueError('Scheduler history conflicts with activation provider')
             continue
         fields = node.findall('e:EventData/e:Data', NS)
         data = {item.get('Name'): item.text for item in fields}
         if len(data) != len(fields):
             raise ValueError('Duplicate scheduler event field')
-        if data.get('TaskName') != '\\' + task_name:
+        task_matches = data.get('TaskName') == '\\' + task_name
+        if not task_matches and anchor_event is None:
             continue
         event_id = int(node.findtext('e:System/e:EventID', namespaces=NS))
         record = int(node.findtext('e:System/e:EventRecordID', namespaces=NS))
+        if not task_matches:
+            if anchor_event and record == anchor_event['record_id']:
+                raise ValueError('Scheduler history conflicts with activation task')
+            continue
         created = node.find('e:System/e:TimeCreated', NS)
         if created is None or not created.get('SystemTime'):
             raise ValueError('Missing scheduler event timestamp')
         stamp = n.utc(created.get('SystemTime'))
-        if not start <= stamp <= end:
-            continue
         item = {'record_id': record, 'event_id': event_id, 'at_utc': n.iso(stamp),
                 'instance_id': data.get('InstanceId') or data.get('TaskInstanceId'),
                 'trigger_kind': TRIGGERS.get(event_id, 'unknown'),
                 'action_result_code': data.get('ResultCode') if event_id == 201 else None}
+        if anchor_event and record == anchor_event['record_id'] and item != anchor_event:
+            raise ValueError('Scheduler history conflicts with activation event')
+        if not start <= stamp <= end:
+            continue
         if record in events and events[record] != item:
             raise ValueError('Conflicting scheduler event record')
         events[record] = item

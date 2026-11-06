@@ -1,5 +1,5 @@
 """Isolated-instance tests: no real network and no production paths."""
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 import os
 from pathlib import Path
@@ -11,6 +11,7 @@ from unittest import mock
 
 from deployment import archive_instance as i
 from deployment import archive_acceptance as acceptance
+from deployment import archive_audit as audit
 from deployment import archive_service as s
 from research import archive_normalizer as n
 from research import archive_observer as o
@@ -30,7 +31,11 @@ class IsolatedInstanceTests(unittest.TestCase):
         return i.initialize_empty(root or self.root, self.gate, task, '2026-11-05', self.clock)
 
     def test_empty_repeat_and_independent_identity(self):
-        one = self.initialize()
+        with mock.patch.object(o, 'collect', side_effect=AssertionError('collection forbidden')) as collect, \
+             mock.patch.object(o, 'fetch', side_effect=AssertionError('network forbidden')) as fetch:
+            one = self.initialize()
+            collect.assert_not_called()
+            fetch.assert_not_called()
         again = self.initialize()
         self.assertEqual(one['instance_id'], again['instance_id'])
         other = self.base / 'another'
@@ -46,6 +51,17 @@ class IsolatedInstanceTests(unittest.TestCase):
         self.assertIsNone(info['first_observed_at_utc'])
         self.assertEqual(info['research_admission'], 'insufficient_evidence')
         self.assertIsNone(o.snapshot(self.root, '2026-11-05')['observer_started_at_utc'])
+
+    def test_second_empty_instance_does_not_grant_source_access(self):
+        self.initialize()
+        second = self.base / 'second-observer'
+        self.initialize(second, 'quant-lab-archive-second')
+        for root in (self.root, second):
+            fetch = mock.Mock(side_effect=AssertionError('real request forbidden'))
+            receipt, _ = s.run_cycle(root, clock=self.clock, fetcher=fetch)
+            self.assertEqual(receipt['result'], 'manual_review_required')
+            self.assertEqual(s.checked(root)[0]['runs'], [])
+            fetch.assert_not_called()
 
     def test_partial_and_legacy_task_rejected(self):
         self.root.mkdir()
@@ -138,27 +154,105 @@ class IsolatedInstanceTests(unittest.TestCase):
     def test_acceptance_requires_instance_specific_activation_event(self):
         info = self.initialize()
         task = 'quant-lab-archive-new'
-        events = self.base / 'events.xml'
-        events.write_text('''<Events xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+        anchor = self.base / 'activation.xml'
+        events = self.base / 'history.xml'
+        anchor.write_text('''<Events xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 <Event><System><Provider Name="Microsoft-Windows-TaskScheduler"/><EventID>107</EventID>
 <EventRecordID>17</EventRecordID><TimeCreated SystemTime="2026-11-06T04:00:00Z"/></System>
 <EventData><Data Name="TaskName">\\quant-lab-archive-new</Data></EventData></Event></Events>''', encoding='utf-8')
+        events.write_bytes(anchor.read_bytes())
         deployment = {'schema_version': 1, 'task_name': task, 'instance_id': info['instance_id'],
                       'cadence_seconds': 3600, 'enabled_at_utc': '2026-11-06T04:00:00Z',
-                      'activation_evidence': {'record_id': 17, 'scheduler_sha256': n.sha(events.read_bytes())}}
+                      'activation_evidence': {'record_id': 17, 'scheduler_sha256': n.sha(anchor.read_bytes())}}
         (s.directory(self.root) / 'deployment.json').write_bytes(n.json_bytes(deployment))
         now = lambda: datetime(2026, 11, 7, 4, tzinfo=n.UTC)
         with self.assertRaises(ValueError):
             acceptance.report(self.root, days=7, clock=now)
+        with self.assertRaises(ValueError):
+            acceptance.report(self.root, days=7, clock=now, activation_events=anchor, scheduler_events=anchor)
+        history = anchor.read_text(encoding='utf-8').replace('</Events>', '''
+<Event><System><Provider Name="Microsoft-Windows-TaskScheduler"/><EventID>107</EventID>
+<EventRecordID>18</EventRecordID><TimeCreated SystemTime="2026-11-06T06:00:00Z"/></System>
+<EventData><Data Name="TaskName">\\quant-lab-archive-new</Data></EventData></Event></Events>''')
+        events.write_text(history, encoding='utf-8')
+        self.assertNotEqual(n.sha(events.read_bytes()), n.sha(anchor.read_bytes()))
         for days in (7, 28):
-            report = acceptance.report(self.root, days=days, clock=now, scheduler_events=events)
+            report = acceptance.report(self.root, days=days, clock=now, scheduler_events=events,
+                                       activation_events=anchor)
             self.assertEqual(report['stage'], 'not_due')
             self.assertEqual(report['successful_collection_runs'], 0)
             self.assertEqual(report['long_run_acceptance'], 'not_established')
+            self.assertEqual([e['record_id'] for e in report['scheduler_history']['events']], [17, 18])
+            self.assertEqual(report['scheduler_history']['source_sha256'], n.sha(events.read_bytes()))
+            due = acceptance.report(self.root, days=days,
+                                    clock=lambda: self.clock() + timedelta(days=days, seconds=1),
+                                    scheduler_events=events, activation_events=anchor)
+            self.assertEqual(due['stage'], 'due_for_manual_review')
+            self.assertEqual(due['long_run_acceptance'], 'not_established')
+        audited = audit.report(self.root, clock=now, scheduler_events=events, activation_events=anchor)
+        self.assertEqual(audited['research_admission'], 'insufficient_evidence')
+        self.assertEqual(len(audited['operations']['scheduler_history']['events']), 2)
+        self.assertIn(str(anchor.resolve()), audited['source_fingerprints'])
+        later_only = history.replace(anchor.read_text(encoding='utf-8').replace('</Events>', ''),
+                                     '<Events xmlns="http://schemas.microsoft.com/win/2004/08/events/event">', 1)
+        events.write_text(later_only, encoding='utf-8')
+        partial = acceptance.report(self.root, days=7, clock=now, scheduler_events=events, activation_events=anchor)
+        self.assertEqual([e['record_id'] for e in partial['scheduler_history']['events']], [18])
+        events.write_text(history, encoding='utf-8')
+        for key, replacement in [('instance_id', 'wrong-instance'),
+                                 ('enabled_at_utc', '2026-11-06T04:01:00Z')]:
+            bad = dict(deployment, **{key: replacement})
+            (s.directory(self.root) / 'deployment.json').write_bytes(n.json_bytes(bad))
+            with self.assertRaises(ValueError):
+                acceptance.report(self.root, days=7, clock=now, scheduler_events=events, activation_events=anchor)
+        bad = dict(deployment, activation_evidence=dict(deployment['activation_evidence'], record_id=999))
+        (s.directory(self.root) / 'deployment.json').write_bytes(n.json_bytes(bad))
+        with self.assertRaises(ValueError):
+            acceptance.report(self.root, days=7, clock=now, scheduler_events=events, activation_events=anchor)
+        (s.directory(self.root) / 'deployment.json').write_bytes(n.json_bytes(deployment))
+        original_anchor = anchor.read_bytes()
+        invalid_provider = original_anchor.replace(b'Microsoft-Windows-TaskScheduler', b'Untrusted-Provider')
+        anchor.write_bytes(invalid_provider)
+        deployment['activation_evidence']['scheduler_sha256'] = n.sha(invalid_provider)
+        (s.directory(self.root) / 'deployment.json').write_bytes(n.json_bytes(deployment))
+        with self.assertRaises(ValueError):
+            acceptance.report(self.root, days=7, clock=now, scheduler_events=events, activation_events=anchor)
+        anchor.write_bytes(original_anchor)
+        deployment['activation_evidence']['scheduler_sha256'] = n.sha(original_anchor)
+        (s.directory(self.root) / 'deployment.json').write_bytes(n.json_bytes(deployment))
+        duplicate = original_anchor.replace(b'</Events>', b'''<Event><System>
+<Provider Name="Microsoft-Windows-TaskScheduler"/><EventID>119</EventID>
+<EventRecordID>17</EventRecordID><TimeCreated SystemTime="2026-11-06T04:00:00Z"/></System>
+<EventData><Data Name="TaskName">\\quant-lab-archive-new</Data></EventData></Event></Events>''')
+        anchor.write_bytes(duplicate)
+        deployment['activation_evidence']['scheduler_sha256'] = n.sha(duplicate)
+        (s.directory(self.root) / 'deployment.json').write_bytes(n.json_bytes(deployment))
+        with self.assertRaisesRegex(ValueError, 'Conflicting scheduler event'):
+            acceptance.report(self.root, days=7, clock=now, scheduler_events=events, activation_events=anchor)
+        anchor.write_bytes(original_anchor)
+        deployment['activation_evidence']['scheduler_sha256'] = n.sha(original_anchor)
+        (s.directory(self.root) / 'deployment.json').write_bytes(n.json_bytes(deployment))
+        events.write_text(history.replace('2026-11-06T04:00:00Z', '2026-11-06T04:01:00Z'), encoding='utf-8')
+        with self.assertRaisesRegex(ValueError, 'conflicts'):
+            acceptance.report(self.root, days=7, clock=now, scheduler_events=events, activation_events=anchor)
+        events.write_text(history.replace('\\quant-lab-archive-new', '\\quant-lab-archive-other', 1), encoding='utf-8')
+        with self.assertRaisesRegex(ValueError, 'conflicts'):
+            acceptance.report(self.root, days=7, clock=now, scheduler_events=events, activation_events=anchor)
+        events.write_text(history.replace('Microsoft-Windows-TaskScheduler', 'Untrusted-Provider', 1), encoding='utf-8')
+        with self.assertRaisesRegex(ValueError, 'conflicts'):
+            acceptance.report(self.root, days=7, clock=now, scheduler_events=events, activation_events=anchor)
+        events.write_text(history, encoding='utf-8')
+        anchor.write_bytes(anchor.read_bytes() + b' ')
+        with self.assertRaises(ValueError):
+            acceptance.report(self.root, days=7, clock=now, scheduler_events=events, activation_events=anchor)
+        anchor.write_bytes(anchor.read_bytes()[:-1])
+        anchor.unlink()
+        with self.assertRaises(OSError):
+            acceptance.report(self.root, days=7, clock=now, scheduler_events=events, activation_events=anchor)
         deployment['task_name'] = 'quant-lab-archive-other'
         (s.directory(self.root) / 'deployment.json').write_bytes(n.json_bytes(deployment))
         with self.assertRaises(ValueError):
-            acceptance.report(self.root, days=7, clock=now, scheduler_events=events)
+            acceptance.report(self.root, days=7, clock=now, scheduler_events=events, activation_events=anchor)
 
     @unittest.skipUnless(os.name == 'nt', 'Windows task plan')
     def test_new_task_plan_only_no_install(self):

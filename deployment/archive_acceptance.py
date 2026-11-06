@@ -19,7 +19,7 @@ def inventory(path):
     return {'files': len(files), 'bytes': sum(p.stat().st_size for p in files)}
 
 
-def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now, scheduler_events=None):
+def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now, scheduler_events=None, activation_events=None):
     report_started = time.perf_counter()
     if days not in (7, 28):
         raise ValueError('Acceptance stage must be 7 or 28 days')
@@ -37,16 +37,20 @@ def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now, scheduler_events=None):
     enabled = n.utc(deployment['enabled_at_utc'])
     if enabled > instant:
         raise ValueError('Deployment is in the future')
+    scheduler_history = None
     if instance:
         evidence = deployment.get('activation_evidence') or {}
-        if deployment.get('instance_id') != instance['instance_id'] or not scheduler_events:
+        if deployment.get('instance_id') != instance['instance_id'] or not activation_events:
             raise ValueError('Instance activation and scheduler evidence required')
-        history = archive_task_history.read(scheduler_events, enabled, instant, expected_task)
-        if (evidence.get('scheduler_sha256') != history['source_sha256']
-                or not any(e['record_id'] == evidence.get('record_id')
-                           and e['event_id'] in (107, 119)
-                           and n.utc(e['at_utc']) == enabled for e in history['events'])):
+        if scheduler_events and Path(activation_events).resolve() == Path(scheduler_events).resolve():
+            raise ValueError('Activation anchor and scheduler history must be separate files')
+        activation = archive_task_history.read(activation_events, enabled, instant, expected_task)
+        anchors = [e for e in activation['events'] if e['record_id'] == evidence.get('record_id')
+                   and e['event_id'] in (107, 119) and n.utc(e['at_utc']) == enabled]
+        if evidence.get('scheduler_sha256') != activation['source_sha256'] or len(anchors) != 1:
             raise ValueError('Activation start not anchored to selected task event')
+        if scheduler_events:
+            scheduler_history = archive_task_history.read(scheduler_events, enabled, instant, expected_task, anchors[0])
     due = enabled + timedelta(days=days)
     result = {
         'schema_version': 1, 'stage_days': days, 'checked_at_utc': n.iso(instant),
@@ -70,6 +74,9 @@ def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now, scheduler_events=None):
     }
     if instance:
         result['instance_id'] = instance['instance_id']
+        result['activation_anchor'] = {'instance_id': instance['instance_id'], 'task_name': expected_task,
+            'record_id': anchors[0]['record_id'], 'event_id': anchors[0]['event_id'],
+            'event_at_utc': anchors[0]['at_utc'], 'source_sha256': activation['source_sha256']}
         result['start_basis'] = ('Selected task trigger event; conservative observation start, '
                                  'not proof of exact task-enable time')
     # Do not diagnose a collector's in-progress publication as historical corruption.
@@ -167,8 +174,9 @@ def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now, scheduler_events=None):
         disk_growth_limitation='No deployment-time byte inventory is established; this is a current measurement.',
     )
     result['review_criteria'] = diagnostics.criteria(result)
-    result['scheduler_history'] = (archive_task_history.read(scheduler_events, enabled, instant, expected_task)
-                                   if scheduler_events else {'coverage': 'unavailable'})
+    result['scheduler_history'] = (scheduler_history if scheduler_history is not None else
+        archive_task_history.read(scheduler_events, enabled, instant, expected_task)
+        if scheduler_events else {'coverage': 'unavailable'})
     result['total_report_seconds'] = time.perf_counter() - report_started
     return result
 
@@ -184,10 +192,12 @@ def main():
     parser.add_argument('--root', type=Path, default=o.DEFAULT_ROOT)
     parser.add_argument('--days', type=int, choices=(7, 28), default=7)
     parser.add_argument('--scheduler-events', type=Path, help='Optional exported event XML; no system log changes')
+    parser.add_argument('--activation-events', type=Path, help='Immutable activation event export for an isolated instance')
     parser.add_argument('--output', type=Path, help='New report directory; stdout only when omitted')
     args = parser.parse_args()
     try:
-        result = report(args.root, days=args.days, scheduler_events=args.scheduler_events)
+        result = report(args.root, days=args.days, scheduler_events=args.scheduler_events,
+                        activation_events=args.activation_events)
         if args.output:
             output = args.output.resolve()
             if output.is_relative_to(args.root.resolve()) or output.is_relative_to(s.directory(args.root)):
