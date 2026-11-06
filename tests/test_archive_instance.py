@@ -211,6 +211,15 @@ class IsolatedInstanceTests(unittest.TestCase):
             acceptance.report(self.root, days=7, clock=now, scheduler_events=events, activation_events=anchor)
         (s.directory(self.root) / 'deployment.json').write_bytes(n.json_bytes(deployment))
         original_anchor = anchor.read_bytes()
+        original_snapshot = o.snapshot
+        def change_anchor_during_replay(*args, **kwargs):
+            result = original_snapshot(*args, **kwargs)
+            anchor.write_bytes(original_anchor + b' ')
+            return result
+        with mock.patch.object(o, 'snapshot', side_effect=change_anchor_during_replay):
+            with self.assertRaisesRegex(ValueError, 'evidence changed'):
+                acceptance.report(self.root, days=7, clock=now, scheduler_events=events, activation_events=anchor)
+        anchor.write_bytes(original_anchor)
         invalid_provider = original_anchor.replace(b'Microsoft-Windows-TaskScheduler', b'Untrusted-Provider')
         anchor.write_bytes(invalid_provider)
         deployment['activation_evidence']['scheduler_sha256'] = n.sha(invalid_provider)

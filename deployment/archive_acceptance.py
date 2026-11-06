@@ -177,6 +177,13 @@ def report(root=o.DEFAULT_ROOT, *, days=7, clock=o.now, scheduler_events=None, a
     result['scheduler_history'] = (scheduler_history if scheduler_history is not None else
         archive_task_history.read(scheduler_events, enabled, instant, expected_task)
         if scheduler_events else {'coverage': 'unavailable'})
+    if instance:
+        # Do not publish a completed report if its immutable anchor or the
+        # deployment identity changed while the offline replay was running.
+        if (n.sha((manager / 'deployment.json').read_bytes()) != n.sha(deployment_blob)
+                or archive_task_history.read(activation_events, enabled, instant, expected_task) != activation
+                or archive_instance.metadata(root) != instance):
+            raise ValueError('Activation or instance evidence changed during report')
     result['total_report_seconds'] = time.perf_counter() - report_started
     return result
 
