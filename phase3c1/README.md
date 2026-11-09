@@ -57,15 +57,14 @@ Further independent review, real-data admission, Qlib, tasks and deployment are
 separate decisions. No immutable audit storage or physical power-loss claim is
 made by this prototype.
 
-## Proposed CI integration (not yet implemented or verified)
+## Isolated CI validation
 
-Retain the repository's existing Windows/Python 3.10 and Ubuntu/Python 3.13
-jobs and their current test scope. Add `test_runtime_compat.py` as a separate
-version-rejection test on those jobs, while keeping the 3.12.14-only full
-Phase 3C-1 suite outside their ordinary test discovery. Add a separate job that
-installs exactly CPython 3.12.14, checks implementation and patch version, then
-runs the entire synthetic Phase 3C-1 suite. If the exact interpreter is not
-available, fail/report the environment gap; never substitute a different
-version. If the prototype is later integrated, its test discovery layout must
-be adapted so incompatible versions do not run the 3.12.14-only suite.
-No workflow or hosted runner has been modified or verified in this work.
+The isolated CI validation branch uses separate Windows/Python 3.10 and
+Ubuntu/Python 3.13 runtime-rejection jobs plus an exact CPython 3.12.14 job for
+the full synthetic suite. The frozen patch version is checked at runtime; no
+substitute is accepted. These jobs use sparse checkout for the synthetic inputs.
+The legacy full test job remains unchanged for other refs, but is intentionally
+skipped for pushes to this validation branch because its history tests replay
+real market data. Consequently, a passing synthetic validation run is not proof
+that the legacy full suite passed on that commit. No production deployment or
+real-history research is authorized by this branch.
