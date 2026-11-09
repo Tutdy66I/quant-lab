@@ -10,6 +10,9 @@ permissions:
 
 jobs:
   test:
+    # The isolated validation branch is explicitly synthetic-only: the legacy
+    # suite replays retained real-history research. Other branches are unchanged.
+    if: ${{ !(github.event_name == 'push' && github.ref == 'refs/heads/codex/phase3c1-ci-validation') }}
     name: Tests (${{ matrix.os }}, Python ${{ matrix.python }})
     runs-on: ${{ matrix.os }}
     timeout-minutes: 10
@@ -45,3 +48,74 @@ jobs:
             [System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$issues) | Out-Null
             if ($issues.Count) { throw ($issues | Out-String) }
           }
+
+  phase3c1-nonprotocol-runtime:
+    name: Phase 3C-1 runtime rejection (${{ matrix.os }}, Python ${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python: '3.13'
+          - os: windows-latest
+            python: '3.10'
+    env:
+      PYTHONUTF8: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /phase3c1/
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Record actual runtime and test rejection
+        working-directory: phase3c1
+        run: |
+          python -c "import sys; print(sys.version); assert sys.implementation.name == 'cpython' and sys.version_info[:2] == tuple(map(int, '${{ matrix.python }}'.split('.')))"
+          python -B -m unittest discover -s tests -p test_runtime_compat.py -v
+
+  phase3c1-synthetic:
+    name: Phase 3C-1 synthetic (CPython 3.12.14)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONUTF8: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /.github/workflows/tests.yml
+            /phase3c1/
+            /quant-lab-phase3b-v1-frozen-evidence/protocol-v1.md
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12.14'
+      - name: Verify exact interpreter and record fingerprints
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p "$RUNNER_TEMP/phase3c1-evidence"
+          python -c "import sys; print(sys.version); assert sys.implementation.name == 'cpython' and sys.version_info[:3] == (3,12,14)" | tee "$RUNNER_TEMP/phase3c1-evidence/python-version.txt"
+          sha256sum .github/workflows/tests.yml phase3c1/phase3c1.py phase3c1/README.md phase3c1/tests/test_phase3c1.py phase3c1/tests/test_runtime_compat.py phase3c1/tests/reference_ridge.json quant-lab-phase3b-v1-frozen-evidence/protocol-v1.md | tee "$RUNNER_TEMP/phase3c1-evidence/sha256.txt"
+      - name: Run synthetic suite
+        shell: bash
+        working-directory: phase3c1
+        run: |
+          set -o pipefail
+          python -B -m unittest discover -s tests -v 2>&1 | tee "$RUNNER_TEMP/phase3c1-evidence/tests.txt"
+      - name: Save synthetic CI evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase3c1-synthetic-evidence
+          path: ${{ runner.temp }}/phase3c1-evidence/
+          if-no-files-found: warn

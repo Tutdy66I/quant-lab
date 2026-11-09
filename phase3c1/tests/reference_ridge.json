@@ -1,0 +1,9 @@
+{
+  "provenance": "Exact rational normal-equation reference, independently computed before implementation. Objective is mean squared error plus alpha times squared slopes; intercept unpenalized. Columns are already standardized; means and population standard deviations are 0 and 1.",
+  "x": [[-1, -1], [-1, 1], [1, -1], [1, 1]],
+  "y": [-3, 1, 1, 5],
+  "alpha": 1,
+  "intercept": 1,
+  "slopes": [1, 1],
+  "predictions": [-1, 1, 1, 3]
+}
