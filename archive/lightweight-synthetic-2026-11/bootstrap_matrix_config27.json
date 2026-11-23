@@ -1,0 +1,15 @@
+{
+  "version": "coverage-v2",
+  "sample_lengths": [40, 100],
+  "ar1": [0.0, 0.5, 0.8],
+  "effects": [0.0, 0.2],
+  "noise_scales": [0.1, 0.3],
+  "master_seeds": [20261113, 20261114],
+  "trials": 20,
+  "replicates": 100,
+  "block_lengths": [3, 5, 8],
+  "confidence": 0.95,
+  "selection_basis": "Three fixed illustrative block sizes chosen before simulations; no data-driven selection. 40 ensures at least five blocks for length 8.",
+  "resource_budget": "48 cells x 20 trials x four methods x 100 resamples; local process time limit 180 seconds",
+  "stream_policy": "Distinct hash-derived DGP seed for each effect/phi/n/noise/master/trial; methods use shared observed sample but distinct resampling streams."
+}

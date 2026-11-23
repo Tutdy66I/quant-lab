@@ -1,0 +1,19 @@
+{
+  "development_seeds": [63100, 63101, 63102, 63103],
+  "report_seeds": [63300,63301,63302,63303,63304,63305,63306,63307,63308,63309,63310,63311,63312,63313,63314,63315,63316,63317,63318,63319,63320,63321,63322,63323],
+  "scenarios": ["stable_signal","stable_no_signal","single_outlier","outliers","cluster","transient","gradual","backlog","missing","insufficient","training_failure","small_short","small_long","full_short","full_long"],
+  "cases_per_seed": 15,
+  "horizon": 179,
+  "onset": 90,
+  "short_delay": "round32 nominal 1 or 3 ticks after target end",
+  "long_delay": "35 ticks after target end for decisions >=60; identical warmup",
+  "initial_sizes": [27, 45],
+  "cost_per_activation": 0.02,
+  "objective": "pure MSE on common scored timepoints plus full-horizon activation cost / common count",
+  "primary_references": ["fixed_ridge", "mean", "periodic_ridge", "original__original"],
+  "interval": "pointwise paired seed t95 (df23), Wilson event rates, horizon-capped event clocks; no adjustment for multiplicity",
+  "shadow": "at eligible alarm denied by gate only, fit on already arrived rows, then compare frozen shadow and incumbent across next 10 decisions with >=5 scored in common; no cost or interference from subsequent updates; overlapping windows are not independent",
+  "complexity": "ordinal engineering rubric: common references 1, crossed adaptive base 2, robust +1, confirmed +2, coverage gate +1, conservative min-label gate +1",
+  "pareto": "per scenario observed mean MSE, update cost, capped recovery where applicable, and ordinal complexity; no universal ranking",
+  "wall_timeout_seconds": 180
+}

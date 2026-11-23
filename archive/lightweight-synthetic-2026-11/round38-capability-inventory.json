@@ -1,0 +1,237 @@
+{
+  "capabilities": [
+    {
+      "capability": "lightweight_entry",
+      "dependencies": "unittest and source audit",
+      "interface": "main",
+      "limits": "Only statically enumerated lightweight synthetic tests are authorized.",
+      "rounds": "24",
+      "source": "run_synthetic.py",
+      "source_sha256": "2f295b29e0de3f0b51a17583b06220941698e71724916e5fb31b4791c49c23aa",
+      "status": "stable_retained",
+      "test_sources": {
+        "test_primitives.py": "8188a22e5b67920e60f1e861c7fd3fc480a14812c4c8771f6fd5270825a7876f",
+        "test_synthetic_integration.py": "54f4b0309d79c32c85614c1c0c69ff8e1fa4f26e96c1ccc39ed4042dc29a7f3e"
+      }
+    },
+    {
+      "capability": "ridge_and_baselines",
+      "dependencies": "standard library Cholesky and chronological training",
+      "interface": "fit_ridge; predict_ridge",
+      "limits": "Frozen grid, fit/tune time order and data-only scope.",
+      "rounds": "25,30,34",
+      "source": "ridge_synthetic.py",
+      "source_sha256": "be8300b9f89f1955f146f5793d2f2bba8a4e1ca9b1426d93193caee1361cbfd2",
+      "status": "stable_retained",
+      "test_sources": {
+        "test_engine_five34.py": "8290f3a7f6fd3ce0619943f1674b5ee9231929507524af11f4ce46761321abb5",
+        "test_ridge_synthetic.py": "28c72ac9a4b790c304451f5efdd5cb132a843b17365cd7f2be140dc81b86c604",
+        "test_robustness_synthetic30.py": "d61765d608df51aab56afdec41128bffb7d0c656ee5cb18442c6854768fad855"
+      }
+    },
+    {
+      "capability": "sample_time_identity",
+      "dependencies": "leakage_diagnostics; fixed manifests",
+      "interface": "sample_id_for; validate_samples",
+      "limits": "Integrity relies on trusted frozen provenance, not a signature.",
+      "rounds": "25-26",
+      "source": "sample_lineage.py",
+      "source_sha256": "f546e969b0e68c02e64e8a27f63e877f6e57c6a62d53c4f7fea56e8be177eb4c",
+      "status": "stable_retained",
+      "test_sources": {
+        "test_leakage_diagnostics.py": "51ab968cbc3ca8b85bbeb65e52feaced0d74433755d6868c2300779a1681b55b",
+        "test_sample_lineage.py": "9d29e56a6272b8d693b0c675f669c06a09de170e5d89d98c5e87dfee633f4316"
+      }
+    },
+    {
+      "capability": "prequential_moving_windows",
+      "dependencies": "sample_lineage; ridge_synthetic",
+      "interface": "rolling comparison",
+      "limits": "Score coverage and label timing constrain pairing.",
+      "rounds": "26",
+      "source": "rolling_synthetic.py",
+      "source_sha256": "837939ec987df54f50368850381577b187a09f5de28b3e8cacb8806c55826444",
+      "status": "stable_retained",
+      "test_sources": {
+        "test_rolling_integration.py": "430472668e227aba68525a3a9322df46decdb3af32d8f7f4e6e9755f61c97921",
+        "test_rolling_synthetic.py": "3dfd1a0d785f7cff354f625d17dceb1791efbb5a7a4a4757dbde965a87ec9db1"
+      }
+    },
+    {
+      "capability": "population_manifest",
+      "dependencies": "sample_lineage",
+      "interface": "build_manifest; verify_manifest",
+      "limits": "Local digest alone cannot prove independent custody.",
+      "rounds": "27",
+      "source": "synthetic_manifest27.py",
+      "source_sha256": "4721f21579ecc2e49c21d404ae9759b5b57fb44abce8cec5a0f9966d530c6bfd",
+      "status": "stable_retained",
+      "test_sources": {
+        "test_synthetic_manifest27.py": "d5757ff3f7b33e3fd9883a20b6ad566822bc921655eb869cf1a8dc605623d761"
+      }
+    },
+    {
+      "capability": "integrated_research_chain",
+      "dependencies": "synthetic_manifest27; rolling_synthetic",
+      "interface": "research chain validation",
+      "limits": "Offline oracle data is confined to artificial evaluation.",
+      "rounds": "27",
+      "source": "research_chain27.py",
+      "source_sha256": "233f986dc743bb429b0f60f0f9d6c2ecf3cb89d5456a0459bd692ca37deb0725",
+      "status": "stable_retained",
+      "test_sources": {
+        "test_research_chain27.py": "a429a5871fc80fbfb2102353e6026e8fcbbbf5892e0cce473d3e64ad18ab0ff0"
+      }
+    },
+    {
+      "capability": "bootstrap_robustness",
+      "dependencies": "coverage_synthetic; paired_bootstrap",
+      "interface": "coverage simulation",
+      "limits": "Coverage depends on generator and dependence.",
+      "rounds": "25-27",
+      "source": "bootstrap_robustness27.py",
+      "source_sha256": "7c088ba54fc16a90f5585fd620b0abda4598e3ab978a8df38618a1ae80f71d89",
+      "status": "diagnostic_only",
+      "test_sources": {
+        "test_bootstrap_robustness27.py": "018691f7c95f0d63a7eeb39992eec575b5256e3d63ac304a33b291f199301ebb",
+        "test_paired_bootstrap.py": "3b6d176dab9e02d38d3b21198b78423c6735d1feb84e9135083d5f4a7def99a8"
+      }
+    },
+    {
+      "capability": "holdout_protocol",
+      "dependencies": "holdout_synthetic; evidence_store28",
+      "interface": "prepare; local ledger validation",
+      "limits": "A locally unopened marker cannot prove historical first use.",
+      "rounds": "27-28",
+      "source": "holdout_audit28.py",
+      "source_sha256": "029595f0ac070af64f41dfcf22d15ae9bc5d9417ba0308c1f229091a0535f98c",
+      "status": "research_required",
+      "test_sources": {
+        "test_evidence_store28.py": "7754959cfaf4f5e67b0cb8020bba99bc16f9c4adf21af2122440ded95c4c520e",
+        "test_holdout_audit28.py": "197d8ae95c3c7cfd4538d2c5a95e172aaa8c28a1c3381a878e88ebbf07823e57"
+      }
+    },
+    {
+      "capability": "synthetic_audited_entry",
+      "dependencies": "holdout_audit28; evidence_store28",
+      "interface": "audited artificial evaluation",
+      "limits": "Not ready for the original 60-row holdout; external authorization absent.",
+      "rounds": "29",
+      "source": "audited_evaluation29.py",
+      "source_sha256": "0fcc95f0fcc851920c4737e742b4ade076e4260755e723885f905ba0f8b20bb5",
+      "status": "historical_reference",
+      "test_sources": {
+        "test_audited_evaluation29.py": "20008f5478969f50010a1df9d4f6c7a1eb9b6f498f69e8f1106d27a9f65e0d54",
+        "test_fault29.py": "5e7ba75a32babc8ca8a02e8965814c9a7cacd45322a79b2ffc49a2fda1e690e8"
+      }
+    },
+    {
+      "capability": "original_holdout_scoring",
+      "dependencies": "ridge_synthetic; external authorization required",
+      "interface": "score path restricted",
+      "limits": "Original holdout unopened this round; prior first use remains unknown.",
+      "rounds": "27-29",
+      "source": "holdout_synthetic.py",
+      "source_sha256": "782d70e1384e1d4bdf56ee0e74add32843030042ef25ec1ff3e798455b4db76e",
+      "status": "currently_prohibited",
+      "test_sources": {
+        "test_holdout_synthetic.py": "301d90c08fe2655d206b54694d7f001a34bdabff6d15f46e79b460658d10063b"
+      }
+    },
+    {
+      "capability": "drift_calibration",
+      "dependencies": "drift_synthetic30; prequential_synthetic31",
+      "interface": "alarm simulations",
+      "limits": "Alarm performance is mechanism-dependent.",
+      "rounds": "30-32",
+      "source": "calibration_synthetic31.py",
+      "source_sha256": "a70746afee5f779881e05af2078bb4b02bdb1b6e1c5084d0e5a94b6819c1474b",
+      "status": "diagnostic_only",
+      "test_sources": {
+        "test_calibration_synthetic31.py": "8dea6abbe76844443d473674c0ff828ea6b6e1802abc28b8d10081607b147bd2",
+        "test_drift_robust32.py": "c572344f7b34f94428b31b1b1b306fef58d80318918d03d3791045737bec49ce"
+      }
+    },
+    {
+      "capability": "adaptive_strategy_history",
+      "dependencies": "prequential_synthetic31; drift_robust32",
+      "interface": "historical run_online",
+      "limits": "Original adaptive is historical; robust alarm is for anomaly diagnostics.",
+      "rounds": "31-34",
+      "source": "engine_cross33.py",
+      "source_sha256": "96439c305e1dfe58d25e5b9c2e673d28402eeff252138c5e706d080d992cbc82",
+      "status": "historical_reference",
+      "test_sources": {
+        "test_engine_cross33.py": "f2f7523a68ae0ad3c7e04d05487f4d6ec869fc9d1deab0e2c231038791a62f97",
+        "test_study34.py": "5d5c7ec07de663d90182832f6ff72946f96512988ba6cc40b10fce0667276fc6"
+      }
+    },
+    {
+      "capability": "quality_and_feedback",
+      "dependencies": "synthetic_manifest27; feedback35",
+      "interface": "feature_status; check_label; check_population",
+      "limits": "A recorded timestamp cannot authenticate a forged real source.",
+      "rounds": "35",
+      "source": "quality35.py",
+      "source_sha256": "4a8119ca5953d8a1240032f71ba9a9152ed3e260c9d37695a9a147793e78eb70",
+      "status": "stable_retained",
+      "test_sources": {
+        "test_quality35.py": "289ecd706b7d6d4da68543a521d45387fcc65c8ed88221b1d05d5ba044f5930f"
+      }
+    },
+    {
+      "capability": "missingness_diagnostic",
+      "dependencies": "quality35; qualification36",
+      "interface": "fit_response; weighted; sensitivity",
+      "limits": "Weighting is assumption-specific and MNAR rank may be unidentified.",
+      "rounds": "36",
+      "source": "missing36.py",
+      "source_sha256": "114b13c8c166f1a924f45f0cdf5b92b2e55afcc2e49e93f6e6a1a8c424240bda",
+      "status": "research_required",
+      "test_sources": {
+        "test_feedback36.py": "f124ff7f1bad832490a1524c88bce67f2c01e7cfcb5f072383db14d5adb44c73"
+      }
+    },
+    {
+      "capability": "publication_contract",
+      "dependencies": "qualification36; missing36; qualification policy",
+      "interface": "coverage; publication; choose_winner",
+      "limits": "Observed coverage is separate from target support and rank certainty.",
+      "rounds": "37",
+      "source": "publication37.py",
+      "source_sha256": "6d2ec72f45127c445a7b418f8f3fb6fa1aa2865ccc9b087bbb06ce8c5942f536",
+      "status": "stable_retained",
+      "test_sources": {
+        "test_publication37.py": "f639fe9c3e57b5ae37fa0cbc552c17b2790e417d0e2228c1dc6cbc655b53fdfb"
+      }
+    }
+  ],
+  "historical_evidence": {
+    "evidence-manifest.json": "99b8f7f2a368520e54b8e0e10a19a4493a794b5ffb252bfbc560400e5605a78e",
+    "round25-evidence-manifest.json": "0e4f1cddbee2a6d2fd73474e5286af671b0b6cfb34b50b5e54c6e9c0b7ac994c",
+    "round26-evidence-manifest.json": "0889afdd714bef6a7e6bf26e6642ec85d7f91fb61590e046a011218b3e93f579",
+    "round27-evidence-manifest.json": "5287fc0d0bd1fdebe8b16726d5774ec3c456c36005da8ed5219070a5cad442ba",
+    "round28-report.md": "bb4a0aa4bdd5cbbd2f1de21034a646607ffce6a38747b7ac9cecdb8918beb3bb",
+    "round29-report.md": "04817ad277176f4a72445852081acfe3e40aa5d912602cd402bd52f0719c78e6",
+    "round30-report.md": "bc93b5abc260659a657cfa504c3ccf7c1a63e87d7c8725cad19d15b59c082d43",
+    "round31-evidence-manifest.json": "2a1b2cd77f150e6308c5c97d457522c1d13152e8555b4f5e775b09c9f093e039",
+    "round32-evidence-manifest.json": "8504b8648d4739ee8e44c4b66e601620033f1941cec1f32427e2cedfb31614e8",
+    "round33-evidence-manifest.json": "5ef41e7917f64a9568d3b06b0dd44fc364a9f129cc1f6e3aa90199c7f05612d6",
+    "round34-evidence-manifest.json": "86c13fa494af716b643062af7fcd90f7a2694a7cacf601eb03ce1596466aa96d",
+    "round35-evidence-manifest.json": "9e98d0d8bade9c74537ff2513c9e8daa479b0040a25a27a2d4c1df20debff5e2",
+    "round36-evidence-manifest.json": "3942f0be3d849a7a1fb7ad551dc8ae01cb79bdb2ce0dd488a9360b9670c8903d",
+    "round37-evidence-manifest.json": "d7502c8e0bc13b5b0ccab95d948b21fa12c7c652a32d294f5d5de788ced0ca81"
+  },
+  "prior_runner_sha256": "2f295b29e0de3f0b51a17583b06220941698e71724916e5fb31b4791c49c23aa",
+  "prior_test_count": 297,
+  "prohibited": [
+    "60-row holdout scoring",
+    "formal 22 tests",
+    "real historical evaluation",
+    "Qlib",
+    "production",
+    "trading"
+  ],
+  "scope": "synthetic development; no formal admission",
+  "version": "lightweight-synthetic-stage-v1"
+}

@@ -1,0 +1,15 @@
+{
+  "engine": "engine_five34.py",
+  "feature": "one feature available by decision time, supplied by round33 synthetic generator",
+  "initialization": "last 45 eligible warmup samples when available; strict initial Ridge in reversal arms",
+  "ridge_training": "unchanged R33/R31, at most 45 eligible labeled rows, chronological 75% fit and remaining validation, existing alpha grid; no provisional labels",
+  "timing": "predict first, then observe arrived labels; update based on available labels; activate at tick+1",
+  "cost_per_activation": 0.02,
+  "strategies": {
+    "fixed_ridge": {"update":"none", "alarm":"none", "fallback":"existing initialization fallback outside strict arms"},
+    "mean": {"update":"every 10 ticks", "alarm":"none", "fallback":"zero for no eligible labels"},
+    "periodic_ridge": {"update":"every 20 ticks", "alarm":"none", "fallback":"existing mean unless strict mode retains the Ridge"},
+    "original__original": {"update":"original alarm gate, 20 tick cooldown", "alarm":"R31 feature mean/variance and fixed-Ridge residual MSE", "fallback":"existing mean unless strict mode retains the Ridge"},
+    "robust__original": {"update":"same original gate, 20 tick cooldown", "alarm":"R32 median/IQR and median absolute residual ratio; fixed thresholds 1.6/5/4", "fallback":"same original gate behavior, diagnostic role unless retention guard clears"}
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "schema": "quant-lab-lightweight-final-signoff-v1",
+  "stage": "lightweight synthetic research",
+  "receipt_type": "local engineering signoff with separate review",
+  "lightweight_research_phase": "completed",
+  "lightweight_release_accepted": "yes",
+  "remaining_lightweight_P0_P1": 0,
+  "phase42_required": "no",
+  "baseline": {
+    "r40_manifest_sha256": "052a66eaab3f08cbe2ea61ac8907a9cb82e8be8c2af96938e46f618ee323f394",
+    "files_verified": 418,
+    "frozen_source_sha256": "3995b3dbcdbe403a4a42bb7248c82d2a36469de35b3b73c922278ce39a5693ae",
+    "source_files": 102
+  },
+  "regression": {
+    "passed": 320,
+    "failed": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "retained_ids": 320,
+    "wall_seconds": 14.5,
+    "receipt_sha256": "042cea04e5aea6cbcc1a2d2d54648b5c0c76845dcf3e1c965a9ae32a7ed0aa49"
+  },
+  "end_to_end": {
+    "development_seed": 69100,
+    "cases": [
+      {
+        "arm": "short",
+        "case": "timing",
+        "observed": 120,
+        "planned": 120,
+        "scope": "planned",
+        "source_commitment": "a6fec5a0f3abb3d28d023088c2ad19142452afe773b2ceb3766e42c2a605e8c7",
+        "state": "population_supported_under_assumptions",
+        "trace_sha256": "51c883d709e0df0aec3420aaa1d4f181e32d46ee3e40d756cf69bd0a35dc59bc"
+      },
+      {
+        "arm": "short",
+        "case": "timing_mnar",
+        "observed": 55,
+        "planned": 120,
+        "scope": "verified_forecast_cohort",
+        "source_commitment": "196de5513911f497b5eae6e63857a218919d6d049db8c83d3b2dc0ffd6a05013",
+        "state": "sensitivity_only",
+        "trace_sha256": "4f744b0e527575ee916fb40ca5b5cf641a6f9f9ef05474a300280b69359891e8"
+      },
+      {
+        "arm": "short_abstain",
+        "case": "timing_mnar",
+        "observed": 27,
+        "planned": 120,
+        "scope": null,
+        "source_commitment": "196de5513911f497b5eae6e63857a218919d6d049db8c83d3b2dc0ffd6a05013",
+        "state": "insufficient_evidence",
+        "trace_sha256": "c38d462694caffc2300d0ccb9929ced5410e3e3a4178c95fd51313a6f74ea8f7"
+      }
+    ],
+    "receipt_sha256": "5be075069cdebd287e35d54bcd7d98a4d0646e20fd88cfcc1e33676479dfe405",
+    "artifact_manifest_sha256": "958df62245192f39e8fd23066352c859350859434add46fb24aa25a8a8bb4dc9",
+    "origin_authenticated": false
+  },
+  "independent_verdict_sha256": "843c20590d0b3464c9aff2d39eecd980c040e76fe73e89475920f6b90b57fc12",
+  "phase_3c1": "prior_gates_preserved",
+  "formal_22": "not_executed",
+  "research_admission": "insufficient_evidence",
+  "holdouts": {
+    "original_scored": false,
+    "historical_first_use": "unknown",
+    "synthetic_ready": "no",
+    "auditable_ready": "no",
+    "strict_one_time_ready": "no"
+  },
+  "operation_scope": {
+    "real_study": "No-Go",
+    "qlib": "No-Go",
+    "production": "No-Go",
+    "trading": "No-Go",
+    "pushed": false,
+    "github_actions_triggered": false
+  }
+}

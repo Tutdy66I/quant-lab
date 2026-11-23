@@ -1,0 +1,69 @@
+{
+  "comparisons": "paired squared loss difference for common scored sample ids, adaptive minus each fixed ridge and mean",
+  "cost_definition": "predeclared 0.02 loss units per update, charged in mean squared error",
+  "development_seeds": [
+    30101
+  ],
+  "drift_truth": "feature mean or variance changes are genuine covariate drift even if relationship unchanged; false alarms only pre-change or stable DGP; relation stability is separate",
+  "failure_scenario_base": "relation_reverse",
+  "failure_times": [
+    100,
+    120,
+    140
+  ],
+  "max_runs": 168,
+  "randomness": "same seed across scenarios for paired DGP comparison; report seeds disjoint from calibration and development seeds",
+  "recovery_definition": "first observed label-time when two successive complete nonoverlapping 10-decision blocks after change both have MSE <= 1.5 times own prechange MSE; unobserved within horizon is censored",
+  "report_seeds": [
+    51000,
+    51001,
+    51002,
+    51003,
+    51004,
+    51005,
+    51006,
+    51007,
+    51008,
+    51009,
+    51010,
+    51011
+  ],
+  "resource_wall_seconds": 120,
+  "rows_per_run": 180,
+  "scenarios": [
+    "stable_signal",
+    "stable_no_signal",
+    "mean_shift",
+    "variance_shift",
+    "relation_reverse",
+    "gradual",
+    "transient",
+    "high_noise",
+    "outliers",
+    "long_delay",
+    "relation_reverse_long_delay",
+    "false_alarm",
+    "insufficient_training",
+    "training_failure"
+  ],
+  "scope": "development-only; no final holdout",
+  "version": "synthetic-pressure-v1",
+  "window_ranges": [
+    [
+      60,
+      90
+    ],
+    [
+      90,
+      120
+    ],
+    [
+      120,
+      150
+    ],
+    [
+      150,
+      180
+    ]
+  ]
+}

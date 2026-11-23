@@ -1,0 +1,23 @@
+{
+  "development_seeds": [64100,64101,64102,64103],
+  "report_seeds": [64300,64301,64302,64303,64304,64305,64306,64307,64308,64309,64310,64311,64312,64313,64314,64315,64316,64317,64318,64319,64320,64321,64322,64323],
+  "scenarios": ["stable_signal","stable_no_signal","single_outlier","outliers","cluster","full_short","full_long","gradual","missing"],
+  "secondary_scenarios": ["gradual","missing"],
+  "anomalies": ["single_outlier","outliers","cluster"],
+  "reversal": ["full_short","full_long"],
+  "original_comparison_cases": ["stable_signal","cluster","full_short","full_long"],
+  "baselines": ["fixed_ridge","mean","periodic_ridge"],
+  "candidates": ["fixed_ridge","mean","periodic_ridge","original__original","robust__original"],
+  "horizon": 179,
+  "onset": 90,
+  "design": "round33 exact scenario generator, 45 initial labels for reversal, same latent path and initial Ridge per seed; reversal common decision ticks 60–143, other cases all common observed",
+  "cost_per_activation": 0.02,
+  "practical_margin": 0.02,
+  "primary_family": "17 contrasts: robust minus original in 3 anomalies and 2 reversals; original minus each baseline in 4 original_comparison_cases",
+  "interval": "seed-paired t interval using critical 4.0, df23, conservative Bonferroni family 17; secondary pointwise t critical 2.06865761; censor event clock at 89 ticks",
+  "classification": "upper below -0.02 improve; lower above +0.02 degrade; full interval within [-0.02,+0.02] within_margin; otherwise inconclusive",
+  "decision": "keep references; robust research requires >=2 anomaly improvements and both reversal intervals rule out +0.02 harm; if >=2 anomalies improve without clearing guard, diagnostic only; if no anomaly improves and >=1 reversal degrades, deprioritize, else inconclusive. Original research requires beating all three baselines by margin in both reversals and ruling out +0.02 harm vs fixed in stable_signal and cluster; if not and any measured cluster or reversal contrast degrades, deprioritize, else inconclusive.",
+  "wall_timeout_seconds": 120,
+  "max_report_sequences": 216,
+  "retry": "exclusive lock and append-only local seed reservations before use; failed launches retain evidence and affected seeds cannot be reused as fresh; revisions require a new preregistration and unused seeds"
+}

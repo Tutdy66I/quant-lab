@@ -1,0 +1,1 @@
+{"label_cutoff":59,"mean_abs_development_correlation":{"noise0":0.05910678334470873,"noise1":0.13129477564185493,"noise2":0.10446965658540024,"noise3":0.03854111546493947,"noise4":0.12369954190221462,"noise5":0.07036872109102582},"rule":"largest mean absolute correlation on legally released warmup labels","seeds":[68300,68301,68302,68303],"selected":"noise1"}

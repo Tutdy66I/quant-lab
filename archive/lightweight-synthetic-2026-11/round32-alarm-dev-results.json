@@ -1,0 +1,120 @@
+{
+  "thresholds": {
+    "mean": 1.6,
+    "variance": 5.0,
+    "relation": 4.0
+  },
+  "selected": {
+    "multiplier": 2.0,
+    "thresholds": {
+      "mean": 1.6,
+      "variance": 5.0,
+      "relation": 4.0
+    },
+    "runs_with_alarm": 4,
+    "runs": 32
+  },
+  "goal_met": true,
+  "candidates": [
+    {
+      "multiplier": 1.0,
+      "thresholds": {
+        "mean": 0.8,
+        "variance": 2.5,
+        "relation": 2.0
+      },
+      "runs_with_alarm": 25,
+      "runs": 32
+    },
+    {
+      "multiplier": 1.25,
+      "thresholds": {
+        "mean": 1.0,
+        "variance": 3.125,
+        "relation": 2.5
+      },
+      "runs_with_alarm": 16,
+      "runs": 32
+    },
+    {
+      "multiplier": 1.5,
+      "thresholds": {
+        "mean": 1.2000000000000002,
+        "variance": 3.75,
+        "relation": 3.0
+      },
+      "runs_with_alarm": 10,
+      "runs": 32
+    },
+    {
+      "multiplier": 2.0,
+      "thresholds": {
+        "mean": 1.6,
+        "variance": 5.0,
+        "relation": 4.0
+      },
+      "runs_with_alarm": 4,
+      "runs": 32
+    },
+    {
+      "multiplier": 3.0,
+      "thresholds": {
+        "mean": 2.4000000000000004,
+        "variance": 7.5,
+        "relation": 6.0
+      },
+      "runs_with_alarm": 0,
+      "runs": 32
+    }
+  ],
+  "development_seeds": [
+    61100,
+    61101,
+    61102,
+    61103,
+    61104,
+    61105,
+    61106,
+    61107,
+    61108,
+    61109,
+    61110,
+    61111,
+    61112,
+    61113,
+    61114,
+    61115,
+    61116,
+    61117,
+    61118,
+    61119,
+    61120,
+    61121,
+    61122,
+    61123,
+    61124,
+    61125,
+    61126,
+    61127,
+    61128,
+    61129,
+    61130,
+    61131
+  ],
+  "calibration": {
+    "family_alarm_goal": 0.2,
+    "candidate_multipliers": [
+      1.0,
+      1.25,
+      1.5,
+      2.0,
+      3.0
+    ],
+    "base_thresholds": {
+      "mean": 0.8,
+      "variance": 2.5,
+      "relation": 2.0
+    }
+  },
+  "scope": "stable-signal development only; per-run any-check alarm fraction"
+}
