@@ -1,0 +1,165 @@
+"""Explicit lightweight synthetic suite; not a security sandbox or formal gate."""
+import ast
+import importlib
+import json
+import random
+import socket
+import sys
+import time
+import unittest
+from pathlib import Path
+from unittest import mock
+
+ROOT = Path(__file__).resolve().parent
+VENDOR = ROOT / 'vendor'
+SEED = 20261113
+TEST_MODULES = ('test_primitives', 'test_synthetic_integration', 'test_leakage_diagnostics',
+                'test_ridge_synthetic', 'test_paired_bootstrap', 'test_synthetic_research_e2e',
+                'test_sample_lineage', 'test_rolling_synthetic', 'test_coverage_synthetic',
+                'test_rolling_integration', 'test_synthetic_manifest27', 'test_holdout_synthetic',
+                'test_bootstrap_robustness27', 'test_research_chain27',
+                'test_holdout_audit28', 'test_evidence_store28',
+                'test_audited_evaluation29', 'test_fault29',
+                'test_drift_synthetic30', 'test_robustness_synthetic30', 'test_research30_integration',
+                'test_calibration_synthetic31', 'test_prequential_synthetic31',
+                'test_drift_robust32', 'test_prequential_synthetic32', 'test_pressure_metrics32',
+                'test_engine_cross33', 'test_protocol33', 'test_engine_five34', 'test_study34', 'test_quality35', 'test_feedback36', 'test_publication37', 'test_features38')
+SOURCES = ('test_primitives.py', 'test_synthetic_integration.py', 'synthetic_pipeline.py',
+           'test_leakage_diagnostics.py', 'leakage_diagnostics.py',
+           'test_ridge_synthetic.py', 'ridge_synthetic.py',
+           'test_paired_bootstrap.py', 'paired_bootstrap.py',
+           'test_synthetic_research_e2e.py', 'synthetic_research.py', 'run_experiments.py',
+           'test_sample_lineage.py', 'sample_lineage.py',
+           'test_rolling_synthetic.py', 'rolling_synthetic.py',
+           'test_coverage_synthetic.py', 'coverage_synthetic.py',
+           'test_rolling_integration.py', 'run_rolling_experiments.py',
+           'synthetic_manifest27.py', 'test_synthetic_manifest27.py',
+           'holdout_synthetic.py', 'test_holdout_synthetic.py',
+           'bootstrap_robustness27.py', 'test_bootstrap_robustness27.py',
+           'run_bootstrap_matrix27.py', 'research_chain27.py', 'test_research_chain27.py', 'run_chain27.py',
+           'holdout_audit28.py', 'test_holdout_audit28.py',
+           'evidence_store28.py', 'test_evidence_store28.py',
+           'audited_evaluation29.py', 'test_audited_evaluation29.py', 'test_fault29.py', 'prepare_toy29.py',
+           'drift_synthetic30.py', 'test_drift_synthetic30.py',
+           'robustness_synthetic30.py', 'test_robustness_synthetic30.py',
+           'run_robustness30.py', 'test_research30_integration.py',
+           'calibration_synthetic31.py', 'test_calibration_synthetic31.py', 'run_calibration31.py',
+           'prequential_synthetic31.py', 'test_prequential_synthetic31.py', 'run_pressure31_v2.py',
+           'drift_robust32.py', 'test_drift_robust32.py', 'prequential_synthetic32.py',
+           'test_prequential_synthetic32.py', 'synthetic_paths32.py', 'pressure_metrics32.py',
+           'test_pressure_metrics32.py', 'run_pressure32.py',
+           'engine_cross33.py', 'test_engine_cross33.py', 'paths33.py', 'run_cross33.py', 'test_protocol33.py',
+           'engine_five34.py', 'study34.py', 'test_engine_five34.py', 'test_study34.py',
+           'quality35.py', 'feedback35.py', 'baselines35.py', 'evaluation35.py',
+           'study35.py', 'run_quality35.py', 'test_quality35.py',
+           'qualification36.py', 'missing36.py', 'design36.py', 'analyses36.py', 'study36.py',
+           'test_feedback36.py', 'run_feedback36.py',
+           'publication37.py', 'transfer37.py', 'study37.py', 'test_publication37.py', 'run_publication37.py',
+           'features38.py', 'learner38.py', 'evaluation38.py', 'study38.py', 'inventory38.py',
+           'test_features38.py', 'run_features38.py',
+           'vendor/research/ai_offline.py', 'vendor/strategies/execution.py')
+ALLOWED_IMPORTS = {'csv', 'datetime', 'hashlib', 'io', 'json', 'math', 'pathlib', 'sys',
+                   'dataclasses', 'random', 'unittest', 'time', 'research', 'strategies', 'synthetic_pipeline',
+                   'leakage_diagnostics', 'ridge_synthetic', 'paired_bootstrap', 'synthetic_research',
+                   're', 'sample_lineage', 'rolling_synthetic', 'coverage_synthetic',
+                   'copy', 'os', 'tempfile', 'synthetic_manifest27', 'holdout_synthetic',
+                   'bootstrap_robustness27', 'research_chain27', 'argparse', 'uuid',
+                   'holdout_audit28', 'evidence_store28', 'audited_evaluation29', 'subprocess',
+                   'drift_synthetic30', 'robustness_synthetic30',
+                   'calibration_synthetic31', 'prequential_synthetic31', 'drift_robust32', 'statistics',
+                   'prequential_synthetic32', 'synthetic_paths32', 'pressure_metrics32',
+                   'engine_cross33', 'paths33', 'run_cross33', 'collections', 'engine_five34', 'study34',
+                   'quality35', 'feedback35', 'baselines35', 'evaluation35', 'study35', 'gzip', 'itertools',
+                   'qualification36', 'missing36', 'design36', 'analyses36', 'study36', 'publication37', 'transfer37', 'study37',
+                   'features38', 'learner38', 'evaluation38', 'study38'}
+
+
+class TimedResult(unittest.TextTestResult):
+    """Report aggregate test-method wall time per explicitly loaded module."""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.module_seconds = {}
+
+    def startTest(self, test):
+        self._started_at = time.perf_counter()
+        super().startTest(test)
+
+    def stopTest(self, test):
+        module = test.__class__.__module__
+        self.module_seconds[module] = self.module_seconds.get(module, 0.0) + (time.perf_counter() - self._started_at)
+        super().stopTest(test)
+
+
+def audit_sources():
+    imports = {}
+    for rel in SOURCES:
+        path = ROOT / rel
+        tree = ast.parse(path.read_text(encoding='utf-8'), filename=rel)
+        found = set()
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                found.update(alias.name.split('.')[0] for alias in node.names)
+            elif isinstance(node, ast.ImportFrom):
+                if node.level or node.module is None:
+                    raise ValueError('unreviewed relative import in ' + rel)
+                found.add(node.module.split('.')[0])
+        unknown = found - ALLOWED_IMPORTS
+        if unknown:
+            raise ValueError('unreviewed imports in ' + rel + ': ' + ', '.join(sorted(unknown)))
+        imports[rel] = sorted(found)
+    return imports
+
+
+def main():
+    started = time.perf_counter()
+    if len(sys.argv) != 1:
+        print('FAIL: no command-line test override accepted', file=sys.stderr)
+        return 2
+    if not (sys.flags.isolated and sys.flags.no_site and sys.dont_write_bytecode):
+        print('FAIL: run with Python -I -S -B', file=sys.stderr)
+        return 2
+    try:
+        imports = audit_sources()
+        sys.path.insert(0, str(VENDOR))
+        sys.path.insert(0, str(ROOT))
+        random.seed(SEED)
+        # Guard common accidental Python socket connects. This is NOT an OS
+        # network sandbox and cannot stop all native or subprocess access.
+        with mock.patch.object(socket.socket, 'connect', side_effect=RuntimeError('network disabled in synthetic suite')), \
+             mock.patch.object(socket.socket, 'connect_ex', side_effect=RuntimeError('network disabled in synthetic suite')), \
+             mock.patch.object(socket, 'create_connection', side_effect=RuntimeError('network disabled in synthetic suite')):
+            suite = unittest.TestSuite()
+            for name in TEST_MODULES:
+                module = importlib.import_module(name)
+                if Path(module.__file__).resolve() != (ROOT / (name + '.py')).resolve():
+                    raise ValueError('unexpected test module origin: ' + name)
+                suite.addTests(unittest.defaultTestLoader.loadTestsFromModule(module))
+            for name, path in (('research.ai_offline', VENDOR / 'research' / 'ai_offline.py'),
+                               ('strategies.execution', VENDOR / 'strategies' / 'execution.py')):
+                module = sys.modules.get(name)
+                if module is None or Path(module.__file__).resolve() != path.resolve():
+                    raise ValueError('unexpected vendor origin: ' + name)
+            count = suite.countTestCases()
+            if count == 0:
+                raise ValueError('no tests loaded')
+            result = unittest.TextTestRunner(verbosity=2, resultclass=TimedResult).run(suite)
+        summary = {'suite': 'lightweight_synthetic_development_only', 'seed': SEED,
+                   'tests': result.testsRun, 'failures': len(result.failures), 'errors': len(result.errors),
+                   'skipped': len(result.skipped), 'expected_failures': len(result.expectedFailures),
+                   'unexpected_successes': len(result.unexpectedSuccesses),
+                   'seconds': round(time.perf_counter() - started, 6),
+                   'status': 'PASS' if (result.wasSuccessful() and result.testsRun == count
+                                        and not result.skipped and not result.expectedFailures
+                                        and not result.unexpectedSuccesses) else 'FAIL',
+                   'test_module_seconds': {k: round(v, 6) for k, v in sorted(result.module_seconds.items())},
+                   'formal_22': 'not_executed', 'research_admission': 'insufficient_evidence',
+                   'static_imports': imports}
+        print('SYNTHETIC_SUMMARY ' + json.dumps(summary, sort_keys=True))
+        return 0 if summary['status'] == 'PASS' else 1
+    except Exception as exc:
+        print('FAIL: ' + type(exc).__name__ + ': ' + str(exc), file=sys.stderr)
+        return 1
+
+
+if __name__ == '__main__':
+    sys.exit(main())

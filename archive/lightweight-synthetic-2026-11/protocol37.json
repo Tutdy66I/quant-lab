@@ -1,0 +1,17 @@
+{
+  "version":"publication37-v1",
+  "development_seeds":[67200,67201,67202,67203],
+  "report_seeds":[67700,67701,67702,67703,67704,67705,67706,67707,67708,67709,67710,67711,67712,67713,67714,67715,67716,67717,67718,67719,67720,67721,67722,67723],
+  "scenarios":["stable_signal","relation_reverse"],
+  "modes":["stable","gradual","sudden","feature_shift","joint_shift","omitted","low_overlap","extreme","sample_small","mnar","immature","census","census_partial"],
+  "cohorts":{"planned":[60,180],"calibration":[60,120],"calibration_maturity":121,"target":[122,180],"sample_small_target":[160,180],"cutoff":181},
+  "mechanisms":"stable p(+)=.25 p(-)=.87; gradual linear to .85/.28 after tick122; sudden immediate .85/.28; feature_shift adds 1.35 to x at tick122 preserving latent innovation; joint applies feature shift and sudden response shift; omission pools both signs; low/clip stress p(+)=.025/.115; sample_small uses final 20 ticks; MNAR after tick121 returns p=.17 for abs(y)>.8 else .88; immature positive-x releases use 32 tick lag after tick121; census arms always return with 2 tick lag; census_partial applies frozen high input degradation through tick134",
+  "qualifying_thresholds":[[8,0.20],[12,0.30],[20,0.50],[30,0.70]],
+  "operating":{"min":12,"coverage":0.30,"ess_fraction":0.50,"calibration_error":0.20,"time_residual_shift":0.30,"min_diagnostic_bin":5},
+  "ipw":{"reuse":"missing36.py","minimum_p":0.10,"ess":12,"raw_weight_flag":5,"clipping":8,"min_train_bin":10,"reject_clipped_for_release":true},
+  "sensitivity":{"reuse":"missing36.py","ratio":[0.5,1,2,4]},
+  "transport":"stable, feature-only and short-cohort controls attest unchanged synthetic response law; gradual/sudden/joint, omitted, overlap/clip stress, MNAR and immature remain unapproved for transport even if observed diagnostics pass; no oracle values feed operational gates",
+  "main":{"paired_absolute_estimation_error_differences":78,"paired_model_rank_differences":78,"family_size":156,"critical":5.5,"minimum_pairs":18},
+  "secondary":{"critical":2.06865761,"coverage_blocks":6,"seeds_per_block":4,"block_t3_critical":3.182446305,"scope":"pointwise exploratory; interval contains the corresponding group finite complete-truth average"},
+  "max_sequences":624,"wall_seconds":180
+}

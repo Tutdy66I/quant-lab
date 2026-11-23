@@ -1,0 +1,23 @@
+{
+  "version": "quality35-v1",
+  "development_seeds": [65200,65201,65202,65203],
+  "report_seeds": [65500,65501,65502,65503,65504,65505,65506,65507,65508,65509,65510,65511,65512,65513,65514,65515,65516,65517,65518,65519,65520,65521,65522,65523],
+  "scenarios": ["stable_signal", "relation_reverse"],
+  "feature_quality": ["clean","medium","high"],
+  "mcar_levels": ["mcar0","mcar25","mcar55"],
+  "latency": ["short","long"],
+  "diagnostics": [["clean","mar","short"],["clean","mnar","short"],["clean","mcar0","batch"]],
+  "strategies": ["fixed_ridge","mean","periodic_ridge"],
+  "warmup": 60, "score_stop_exclusive": 180, "recovery_start": 135, "label_cutoff": 181,
+  "primary_family_size": 48,
+  "primary_critical": 4.0,
+  "secondary_critical": 2.06865761,
+  "primary_factor_metrics": "seed-paired oracle MSE on intersection of legal forecast ticks across all cells, independently for each latent path and dataset; five contrasts per strategy/scenario: feature high vs clean, MCAR55 vs 0, long vs short, feature x missingness, feature x delay",
+  "primary_selection_metrics": "observed minus oracle MSE on the same fixed forecast cohort, for MCAR55, MAR, MNAR under clean feature and short lag",
+  "comparison": "48-family simultaneous conservative t intervals, df23, seed unit; missing/mismatched pairs inconclusive, no fabricated score; exploratory ties within 1e-12",
+  "quality": "valid use; unavailable, degraded or unknown abstain and exclude from fit on all baselines without changing planned denominator; invalid abort without valid score",
+  "large_error": "Exploratory absolute prediction error greater than 1 target unit, separately counted against fixed planned denominator; no forecast never counted as zero error.",
+  "cost": "0.02 per activated update, exclude initialization, per planned tick and per observed common scored tick reported separately from pure loss",
+  "max_sequences": 1008,
+  "max_wall_seconds": 240
+}

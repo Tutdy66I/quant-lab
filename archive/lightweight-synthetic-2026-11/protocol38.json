@@ -1,0 +1,15 @@
+{
+ "version":"feature-study38-v1",
+ "development_seeds":[68300,68301,68302,68303],
+ "report_seeds":[68800,68801,68802,68803,68804,68805,68806,68807,68808,68809,68810,68811,68812,68813,68814,68815,68816,68817,68818,68819,68820,68821,68822,68823],
+ "scenarios":["context_on","context_off","covariate_shift","thin_start","mnar_outage"],
+ "arms":["stable","noise","stable_noise","redundant","context","fading","perturb","delayed","missing","wide"],
+ "generation":"seed-local Gaussian latent x,z,e and independent feature, availability and response streams. y=1.1*x+(0.75*z except context_off)+0.35*e. x moves to 1.25+1.25*x at tick100 in covariate_shift only, same structural coefficients and shocks. Thin initial releases are t38..57 only. mnar_outage post-warmup response probability is 0.23 if abs(y)>1.1 else 0.85, multiplied by .6 for the independent feature outage mask; shared across all arms.",
+ "features":"stable=x; redundant=x+.003 Gaussian; context=z; fading reliability r=(125-t)/35 clipped to [0,1] replacing x with independent component; perturb adds .85 Gaussian after tick59; delayed and missing share the same paired outage mask on ticks 75..134 at 40%, delayed +6 and omitted from current decision; wide appends all six Gaussian noise columns.",
+ "selection":"Choose one noise column by largest development-seed mean absolute correlation on labels released by tick59, current feature manifest and fit preprocessing frozen before report. Noise candidates retain all attempts; no true report holdout.",
+ "clock":{"planned":[60,180],"cutoff":181,"late_fading_start":125},
+ "main":{"family_size":138,"critical":5.5,"minimum_pairs":18,"comparisons":"nine arm-minus-stable seed-paired true MSE contrasts per scenario/baseline on shared legal predictions; fading from tick125 only. Three stable arm covariate_shift-minus-context_on true MSE contrasts on tick100 onward. Offline results require explicit R37 release scopes for any observed ranking."},
+ "secondary":{"critical":2.06865761,"scope":"pointwise descriptive, including observed same-cohort differences, correlation, condition number, qualification and stage costs"},
+ "cost":"0.02 per activated update, separate from prediction loss; count feature dimensions and candidate fits; time bins do not count as independent repeats",
+ "max_triplets":1200,"wall_seconds":240
+}
